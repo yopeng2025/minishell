@@ -3,7 +3,7 @@
 int main(int ac, char *av[], char **env)
 {
 	char	*line;
-	// t_data	*data;
+	t_data	data;
 
 	(void)ac;
 	(void)av;
@@ -14,10 +14,10 @@ int main(int ac, char *av[], char **env)
 		if (*line)
 			add_history(line);
 		printf("You typed: %s\n", line);
-		// parseline(line);
+		if (!parseline(&data, line))
+			continue;
 		// exec(&data);
 		free(line);
 	}
-}
     return 0;
 }
