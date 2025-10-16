@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parseline.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yopeng <yopeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 15:41:15 by peiyli            #+#    #+#             */
-/*   Updated: 2025/10/16 16:02:49 by yopeng           ###   ########.fr       */
+/*   Created: 2025/10/16 16:00:04 by yopeng            #+#    #+#             */
+/*   Updated: 2025/10/16 16:04:36 by yopeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "libft/libft.h"
-# include <stdio.h>
-# include <stdbool.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-typedef struct	s_token
+bool	parseline(t_data *data, char *line)
 {
-
-}	t_token;
-
-typedef struct	s_cmd
-{
-
-
-}	t_cmd;
-
-typedef struct	s_data
-{
-t_token	*token;
-t_cmd	*cmd;
-//t_env	*env;
-}	t_data;
-
-#endif
+	if (open_quote(data, line))
+	{
+		free(line);
+		return (false);
+	}
+	if (!replace_dollar(&line, data))
+	{
+		free(line);
+		//free_all(data, ERR_MALLOC, EXT_MALLOC);
+	}
+	free(line);
+	return(true);
+}
