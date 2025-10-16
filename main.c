@@ -3,7 +3,7 @@
 int main(int ac, char *av[], char **env)
 {
 	char	*line;
-	t_data	*data;
+	t_data	data;
 
 	(void)ac;
 	(void)av;

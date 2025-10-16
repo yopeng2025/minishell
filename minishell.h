@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 15:41:15 by peiyli            #+#    #+#             */
-/*   Updated: 2025/10/16 17:08:23 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/10/16 17:34:10 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,17 @@ typedef struct	s_data
 	t_token	*token;
 	t_cmd	*cmd;
 	//t_env	*env;
-}	t_data;
+	int     exit_code;
+}				t_data;
+
+
+//parse
+bool	parseline(t_data *data, char *line);
+void    quoting_choice(bool *dq, bool *sq, int *index, char c);
+int		open_quote(t_data *data, char *line);
+
+//utils
+bool    print_error(char *str);
 
 bool	parseline(t_data *data, char *line);
 
