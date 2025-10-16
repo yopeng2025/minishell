@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parseline.c                                        :+:      :+:    :+:   */
+/*   create_list_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/16 16:00:04 by yopeng            #+#    #+#             */
-/*   Updated: 2025/10/16 17:06:47 by peiyli           ###   ########.fr       */
+/*   Created: 2025/10/16 16:59:27 by peiyli            #+#    #+#             */
+/*   Updated: 2025/10/16 17:08:59 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	parseline(t_data *data, char *line)
+bool	create_list_token(t_token **head_token, char *line)
 {
-	if (open_quote(data, line))
-	{
-		free(line);
-		return (false);
-	}
-	if (!create_list_token(&data->token, line))
-	{
-		free(line);
-		return (false);
-	}
-	free(line);
-	return(true);
+	
 }
