@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 16:00:04 by yopeng            #+#    #+#             */
-/*   Updated: 2025/10/16 17:33:48 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/10/17 15:20:26 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ bool	parseline(t_data *data, char *line)
 		free(line);
 		return (false);
 	}
-	free(line);
 	return(true);
 }

@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 15:41:15 by peiyli            #+#    #+#             */
-/*   Updated: 2025/10/16 17:34:10 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/10/17 16:52:14 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@
 typedef struct	s_token
 {
 	char	*str;
+	// int		type;
 	struct s_token	*prev;
-	struct s_token	*prev;
+	struct s_token	*next;
 }	t_token;
 
 typedef struct	s_cmd
@@ -35,7 +36,7 @@ typedef struct	s_cmd
 typedef struct	s_data
 {
 	t_token	*token;
-	t_cmd	*cmd;
+	// t_cmd	*cmd;
 	//t_env	*env;
 	int     exit_code;
 }				t_data;
@@ -45,10 +46,20 @@ typedef struct	s_data
 bool	parseline(t_data *data, char *line);
 void    quoting_choice(bool *dq, bool *sq, int *index, char c);
 int		open_quote(t_data *data, char *line);
+bool	create_list_token(t_token **head_token, char *line);
+
+//token
+void	print_token_list(t_token *head);
+void	free_token_list(t_token **head_token);
+t_token	*create_new_token(char *str);
+void	add_new_back(t_token **head_token, t_token *new);
+void	cpy_str(char *str, char *line , int len);
+bool	add_token(char **line, t_token **head_token);
+bool	is_space(char c);
+
 
 //utils
 bool    print_error(char *str);
 
-bool	parseline(t_data *data, char *line);
 
 #endif

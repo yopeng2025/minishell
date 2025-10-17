@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yopeng <yopeng@student.42.fr>              +#+  +:+       +#+        */
+/*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 16:50:26 by yopeng            #+#    #+#             */
-/*   Updated: 2025/10/16 16:52:20 by yopeng           ###   ########.fr       */
+/*   Updated: 2025/10/17 12:39:13 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-bool    print_error(char *str)
+bool	print_error(char *str)
 {
-    if (str)
-        write(2, str, ft_strlen(str));
-    return (true);
+	if (str)
+		write(2, str, ft_strlen(str));
+	return (true);
 }
