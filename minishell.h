@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yopeng <yopeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 15:41:15 by peiyli            #+#    #+#             */
-/*   Updated: 2025/10/17 16:52:14 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/10/17 18:06:32 by yopeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define ERR_MALLOC "malloc error\n"
+# define EXT_MALLOC 1
 
 # include "libft/libft.h"
 # include <stdio.h>
@@ -33,12 +37,20 @@ typedef struct	s_cmd
 
 }	t_cmd;
 
+typedef struct s_list
+{
+	char			*str;
+	struct s_list	*prev;
+	struct s_list	*next;
+}				t_list;
+
 typedef struct	s_data
 {
 	t_token	*token;
 	// t_cmd	*cmd;
 	//t_env	*env;
 	int     exit_code;
+	bool	sq;
 }				t_data;
 
 

@@ -6,13 +6,13 @@ void	initial_data(t_data *data)
 	data->token = NULL;
 }
 
-int main(int ac, char *av[], char **env)
+int main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_data	data;
 
-	(void)ac;
-	(void)av;
+	(void)argc;
+	(void)argv;
 	(void)env;
 	initial_data(&data);
 	while (1)
