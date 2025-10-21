@@ -6,13 +6,13 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 16:16:03 by yopeng            #+#    #+#             */
-/*   Updated: 2025/10/17 12:41:14 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/10/20 15:46:00 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    quoting_choice(bool *dq, bool *sq, int *index, char c)
+void	quoting_choice(bool *dq, bool *sq, int *index, char c)
 {
 	if ((c == '\'' || c == '"') && !*sq && !*dq)
 	{
@@ -34,7 +34,7 @@ void    quoting_choice(bool *dq, bool *sq, int *index, char c)
 	}
 }
 
-int open_quote(t_data *data, char *line)
+int	open_quote(t_data *data, char *line)
 {
 	bool    dq;
 	bool    sq;
