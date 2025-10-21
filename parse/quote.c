@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-void    quoting_choice(bool *dq, bool *sq, int *index, char c)
+void	quoting_choice(bool *dq, bool *sq, int *index, char c)
 {
 	if ((c == '\'' || c == '"') && !*sq && !*dq)
 	{
@@ -23,7 +23,7 @@ void    quoting_choice(bool *dq, bool *sq, int *index, char c)
 	}
 }
 
-int open_quote(t_data *data, char *line)
+int	open_quote(t_data *data, char *line)
 {
 	bool    dq;
 	bool    sq;
