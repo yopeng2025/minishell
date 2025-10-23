@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 bool	print_error(char *str)
@@ -7,3 +6,4 @@ bool	print_error(char *str)
 		write(2, str, ft_strlen(str));
 	return (true);
 }
+

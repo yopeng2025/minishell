@@ -1,5 +1,16 @@
 #include "minishell.h"
 
+int	ft_search(char *str, char c)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		if (str[i] == c)
+			return (i);
+	return (0);
+}
+
 static int	end_word(char *str, char *env)
 {
 	int	i;
@@ -7,7 +18,7 @@ static int	end_word(char *str, char *env)
 	i = 0;
 	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 		i++;
-	if (env[i] == '=')
+	if (i == ft_search(env, '='))
 		return (i);
 	return (0);
 }
@@ -27,8 +38,7 @@ int	exist_in_env(char *line, int *i, t_data *data)
 		if (ft_strncmp(tmp->str, &line[*i + 1], \
 			end_word(&line[*i + 1], tmp->str)) == 0)
 		{
-			*i = *i + (ft_strlen(tmp->str) - \
-			ft_strlen(ft_strchr(tmp->str, '='))) + 1;  
+			*i += ft_strlen(tmp->str) - ft_strlen(ft_strchr(tmp->str, '=')) + 1;
 			return (1);
 		}
 		tmp = tmp->next;
@@ -46,12 +56,9 @@ char	*get_dollar_word(char *line, int size)
 	if (!word)
 		return (NULL);
 	i = 0;
-	while (line[i] && i < size - 1)
-	{
-		word[i] = line[i + 1];
-		i++;
-	}
-	word[i] = '\0';
+	while (line[++i] && i < size)
+		word[i - 1] = line[i];
+	word[i - 1] = '\0';
 	return (word);
 }
 
@@ -82,3 +89,4 @@ char	*get_elem_env(t_list *env, char *key)
 	}
 	return (NULL);
 }
+

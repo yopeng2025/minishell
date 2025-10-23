@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 bool	parseline(t_data *data, char *line)
@@ -13,10 +12,6 @@ bool	parseline(t_data *data, char *line)
 		free (line);
 		free_all(data, ERR_MALLOC, EXT_MALLOC);
 	}
-	// if (!create_list_token(&data->token, line))
-	// {
-	// 	free(line);
-	// 	return (false);
-	// }
+	free(line);
 	return(true);
 }

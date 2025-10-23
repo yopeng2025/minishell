@@ -32,12 +32,12 @@ typedef struct	s_cmd
 
 }	t_cmd;
 
-// typedef struct s_list
-// {
-// 	char			*str;
-// 	struct s_list	*prev;
-// 	struct s_list	*next;
-// }				t_list;
+typedef struct s_list
+{
+	char			*str;
+	struct s_list	*prev;
+	struct s_list	*next;
+}				t_list;
 
 typedef struct	s_data
 {
@@ -47,7 +47,6 @@ typedef struct	s_data
 	int     exit_code;
 	bool	sq;
 }				t_data;
-
 
 //parse
 bool	parseline(t_data *data, char *line);
@@ -59,6 +58,7 @@ int		replace_dollar(char **line, t_data *data);
 int		exist_in_env(char *line, int *i, t_data *data);
 char	*get_dollar_word(char *line, int size);
 char	*get_elem_env(t_list *env, char *key);
+//int		append_exit_code(t_data *data, char **str);
 
 //token
 void	print_token_list(t_token *head);
@@ -73,10 +73,14 @@ bool	add_token(char **line, t_token **head_token);
 int		is_special(char *line);
 bool	is_space(char c);
 
-
 //utils
 bool    print_error(char *str);
 size_t	len_list(t_list *list);
 int		append(t_list **list, char *str);
+int		ft_search(char *str, char c);
+
+//free
+int		free_list(t_list **env);
+void	free_all(t_data *data, char *err, int ext);
 
 #endif

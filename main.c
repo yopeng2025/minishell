@@ -4,6 +4,7 @@ void	initial_data(t_data *data)
 {
 	data->exit_code = 0;
 	data->token = NULL;
+	data->env = NULL;
 }
 
 int	make_env(t_data *data, char **env)
@@ -42,13 +43,10 @@ int main(int argc, char **argv, char **env)
 		if (*line)
 			add_history(line);
 		printf("You typed: %s\n", line);
-		if (!parseline(&data, line))
-		 	continue ;
+		parseline(&data, line);
 		//print_token_list(data.token);
 		// exec(&data);
 		//free_token_list(&data.token);
-		free(line);
 	}
-
     return (0);
 }
