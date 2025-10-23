@@ -27,3 +27,23 @@ int	free_list(t_list **env)
 	*env = NULL;
 	return (0);
 }
+
+void	free_token_list(t_token **head_token)
+{
+	t_token	*tmp;
+	t_token	*curr;
+
+	if (!head_token || !*head_token)
+		return ;
+	curr = *head_token;
+	while (curr != *head_token)
+	{
+		tmp = curr->next;
+		free(curr->str);
+		free(curr);
+		curr = tmp;
+	}
+	free(curr->str);
+	free(curr);
+	*head_token = NULL;
+}

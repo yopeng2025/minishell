@@ -8,25 +8,6 @@
 // }
 
 /* 展开环境变量 成功1 失败0 */
-int	add_dollar(char *line, int *index, char **str, t_data *data)
-{
-	int	ctrl;
-	int	n;
-
-	n = *index;
-	ctrl = exist_in_env(line, index, data);
-	if (ctrl == 1)
-		return (in_env(data, &line[n], *index - n, str));
-	// else if (ctrl == 2)
-	// {
-
-	// }
-	// else
-	// {
-
-	// }
-	return (0);
-}
 
 static int	in_env(t_data *data, char *line, int size, char **str)
 {
@@ -47,6 +28,28 @@ static int	in_env(t_data *data, char *line, int size, char **str)
 	*str = tmp;
 	return (1);
 }
+
+int	add_dollar(char *line, int *index, char **str, t_data *data)
+{
+	int	ctrl;
+	int	n;
+
+	n = *index;
+	ctrl = exist_in_env(line, index, data);
+	if (ctrl == 1)
+		return (in_env(data, &line[n], *index - n, str));
+	// else if (ctrl == 2)
+	// {
+
+	// }
+	// else
+	// {
+
+	// }
+	return (0);
+}
+
+
 
 int	replace_dollar(char **line, t_data *data)
 {
@@ -70,7 +73,7 @@ int	replace_dollar(char **line, t_data *data)
 		// if ((*line)[i] && !add_char())
 		// 	return (0);
 	}
-	free(*line);
-	*line = str;
+	// free(*line);
+	// *line = str;
 	return (1);
 }
