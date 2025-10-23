@@ -108,7 +108,7 @@ int	replace_dollar(char **line, t_data *data)
 		if ((*line)[i] && !add_char(&(*line)[i], &str, data, &i))
 		 	return (0);
 	}
-	free(*line);
-	*line = str;
+	// free(*line);
+	// *line = str;
 	return (1);
 }

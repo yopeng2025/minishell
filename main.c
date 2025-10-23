@@ -36,17 +36,17 @@ int main(int argc, char **argv, char **env)
 
 	initial_data(&data);
 	make_env(&data, env);
-	
 	while (1)
 	{
 		line = readline("minishell> ");
 		if (*line)
 			add_history(line);
 		printf("You typed: %s\n", line);
-		parseline(&data, line);
-		//print_token_list(data.token);
+		if (!parseline(&data, line))
+		 	continue ;
 		// exec(&data);
-		//free_token_list(&data.token);
+		free_token_list(&data.token);
+		free(line);
 	}
     return (0);
 }

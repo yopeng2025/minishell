@@ -1,42 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_list_token.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 16:59:27 by peiyli            #+#    #+#             */
+/*   Updated: 2025/10/23 12:56:58 by peiyli           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 //测试函数：打印所有的token
 void	print_token_list(t_token *head)
 {
-	t_token *cur = head;
-	int i = 0;
+	t_token *cur;
+	int i;
 
-	printf("=== Token List ===\n");
-	while (cur)
+	if (!head)
 	{
-		printf("Token %d: str='%s', type='%d', prev=%p, next=%p\n",
-				i,
-				cur->str ? cur->str : "NULL",
-				cur->type,
-				(void *)cur->prev,
-				(void *)cur->next);
+		printf("=== Token List is EMPTY ===\n");
+		return ;
+	}
+
+	printf("=== Token List (circular) ===\n");
+	cur = head;
+	i = 0;
+	do
+	{
+		printf("Token %d: str='%s', type=%d, prev=%p, next=%p\n",
+			i,
+			cur->str ? cur->str : "NULL",
+			cur->type,
+			(void *)cur->prev,
+			(void *)cur->next);
 		cur = cur->next;
 		i++;
-	}
-	printf("==================\n");
-}
-
-void	free_token_list(t_token **head_token)
-{
-	t_token	*tmp;
-	t_token	*curr;
-
-	if (!head_token || !*head_token)
-		return ;
-	curr = *head_token;
-	while (curr)
-	{
-		tmp = curr->next;
-		free(curr->str);
-		free(curr);
-		curr = tmp;
-	}
-	*head_token = NULL;
+	} while (cur != head);  // ✅ 循环回到起点就停止
+	printf("============================\n");
 }
 
 t_token	*create_new_token(char *str, int type)
@@ -57,6 +59,7 @@ t_token	*create_new_token(char *str, int type)
 	new->next = NULL;
 	return (new);
 }
+
 void	add_new_back(t_token **head_token, t_token *new)
 {
 	t_token	*tmp;
@@ -64,13 +67,15 @@ void	add_new_back(t_token **head_token, t_token *new)
 	if (!*head_token)
 	{	
 		*head_token = new;
+		new->prev = *head_token;
+		new->next = *head_token;
 		return ;
 	}
-	tmp = *head_token;
-	while (tmp->next)
-		tmp = tmp->next;
+	tmp = (*head_token)->prev;
 	tmp->next = new;
 	new->prev = tmp;
+	new->next = *head_token;
+	(*head_token)->prev = new;
 }
 
 void	cpy_str(char *str, char *line , int len)
@@ -125,6 +130,13 @@ bool	add_token_node(t_token **head_token, char *str, int type)
 		return (false);
 	}
 	add_new_back(head_token, new);
+	if (!new->type)
+	{
+		if (new->prev == new || new->prev->type == PIPE)
+			new->type = CMD;
+		else
+			new->type = ARG;	
+	}
 	return (true);
 }
 
@@ -134,7 +146,6 @@ bool	add_token(char **line, t_token **head_token)
 	int		lenth_token;
 
 	lenth_token = get_token_lenth(line);
-	// printf("%d\n", lenth_token);
 	str = malloc(sizeof(char) * (lenth_token + 1));
 	if (!str)
 		return (false);
@@ -189,7 +200,7 @@ bool	add_special_token(char **line, t_token **head_token, int type)
 		return (false);
 	else if (type == APPEND && !add_token_node(head_token, ft_strdup(">>"), APPEND))
 		return (false);
-	else if (type == PIPE && !add_token_node(head_token, ft_strdup("<"), PIPE))
+	else if (type == PIPE && !add_token_node(head_token, ft_strdup("|"), PIPE))
 		return (false);
 	if (type == INPUT || type == TRUNCATE || type == PIPE)
 		(*line)++;
@@ -215,6 +226,7 @@ bool	create_list_token(t_token **head_token, char *line)
 			free(line);
 			return (false);
 		}
+		//check if the pipe is the !st or the end
 	}
 	return (true);
 }
