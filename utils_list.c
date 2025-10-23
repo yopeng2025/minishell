@@ -18,6 +18,7 @@ size_t	len_list(t_list *list)
 	}
 	return (0);
 }
+
 static int	list_new_elem_str(t_list **new, char *str)
 {
 	(*new) = malloc(sizeof(t_list));

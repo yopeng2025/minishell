@@ -5,6 +5,7 @@ void	initial_data(t_data *data)
 	data->exit_code = 0;
 	data->token = NULL;
 	data->cmd = NULL;
+	data->env = NULL;
 }
 
 int	make_env(t_data *data, char **env)
@@ -48,6 +49,5 @@ int main(int argc, char **argv, char **env)
 		free_token_list(&data.token);
 		free(line);
 	}
-
     return (0);
 }

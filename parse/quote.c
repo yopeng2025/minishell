@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 void	quoting_choice(bool *dq, bool *sq, int *index, char c)

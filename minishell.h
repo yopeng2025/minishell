@@ -52,7 +52,6 @@ typedef struct	s_data
 	bool	sq;
 }				t_data;
 
-
 //parse
 bool	parseline(t_data *data, char *line);
 void	quoting_choice(bool *dq, bool *sq, int *index, char c);
@@ -63,6 +62,7 @@ int		replace_dollar(char **line, t_data *data);
 int		exist_in_env(char *line, int *i, t_data *data);
 char	*get_dollar_word(char *line, int size);
 char	*get_elem_env(t_list *env, char *key);
+//int		append_exit_code(t_data *data, char **str);
 
 //token
 void	print_token_list(t_token *head);
@@ -92,5 +92,10 @@ bool	print_error(char *str);
 //utils_list
 size_t	len_list(t_list *list);
 int		append(t_list **list, char *str);
+int		ft_search(char *str, char c);
+
+//free
+int		free_list(t_list **env);
+void	free_all(t_data *data, char *err, int ext);
 
 #endif

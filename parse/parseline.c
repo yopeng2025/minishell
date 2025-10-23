@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 bool	parseline(t_data *data, char *line)
