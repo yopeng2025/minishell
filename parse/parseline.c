@@ -15,7 +15,7 @@ bool	parseline(t_data *data, char *line)
 		return (false);
 	}
 	print_token_list(data->token);
-	if (!create_list_command(data->token))
+	if (!create_list_cmd(data))
 	{
 		//需要free all吗？
 		free_token_list(&data->token);

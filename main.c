@@ -4,6 +4,7 @@ void	initial_data(t_data *data)
 {
 	data->exit_code = 0;
 	data->token = NULL;
+	data->cmd = NULL;
 }
 
 int	make_env(t_data *data, char **env)
