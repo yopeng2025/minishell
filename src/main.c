@@ -40,6 +40,8 @@ int main(int argc, char **argv, char **env)
 	while (1)
 	{
 		line = readline("minishell> ");
+		if (!line)
+			free_all(&data, "exit\n", data.exit_code); //++
 		if (*line)
 			add_history(line);
 		printf("You typed: %s\n", line);
@@ -48,7 +50,7 @@ int main(int argc, char **argv, char **env)
 		// exec(&data);
 		free_token_list(&data.token);
 		free_cmd_list(&data.cmd);
-		free(line);
+		//free(line);
 	}
     return (0);
 }
