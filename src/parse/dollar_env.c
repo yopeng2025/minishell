@@ -1,15 +1,15 @@
 #include "minishell.h"
 
-int	ft_search(char *str, char c)
-{
-	int	i;
+// int	ft_search(char *str, char c)
+// {
+// 	int	i;
 
-	i = -1;
-	while (str[++i])
-		if (str[i] == c)
-			return (i);
-	return (0);
-}
+// 	i = -1;
+// 	while (str[++i])
+// 		if (str[i] == c)
+// 			return (i);
+// 	return (0);
+// }
 
 static int	end_word(char *str)
 {
