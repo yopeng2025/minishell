@@ -4,6 +4,7 @@ void	initial_data(t_data *data)
 {
 	data->exit_code = 0;
 	data->token = NULL;
+	data->cmd = NULL;
 	data->env = NULL;
 }
 
@@ -45,8 +46,9 @@ int main(int argc, char **argv, char **env)
 		parseline(&data, line);
 		
 		// exec(&data);
-		// free_token_list(&data.token);
-		// free(line);
+		free_token_list(&data.token);
+		free_cmd_list(&data.cmd);
+		free(line);
 	}
     return (0);
 }
