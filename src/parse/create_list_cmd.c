@@ -6,23 +6,46 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 11:39:48 by peiyli            #+#    #+#             */
-/*   Updated: 2025/10/23 16:04:53 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/10/24 15:01:16 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*create_new_command(t_cmd **new)
+void	print_cmd_list(t_cmd *head)
+{
+	t_cmd *cur;
+
+	cur = head;
+	if (!head)
+	{
+		printf("=== Token List is EMPTY ===\n");
+		return ;
+	}
+	printf("=== Token List (circular) ===\n");
+	int i = 0;
+	do
+	{
+		printf("[%d] fd_in=%d fd_out=%d\n",
+			i, cur->infile, cur->outfile);
+		cur = cur->next;
+		i++;
+	} while (cur != head);  // ✅ 循环回到起点就停止
+	printf("============================\n");
+}
+
+bool	create_new_command(t_cmd **new)
 {
 	(*new) = malloc(sizeof(t_cmd));
 	if (!*new)
-		return (NULL);
+		return (false);
 	(*new)->cmd_param = NULL;
 	(*new)->infile = -2;
 	(*new)->outfile = -2;
 	(*new)->skip_cmd = false;
 	(*new)->prev = NULL;
 	(*new)->next = NULL;
+	return (true);
 }
 
 bool	add_command_node(t_cmd **head_cmd)
@@ -41,7 +64,7 @@ bool	add_command_node(t_cmd **head_cmd)
 	else
 	{
 		tmp = (*head_cmd)->prev;
-		tmp->cmd_param = new;
+		tmp->next = new;
 		new->prev = tmp;
 		new->next = *head_cmd;
 		(*head_cmd)->prev = new;
@@ -54,7 +77,7 @@ bool	add_command(t_cmd **head_cmd)
 	if (!add_command_node(head_cmd))
 		return (false);
 	// fill command
-	return (false);
+	return (true);
 }
 
 bool	create_list_cmd(t_data *data)
@@ -64,7 +87,8 @@ bool	create_list_cmd(t_data *data)
 	curr = data->token;
 	if (!add_command(&data->cmd))
 	{
-		free_command_list(data->cmd);
+		printf("add head\n");
+		free_cmd_list(&data->cmd);
 		return (false);
 	}
 	curr = curr->next;
@@ -72,7 +96,8 @@ bool	create_list_cmd(t_data *data)
 	{
 		if(curr->type == CMD && !add_command(&data->cmd))
 		{
-			free_command_list(data->cmd);
+			printf("add cmd\n");
+			free_cmd_list(&data->cmd);
 			return (false);
 		}
 		curr = curr->next;

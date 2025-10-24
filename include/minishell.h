@@ -12,7 +12,7 @@
 # define CMD		6	//"|"
 # define ARG		7	//"|"
 
-# include "libft/libft.h"
+# include "libft.h"
 # include <stdio.h>
 # include <stdbool.h>
 # include <readline/readline.h>
@@ -79,6 +79,10 @@ bool	add_special_token(char **line, t_token **head_token, int type);
 bool	create_list_token(t_token **head_token, char *line);
 
 //command
+void	print_cmd_list(t_cmd *head);
+bool	create_new_command(t_cmd **new);
+bool	add_command_node(t_cmd **head_cmd);
+bool	add_command(t_cmd **head_cmd);
 bool	create_list_cmd(t_data *data);
 
 // free
@@ -97,5 +101,7 @@ int		ft_search(char *str, char c);
 //free
 int		free_list(t_list **env);
 void	free_all(t_data *data, char *err, int ext);
+void	free_token_list(t_token **head_token);
+void	free_cmd_list(t_cmd **head_cmd);
 
 #endif

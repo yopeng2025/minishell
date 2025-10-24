@@ -48,10 +48,10 @@ void	free_token_list(t_token **head_token)
 	*head_token = NULL;
 }
 
-void	free_cmd_list(t_token **head_cmd)
+void	free_cmd_list(t_cmd **head_cmd)
 {
-	t_token	*tmp;
-	t_token	*curr;
+	t_cmd	*tmp;
+	t_cmd	*curr;
 
 	if (!head_cmd || !*head_cmd)
 		return ;
