@@ -26,7 +26,7 @@ all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -lreadline -o $(NAME)
-	echo "Minishell compiled successfully."
+	@echo "Minishell compiled successfully."
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
