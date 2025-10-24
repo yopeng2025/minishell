@@ -58,6 +58,7 @@ static int	in_env(t_data *data, char *line, int size, char **str)
 	if (!tmp)
 		return (0);
 	*str = tmp;
+	fprintf(stderr, "[DEBUG] str=%s\n", *str);
 	return (1);
 }
 
@@ -70,7 +71,10 @@ int	add_dollar(char *line, int *index, char **str, t_data *data)
 	n = *index;
 	ctrl = exist_in_env(line, index, data);//指针在环境变量的后一位
 	if (ctrl == 1)
-		return (in_env(data, &line[n], *index - n, str));
+	{
+		in_env(data, &line[n], *index - n, str);
+		return (1);
+	}
 	else if (ctrl == 2)
 	{
 		(*index) += 2;
@@ -106,9 +110,9 @@ int	replace_dollar(char **line, t_data *data)
 			!add_dollar((*line), &i, &str, data))
 			return (0);
 		if ((*line)[i] && !add_char(&(*line)[i], &str, data, &i))
-		 	return (0);
+		  	return (0);
 	}
-	// free(*line);
-	// *line = str;
+	printf("Output: %s\n", str);
+	*line = str;
 	return (1);
 }

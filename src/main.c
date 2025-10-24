@@ -42,11 +42,11 @@ int main(int argc, char **argv, char **env)
 		if (*line)
 			add_history(line);
 		printf("You typed: %s\n", line);
-		if (!parseline(&data, line))
-		 	continue ;
+		parseline(&data, line);
+		
 		// exec(&data);
-		free_token_list(&data.token);
-		free(line);
+		// free_token_list(&data.token);
+		// free(line);
 	}
     return (0);
 }
