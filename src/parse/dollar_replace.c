@@ -18,27 +18,6 @@ static int	append_exit_code(t_data *data, char **str)
 	return (1); 
 }
 
-/* 添加字符至输出字符串 */
-int	add_char(char *c, char **str, t_data *data, int *index)
-{
-	char	char_to_str[2];
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	if (c[i] == '$' && !data->sq && exist_in_env(c, &i, data))
-		return(1);
-	char_to_str[0] = *c;
-	char_to_str[1] = '\0';
-	(*index)++;
-	tmp = ft_strjoin(*str, char_to_str);
-	free(*str);
-	if (!tmp)
-		return (0);
-	*str = tmp;
-	return (1);
-}
-
 static int	in_env(t_data *data, char *line, int size, char **str)
 {
 	char	*key;
@@ -51,6 +30,8 @@ static int	in_env(t_data *data, char *line, int size, char **str)
 	fprintf(stderr, "[DEBUG] value=%s\n", value ? value : "(null)");    //用于检测是否正确展开，可删除
 	if (key)
 		free(key);
+	if (!value)
+		return (1);
 	tmp = ft_strjoin(*str, value);
 	if (value)
 		free(value);
@@ -60,6 +41,45 @@ static int	in_env(t_data *data, char *line, int size, char **str)
 	*str = tmp;
 	fprintf(stderr, "[DEBUG] str=%s\n", *str);
 	return (1);
+}
+
+static int	count_name_len(char *line, int *i)
+{
+	int		name_len;
+
+	name_len = 0;
+	while (line[*i + 1] + name_len && \
+		(ft_isalnum(line[*i + 1 + name_len]) || line[*i + 1 + name_len] == '='))
+		name_len++;
+	return (name_len);
+}
+
+/*  1环境变量存在  2特殊变量？或者$  0不存在  同时移动index至字符串后一位*/
+int	exist_in_env(char *line, int *i, t_data *data)
+{
+	t_list	*tmp;
+	int		name_len; //$后的名字长度 $(name_len:len)
+	int		key_len;  //环境变量名长度 (key_len:env)=home/yopeng
+	int		list_len;
+
+	if (line[*i + 1] == '?')
+		return (2);
+	name_len = count_name_len(line, i);
+	tmp = data->env;
+	list_len = len_list(tmp);
+	while (list_len--)
+	{
+		key_len = ft_search(tmp->str, '=');
+		if (key_len > 0 && key_len == name_len \
+			&& ft_strncmp(tmp->str, &line[*i + 1], key_len) == 0)
+		{
+			*i += name_len + 1;
+			fprintf(stderr, "[DEBUG] line=%s\n", line);
+			return (1);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
 }
 
 /* 展开环境变量 成功1 失败0（环境变量不存在时，index指针落在‘\0’ 或空格‘ ’等非_非字母上）*/

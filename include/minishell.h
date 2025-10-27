@@ -62,6 +62,7 @@ int		replace_dollar(char **line, t_data *data);
 int		exist_in_env(char *line, int *i, t_data *data);
 char	*get_dollar_word(char *line, int size);
 char	*get_elem_env(t_list *env, char *key);
+int		add_char(char *c, char **str, t_data *data, int *index);
 //int		append_exit_code(t_data *data, char **str);
 
 //token

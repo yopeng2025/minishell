@@ -1,3 +1,6 @@
+#用于隐藏隐冗长的中间输出
+#MAKEFLAGS += --silent
+
 NAME = minishell
 
 CC = cc

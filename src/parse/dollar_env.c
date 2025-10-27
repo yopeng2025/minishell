@@ -11,42 +11,6 @@ int	ft_search(char *str, char c)
 	return (0);
 }
 
-static int	end_word(char *str, char *env)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
-		++i;
-	if (i == ft_search(env, '='))
-		return (i);
-	return (0);
-}
-
-/*  1环境变量存在  2特殊变量？或者$  0不存在  */
-int	exist_in_env(char *line, int *i, t_data *data)
-{
-	t_list	*tmp;
-	int		len;
-
-	if (line[*i + 1] == '?' || line[*i + 1] == '$')
-		return (2);
-	tmp = data->env;
-	len = len_list(tmp);
-	while (len--)
-	{
-		if (ft_strncmp(tmp->str, &line[*i + 1], \
-			end_word(&line[*i + 1], tmp->str)) == 0)
-		{
-			*i += ft_strlen(tmp->str) - \
-				ft_strlen(ft_strchr(tmp->str, '=')) + 1;
-			return (1);
-		}
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
 /* 取出环境变量名 */
 char	*get_dollar_word(char *line, int size)
 {
@@ -60,6 +24,7 @@ char	*get_dollar_word(char *line, int size)
 	while (line[++i] && i < size)
 		word[i - 1] = line[i];
 	word[i - 1] = '\0';
+	fprintf(stderr, "word:%s\n", word);
 	return (word);
 }
 
@@ -91,3 +56,23 @@ char	*get_elem_env(t_list *env, char *key)
 	return (NULL);
 }
 
+/* 添加字符至输出字符串 */
+int	add_char(char *c, char **str, t_data *data, int *index)
+{
+	char	char_to_str[2];
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	if (c[i] == '$' && !data->sq && exist_in_env(c, &i, data))
+		return(1);
+	char_to_str[0] = *c;
+	char_to_str[1] = '\0';
+	(*index)++;
+	tmp = ft_strjoin(*str, char_to_str);
+	free(*str);
+	if (!tmp)
+		return (0);
+	*str = tmp;
+	return (1);
+}
