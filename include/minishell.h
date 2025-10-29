@@ -87,11 +87,19 @@ bool	create_list_token(t_token **head_token, char *line);
 void	print_cmd_list(t_cmd *head);
 bool	create_new_command(t_cmd **new);
 bool	add_command_node(t_cmd **head_cmd);
-bool	add_command(t_token *curr_token, t_cmd **head_cmd);
+bool	add_command(t_token *curr_token, t_data *data);
 bool	create_list_cmd(t_data *data);
 
 //fill command
-bool	fill_command(t_token *curr_token, t_cmd *head_cmd);
+int		open_file(t_data *data, char *filename, int type);
+bool	get_in(t_token *curr_token, t_cmd *cmd, t_data *data);
+bool	get_out(t_token *curr_token, t_cmd *cmd, t_data *data);
+bool	get_infile(t_token *curr_token, t_cmd *cmd, t_data *data);
+bool	get_outfile(t_token *curr_token, t_cmd *cmd, t_data *data);
+bool	fill_command(t_token *curr_token, t_data *data);
+
+//cmd param
+char	**get_param(t_data *data, t_token *token);
 
 // free
 void	free_all(t_data *data, char *err, int ext);

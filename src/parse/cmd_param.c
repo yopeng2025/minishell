@@ -43,7 +43,7 @@ static void	*free_cmd_param(char **cmd_param, int i)
 	return (NULL);
 }
 
-void	print_cmd_param(char **cmd_param, int i)
+static void	print_cmd_param(char **cmd_param, int i)
 {
 	int	j;
 
