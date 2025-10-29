@@ -1,4 +1,4 @@
-#用于隐藏隐冗长的中间输出
+#隐藏中间输出
 #MAKEFLAGS += --silent
 
 NAME = minishell

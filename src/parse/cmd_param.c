@@ -37,7 +37,7 @@ static void	*free_cmd_param(char **cmd_param, int i)
 	while (i > 0)
 	{
 		i--;
-		free(*cmd_param[i]); //释放数组元素
+		free(cmd_param[i]); //释放数组元素
 	}
 	free(cmd_param); //释放数组本身cmd_param={"", "", "", NULL}
 	return (NULL);
@@ -82,7 +82,7 @@ char	**get_param(t_data *data, t_token *token)
 				return (free_cmd_param(cmd_param, i));
 		tmp = tmp->next;
 	}
-	cmd_param[i] = '\0';
+	cmd_param[i] = NULL;
 	print_cmd_param(cmd_param, i); //新增部分，用于检测是否成功提取命令参数
 	return (cmd_param);
 }
