@@ -45,12 +45,11 @@ int main(int argc, char **argv, char **env)
 		if (*line)
 			add_history(line);
 		printf("You typed: %s\n", line);
-		parseline(&data, line);
-		
+		if (!parseline(&data, line))
+			continue;
 		// exec(&data);
 		free_token_list(&data.token);
 		free_cmd_list(&data.cmd);
-		//free(line);
 	}
     return (0);
 }

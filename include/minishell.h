@@ -28,7 +28,7 @@ typedef struct	s_token
 
 typedef struct	s_cmd
 {
-	char	*cmd_param;
+	char	**cmd_param;
 	int		infile;
 	int		outfile;
 	bool	skip_cmd;
