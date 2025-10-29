@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 14:48:16 by peiyli            #+#    #+#             */
-/*   Updated: 2025/10/29 15:19:41 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/10/29 17:44:43 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,45 @@ int	open_file(t_data *data, char *filename, int type)
 
 bool	get_in(t_token *curr_token, t_cmd *cmd, t_data *data)
 {
-	if (cmd->infile >= 0)
-		close(cmd->infile);
-	if (curr_token->type <= 5)
-		// erro notif
-		return (false);
-	if (curr_token->type == INPUT)
-		cmd->infile = open_file(data, curr_token->str, INPUT);
-	else if (curr_token->type == HEREDOC)
-		cmd->infile = open_file(data, curr_token->str, HEREDOC);
-	if (cmd->infile == -1)
-		return (false);
+	if (curr_token->type == INPUT || curr_token->type == HEREDOC)
+	{
+		if (cmd->infile >= 0)
+			close(cmd->infile);
+		if (curr_token->next->type <= 5)
+		{
+			// erro notif
+			return (false);
+		}
+		if (curr_token->type == INPUT)
+			cmd->infile = open_file(data, curr_token->next->str, INPUT);
+		else if (curr_token->type == HEREDOC)
+			cmd->infile = open_file(data, curr_token->next->str, HEREDOC);
+		else
+			return (true);
+		if (cmd->infile == -1)
+			return (false);
+	}
 	return (true);
 }
 
 bool	get_out(t_token *curr_token, t_cmd *cmd, t_data *data)
 {
-	if (cmd->outfile >= 0)
-		close(cmd->outfile);
-	if (curr_token->type <= 5)
-		// erro notif
-		return (false);
-	if (curr_token->type == TRUNCATE)
-		cmd->outfile = open_file(data, curr_token->str, TRUNCATE);
-	else if (curr_token->type == APPEND)
-		cmd->outfile = open_file(data, curr_token->str, APPEND);
-	if (cmd->outfile == -1)
-		return (false);
+	if (curr_token->type == APPEND || curr_token->type == TRUNCATE)
+	{
+		if (cmd->outfile >= 0)
+			close(cmd->outfile);
+		if (curr_token->next->type <= 5)
+			// erro notif
+			return (false);
+		if (curr_token->type == TRUNCATE)
+			cmd->outfile = open_file(data, curr_token->next->str, TRUNCATE);
+		else if (curr_token->type == APPEND)
+			cmd->outfile = open_file(data, curr_token->next->str, APPEND);
+		else
+			return (true);
+		if (cmd->outfile == -1)
+			return (false);
+	}
 	return (true);
 }
 
@@ -73,7 +85,7 @@ bool	get_infile(t_token *curr_token, t_cmd *cmd, t_data *data)
 	if (!get_in(curr_token, cmd, data))
 		return (false);
 	curr_token = curr_token->next;
-	while (curr_token->type != PIPE || curr_token != data->token)
+	while (curr_token->type != PIPE && curr_token != data->token)
 	{
 		if (!get_in(curr_token, cmd, data))
 			return (false);
@@ -92,7 +104,7 @@ bool	get_outfile(t_token *curr_token, t_cmd *cmd, t_data *data)
 	if (!get_out(curr_token, cmd, data))
 		return (false);
 	curr_token = curr_token->next;
-	while (curr_token->type != PIPE || curr_token != data->token)
+	while (curr_token->type != PIPE && curr_token != data->token)
 	{
 		if (!get_out(curr_token, cmd, data))
 			return (false);
