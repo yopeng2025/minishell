@@ -18,7 +18,7 @@ bool	parseline(t_data *data, char *line)
 	if (!create_list_cmd(data))
 	{
 		//需要free all吗？
-		printf("ok\n");
+		printf("create list no ok\n");
 		free_token_list(&data->token);
 		return (false);
 	}
