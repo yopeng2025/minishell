@@ -17,6 +17,10 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
 
 typedef struct	s_token
 {
@@ -83,8 +87,11 @@ bool	create_list_token(t_token **head_token, char *line);
 void	print_cmd_list(t_cmd *head);
 bool	create_new_command(t_cmd **new);
 bool	add_command_node(t_cmd **head_cmd);
-bool	add_command(t_cmd **head_cmd);
+bool	add_command(t_token *curr_token, t_cmd **head_cmd);
 bool	create_list_cmd(t_data *data);
+
+//fill command
+bool	fill_command(t_token *curr_token, t_cmd *head_cmd);
 
 // free
 void	free_all(t_data *data, char *err, int ext);

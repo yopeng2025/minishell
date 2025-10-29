@@ -7,10 +7,10 @@ void	print_cmd_list(t_cmd *head)
 	cur = head;
 	if (!head)
 	{
-		printf("=== Token List is EMPTY ===\n");
+		printf("=== Cmd List is EMPTY ===\n");
 		return ;
 	}
-	printf("=== Token List (circular) ===\n");
+	printf("=== Cmd List (circular) ===\n");
 	int i = 0;
 	do
 	{
@@ -60,11 +60,12 @@ bool	add_command_node(t_cmd **head_cmd)
 	return (true);
 }
 
-bool	add_command(t_cmd **head_cmd)
+bool	add_command(t_token *curr_token, t_data *data)
 {
-	if (!add_command_node(head_cmd))
+	if (!add_command_node(&data->cmd))
 		return (false);
-	// fill command
+	if (!fill_command(curr_token, data))
+		return (false);
 	return (true);
 }
 
@@ -73,18 +74,16 @@ bool	create_list_cmd(t_data *data)
 	t_token	*curr;
 	
 	curr = data->token;
-	if (!add_command(&data->cmd))
+	if (!add_command(curr, data))
 	{
-		printf("add head\n");
 		free_cmd_list(&data->cmd);
 		return (false);
 	}
 	curr = curr->next;
 	while (curr != data->token)
 	{
-		if(curr->type == CMD && !add_command(&data->cmd))
+		if(curr->prev->type == PIPE && !add_command(curr, data))
 		{
-			printf("add cmd\n");
 			free_cmd_list(&data->cmd);
 			return (false);
 		}

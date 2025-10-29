@@ -19,6 +19,7 @@ SRC = \
 	src/parse/create_list_cmd.c \
 	src/parse/create_list_token.c \
 	src/parse/cmd_param.c \
+	src/parse/fill_command.c \
 	src/utils/free.c \
 	src/utils/utils.c \
 	src/utils/utils_list.c
