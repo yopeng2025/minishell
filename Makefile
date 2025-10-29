@@ -18,6 +18,7 @@ SRC = \
 	src/parse/dollar_replace.c \
 	src/parse/create_list_cmd.c \
 	src/parse/create_list_token.c \
+	src/parse/fill_command.c \
 	src/utils/free.c \
 	src/utils/utils.c \
 	src/utils/utils_list.c
