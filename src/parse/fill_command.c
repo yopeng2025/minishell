@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 14:48:16 by peiyli            #+#    #+#             */
-/*   Updated: 2025/10/29 14:59:42 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/10/29 15:19:41 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	open_file(t_data *data, char *filename, int type)
 	if (type == INPUT)
 		fd = open(filename, O_RDONLY);
 	else if (type == HEREDOC)
-		fd = here_doc(filename, data);
+		(void)data;
+		// fd = here_doc(filename, data);
 	else if (type == TRUNCATE)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (type == APPEND)
@@ -33,7 +34,7 @@ int	open_file(t_data *data, char *filename, int type)
 bool	get_in(t_token *curr_token, t_cmd *cmd, t_data *data)
 {
 	if (cmd->infile >= 0)
-		close(cmd->cmd_param);
+		close(cmd->infile);
 	if (curr_token->type <= 5)
 		// erro notif
 		return (false);
@@ -49,7 +50,7 @@ bool	get_in(t_token *curr_token, t_cmd *cmd, t_data *data)
 bool	get_out(t_token *curr_token, t_cmd *cmd, t_data *data)
 {
 	if (cmd->outfile >= 0)
-		close(cmd->cmd_param);
+		close(cmd->outfile);
 	if (curr_token->type <= 5)
 		// erro notif
 		return (false);
@@ -72,7 +73,7 @@ bool	get_infile(t_token *curr_token, t_cmd *cmd, t_data *data)
 	if (!get_in(curr_token, cmd, data))
 		return (false);
 	curr_token = curr_token->next;
-	while (curr_token != PIPE || curr_token != data->token)
+	while (curr_token->type != PIPE || curr_token != data->token)
 	{
 		if (!get_in(curr_token, cmd, data))
 			return (false);
@@ -91,7 +92,7 @@ bool	get_outfile(t_token *curr_token, t_cmd *cmd, t_data *data)
 	if (!get_out(curr_token, cmd, data))
 		return (false);
 	curr_token = curr_token->next;
-	while (curr_token != PIPE || curr_token != data->token)
+	while (curr_token->type != PIPE || curr_token != data->token)
 	{
 		if (!get_out(curr_token, cmd, data))
 			return (false);
