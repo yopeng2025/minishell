@@ -22,7 +22,8 @@ SRC = \
 	src/parse/fill_command.c \
 	src/utils/free.c \
 	src/utils/utils.c \
-	src/utils/utils_list.c
+	src/utils/utils_list.c \
+	src/exec/here_doc.c 
 
 OBJ_DIR = obj
 OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)
@@ -38,7 +39,7 @@ $(LIBFT):
 
 #随着文件夹的增加，要在$(obj_dir)后面加文件夹名称#
 $(OBJ_DIR)/%.o: src/%.c
-	mkdir -p $(OBJ_DIR)/parse $(OBJ_DIR)/utils
+	mkdir -p $(OBJ_DIR)/parse $(OBJ_DIR)/utils $(OBJ_DIR)/exec
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

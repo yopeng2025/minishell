@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yopeng <yopeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 14:48:16 by peiyli            #+#    #+#             */
-/*   Updated: 2025/10/29 17:44:43 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/10/30 11:20:34 by yopeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int	open_file(t_data *data, char *filename, int type)
 	if (type == INPUT)
 		fd = open(filename, O_RDONLY);
 	else if (type == HEREDOC)
-		(void)data;
-		// fd = here_doc(filename, data);
+		fd = here_doc(filename, data);
 	else if (type == TRUNCATE)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (type == APPEND)

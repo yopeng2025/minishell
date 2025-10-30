@@ -12,6 +12,8 @@
 # define CMD		6	//"|"
 # define ARG		7	//"|"
 
+# define INT_MAX 2147483647
+
 # include "libft.h"
 # include <stdio.h>
 # include <stdbool.h>
@@ -67,7 +69,6 @@ int		exist_in_env(char *line, int *i, t_data *data);
 char	*get_dollar_word(char *line, int size);
 char	*get_elem_env(t_list *env, char *key);
 int		add_char(char *c, char **str, t_data *data, int *index);
-//int		append_exit_code(t_data *data, char **str);
 
 //token
 void	print_token_list(t_token *head);
@@ -119,5 +120,9 @@ int		free_list(t_list **env);
 void	free_all(t_data *data, char *err, int ext);
 void	free_token_list(t_token **head_token);
 void	free_cmd_list(t_cmd **head_cmd);
+
+//execution
+int	here_doc(char *word, t_data *data);
+
 
 #endif
