@@ -7,18 +7,19 @@ static bool	read_in_stdin(char *word, t_data *data, int fd)
 	while (1)
 	{
 		buf = NULL;
-		buf = readline("heredoc> ");
+		buf = readline("> ");
 		if (!buf)
 		{
 			print_error("warning: here_document deliminated by EOF ");
 			print_error("(wanted '");
+			print_error(word);
 			print_error("')\n");
 			break ;
 		}
 		if (!ft_strncmp(word, buf, INT_MAX))
 			break;
 		if (!replace_dollar(&buf, data))
-			free(data);                    //后面要修改为free_all
+			free(data);                 //原本是free_all
 		write(fd, buf, ft_strlen(buf));
 		write(fd, "\n", 1);
 		free(buf);
