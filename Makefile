@@ -23,7 +23,9 @@ SRC = \
 	src/utils/free.c \
 	src/utils/utils.c \
 	src/utils/utils_list.c \
-	src/exec/here_doc.c 
+	src/exec/here_doc.c \
+	src/exec/buildin.c \
+	src/exec/exe.c \
 
 OBJ_DIR = obj
 OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)

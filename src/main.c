@@ -47,7 +47,7 @@ int main(int argc, char **argv, char **env)
 		printf("You typed: %s\n", line);
 		if (!parseline(&data, line))
 			continue;
-		// exec(&data);
+		exec(&data);
 		free_token_list(&data.token);
 		free_cmd_list(&data.cmd);
 	}

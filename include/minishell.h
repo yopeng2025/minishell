@@ -54,6 +54,7 @@ typedef struct	s_data
 	t_token	*token;
 	t_cmd	*cmd;
 	t_list	*env;
+	int		pip[2];
 	int     exit_code;
 	bool	sq;
 }				t_data;
@@ -122,7 +123,8 @@ void	free_token_list(t_token **head_token);
 void	free_cmd_list(t_cmd **head_cmd);
 
 //execution
-int	here_doc(char *word, t_data *data);
-
+int		here_doc(char *word, t_data *data);
+bool	exec(t_data *data);
+bool	launch_buildin(t_data *data, t_cmd *cmd);
 
 #endif
