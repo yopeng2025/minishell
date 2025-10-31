@@ -23,6 +23,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef struct	s_token
 {
@@ -125,6 +126,10 @@ void	free_cmd_list(t_cmd **head_cmd);
 //execution
 int		here_doc(char *word, t_data *data);
 bool	exec(t_data *data);
-bool	launch_buildin(t_data *data, t_cmd *cmd);
+bool	launch_builtin(t_data *data, t_cmd *cmd);
+
+//builtin
+bool	is_builtin(char *cmd);
+int		ft_cd(t_data *data, char **cmd_param);
 
 #endif
