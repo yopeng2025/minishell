@@ -76,7 +76,7 @@ bool	create_list_cmd(t_data *data)
 	curr = data->token;
 	if (!add_command(curr, data))
 	{
-		free_cmd_list(&data->cmd);
+		free_cmd_list(&data->cmd); //之后要加close fd 和free param
 		return (false);
 	}
 	curr = curr->next;
@@ -84,7 +84,7 @@ bool	create_list_cmd(t_data *data)
 	{
 		if(curr->prev->type == PIPE && !add_command(curr, data))
 		{
-			free_cmd_list(&data->cmd);
+			free_cmd_list(&data->cmd); //之后要加close fd 和free param
 			return (false);
 		}
 		curr = curr->next;

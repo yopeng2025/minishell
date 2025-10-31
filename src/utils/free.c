@@ -48,6 +48,7 @@ void	free_token_list(t_token **head_token)
 	*head_token = NULL;
 }
 
+//之后要加close fd 和free param
 void	free_cmd_list(t_cmd **head_cmd)
 {
 	t_cmd	*tmp;

@@ -23,6 +23,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef struct	s_token
 {
@@ -132,5 +133,6 @@ int		ft_echo(char **cmd);
 int		ft_env(t_list *env);
 bool	is_builtin(char *cmd);
 int		ft_export(char **cmd, t_list **env);
+int		ft_cd(t_data *data, char **cmd_param);
 
 #endif
