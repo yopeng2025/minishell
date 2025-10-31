@@ -125,6 +125,12 @@ void	free_cmd_list(t_cmd **head_cmd);
 //execution
 int		here_doc(char *word, t_data *data);
 bool	exec(t_data *data);
-bool	launch_buildin(t_data *data, t_cmd *cmd);
+bool	launch_builtin(t_data *data, t_cmd *cmd);
+
+//builtin
+int		ft_echo(char **cmd);
+int		ft_env(t_list *env);
+bool	is_builtin(char *cmd);
+int		ft_export(char **cmd, t_list **env);
 
 #endif
