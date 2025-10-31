@@ -9,7 +9,7 @@ bool	exec(t_data *data)
 	tmp = data->cmd;
 	pip = data->pip;
 	if (tmp && tmp->cmd_param[0] && tmp->next == tmp \
-		&& tmp->skip_cmd == false && is_buildin(tmp->cmd_param[0]))
-		return (launch_buildin(data, tmp));
+		&& tmp->skip_cmd == false && is_builtin(tmp->cmd_param[0]))
+		return (launch_builtin(data, tmp));
 	return (true);
 }
