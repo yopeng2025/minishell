@@ -12,7 +12,8 @@
 # define CMD		6	//"|"
 # define ARG		7	//"|"
 
-# define INT_MAX 2147483647
+# define INT_MAX	2147483647
+# define PATH_MAX	4096
 
 # include "libft.h"
 # include <stdio.h>
@@ -134,5 +135,6 @@ int		ft_env(t_list *env);
 bool	is_builtin(char *cmd);
 int		ft_export(char **cmd, t_list **env);
 int		ft_cd(t_data *data, char **cmd_param);
+int		ft_exit(t_data *data, char **cmd_param);
 
 #endif

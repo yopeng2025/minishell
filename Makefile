@@ -30,6 +30,8 @@ SRC = \
 	src/builtin/ft_env.c \
 	src/builtin/ft_export.c \
 	src/builtin/ft_cd.c \
+	src/builtin/ft_pwd.c \
+	src/builtin/ft_exit.c \
 
 OBJ_DIR = obj
 OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)
