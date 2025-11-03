@@ -43,18 +43,6 @@ static void	*free_cmd_param(char **cmd_param, int i)
 	return (NULL);
 }
 
-static void	print_cmd_param(char **cmd_param, int i)
-{
-	int	j;
-
-	j = 0;
-	while (j < i)
-	{
-		printf("[debug]cmd[%i]: %s\n", j, cmd_param[j]);
-		j++;
-	}
-}
-
 /* 得到同一个管道内(非< << > >> |)的命令参数 cmd和arg */
 char	**get_param(t_data *data, t_token *token)
 {
@@ -83,6 +71,5 @@ char	**get_param(t_data *data, t_token *token)
 		tmp = tmp->next;
 	}
 	cmd_param[i] = NULL;
-	print_cmd_param(cmd_param, i); //新增部分，用于检测是否成功提取命令参数
 	return (cmd_param);
 }

@@ -1,7 +1,7 @@
 #include "minishell.h"
 
-// return false if "-n" option found (no newline)
-// return true otherwise (print newline)
+/*  return false 有 "-n", 即截去newine
+	return true  \n结尾		            */
 static bool	check_new_line(char *cmd)
 {
 	int	i;

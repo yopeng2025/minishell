@@ -24,7 +24,7 @@ char	*get_dollar_word(char *line, int size)
 	while (line[++i] && i < size)
 		word[i - 1] = line[i];
 	word[i - 1] = '\0';
-	fprintf(stderr, "word:%s\n", word);
+//	fprintf(stderr, "word:%s\n", word);
 	return (word);
 }
 

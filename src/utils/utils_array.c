@@ -1,0 +1,60 @@
+#include "minishell.h"
+
+char	**list_to_array(t_list *env)
+{
+	char	**array;
+	t_list	*list;
+	size_t	i;
+	size_t	len;
+
+	i = 0;
+	list = env;
+	len = len_list(list);
+	array = (char **)malloc(sizeof(char *) * (len + 1));
+	if (!array)
+		return (NULL);
+	array[i] = (list->str);
+	i++;
+	list = list->next;
+	while (list != env && i < len)
+	{
+		array[i] = (list->str);
+		i++;
+		list = list->next;
+	}
+	array[i] = NULL;
+	return (array);
+}
+
+void	swap_array(char **str1, char **str2)
+{
+	char	*tmp;
+
+	tmp = *str1;
+	*str1 = *str2;
+	*str2 = tmp;
+}
+
+void	sort_array(char **array, t_list *env)
+{
+	size_t	len;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	len = len_list(env);
+	while (i < len)
+	{
+		j = i + 1;
+		while (j < len)
+		{
+			if (ft_strncmp(array[i], array[j], INT_MAX) > 0)
+			{
+				swap_array(&array[i], &array[j]);
+				continue;
+			}
+			j++;
+		}
+		i++;
+	}
+}

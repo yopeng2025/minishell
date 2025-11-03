@@ -117,6 +117,11 @@ size_t	len_list(t_list *list);
 int		append(t_list **list, char *str);
 int		ft_search(char *str, char c);
 
+//utils_array
+char	**list_to_array(t_list *env);
+void	swap_array(char **str1, char **str2);
+void	sort_array(char **array, t_list *env);
+
 //free
 int		free_list(t_list **env);
 void	free_all(t_data *data, char *err, int ext);

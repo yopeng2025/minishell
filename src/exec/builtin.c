@@ -22,16 +22,12 @@ static void	exec_builtin(int save_stdout, t_data *data, t_cmd *cmd)
 		data->exit_code = ft_echo(cmd->cmd_param);
 	// else if (ft_strncmp("cd", cmd->cmd_param[0], INT_MAX) == 0)
 	// 	data->exit_code = ft_cd(data, cmd->cmd_param);
-	// if (ft_strncmp("echo", cmd->cmd_param[0], INT_MAX) == 0)
-	// 	data->exit_code = ft_echo(cmd->cmd_param);
-	/*else*/ if (ft_strncmp("cd", cmd->cmd_param[0], INT_MAX) == 0)
-		data->exit_code = ft_cd(data, cmd->cmd_param);
 	// else if (ft_strncmp("pwd", cmd->cmd_param[0], INT_MAX) == 0)
 	// 	data->exit_code = ft_pwd();
-	// else if (ft_strncmp("export", cmd->cmd_param[0], INT_MAX) == 0)
-	// 	data->exit_code = ft_export(cmd->cmd_param, &data->env);
-	// else if (ft_strncmp("unset", cmd->cmd_param[0], INT_MAX) == 0)
-	// 	data->exit_code = ft_unset(cmd->cmd_param, &data->env);
+	/*else*/ if (ft_strncmp("export", cmd->cmd_param[0], INT_MAX) == 0)
+		data->exit_code = ft_export(cmd->cmd_param, &data->env);
+	else if (ft_strncmp("unset", cmd->cmd_param[0], INT_MAX) == 0)
+		data->exit_code = ft_unset(cmd->cmd_param, &data->env);
 	else if (ft_strncmp("env", cmd->cmd_param[0], INT_MAX) == 0)
 		data->exit_code = ft_env(data->env);
 	// else if (ft_strncmp("exit", cmd->cmd_param[0], INT_MAX) == 0)

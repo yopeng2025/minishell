@@ -26,8 +26,8 @@ static int	in_env(t_data *data, char *line, int size, char **str)
 
 	key = get_dollar_word(line, size);//malloc 要释放
 	value = get_elem_env(data->env, key);//要释放
-	fprintf(stderr, "[DEBUG] key=%s\n", key);							//用于检测是否正确展开，可删除
-	fprintf(stderr, "[DEBUG] value=%s\n", value ? value : "(null)");    //用于检测是否正确展开，可删除
+	// fprintf(stderr, "[DEBUG] key=%s\n", key);							//用于检测是否正确展开，可删除
+	// fprintf(stderr, "[DEBUG] value=%s\n", value ? value : "(null)");    //用于检测是否正确展开，可删除
 	if (key)
 		free(key);
 	if (!value)
@@ -39,7 +39,7 @@ static int	in_env(t_data *data, char *line, int size, char **str)
 	if (!tmp)
 		return (0);
 	*str = tmp;
-	fprintf(stderr, "[DEBUG] str=%s\n", *str);
+//	fprintf(stderr, "[DEBUG] str=%s\n", *str);
 	return (1);
 }
 
@@ -74,7 +74,7 @@ int	exist_in_env(char *line, int *i, t_data *data)
 			&& ft_strncmp(tmp->str, &line[*i + 1], key_len) == 0)
 		{
 			*i += name_len + 1;
-			fprintf(stderr, "[DEBUG] line=%s\n", line);
+//			fprintf(stderr, "[DEBUG] line=%s\n", line);
 			return (1);
 		}
 		tmp = tmp->next;
@@ -132,7 +132,7 @@ int	replace_dollar(char **line, t_data *data)
 		if ((*line)[i] && !add_char(&(*line)[i], &str, data, &i))
 		  	return (0);
 	}
-	printf("Output: %s\n", str);
+//	printf("Output: %s\n", str);
 	*line = str;
 	return (1);
 }
