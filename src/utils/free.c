@@ -6,7 +6,19 @@ void	free_all(t_data *data, char *err, int ext)
 		print_error(err);
 	if (data->env)
 		free_list(&data->env);
-	exit(ext);
+	if (data->token)
+		free_token_list(&data->token);
+	if (data->cmd)
+		free_cmd_list(&data->cmd);
+	if (data->pip[0] && data->pip[0] != -1)
+		close(data->pip[0]);
+	if (data->pip[1] && data->pip[1] != -1)
+		close(data->pip[1]);
+	rl_clear_history();
+	if (access(".heredoc.tmp", F_OK) == 0)
+		unlink(".heredoc.tmp");
+	if (exit != -1)
+		exit(ext);
 }
 
 int	free_list(t_list **env)
