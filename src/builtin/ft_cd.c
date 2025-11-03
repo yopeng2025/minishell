@@ -20,7 +20,7 @@ void	update_oldpwd(t_data *data)
 		tmp_env = tmp_env->next;
 	}
 	if (!old_pwd)
-		export("OLDPWD", &data->env);
+		ft_export(&old_pwd, &data->env);
 	if (old_pwd)
 	{
 		old_pwd = ft_strjoin("OLD", old_pwd);
@@ -29,7 +29,7 @@ void	update_oldpwd(t_data *data)
 			//打印错误信息
 			return ;
 		}
-		export(old_pwd, &data->env);
+		ft_export(&old_pwd, &data->env);
 	}
 	free(old_pwd);
 }
@@ -50,8 +50,17 @@ void	update_cwd(t_data *data, char *path)
 	if (!pwd)
 		//打印错误信息
 		return ;
-	export(pwd, &data->env);
+	ft_export(&pwd, &data->env);
 	free(pwd);
+}
+int	count_param(char **cmd_param)
+{
+	int	count;
+
+	count = 0;
+	while (cmd_param[count])
+		count++;
+	return (count);
 }
 
 int	ft_cd(t_data *data, char **cmd_param)

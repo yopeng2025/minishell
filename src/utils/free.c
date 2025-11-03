@@ -17,7 +17,7 @@ void	free_all(t_data *data, char *err, int ext)
 	rl_clear_history();
 	if (access(".heredoc.tmp", F_OK) == 0)
 		unlink(".heredoc.tmp");
-	if (exit != -1)
+	if (ext != -1)
 		exit(ext);
 }
 
@@ -60,7 +60,31 @@ void	free_token_list(t_token **head_token)
 	*head_token = NULL;
 }
 
-//之后要加close fd 和free param
+void	free_cmd_param(char **cmd_param)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_param && cmd_param[i])
+	{
+		free(cmd_param[i]);
+		i++;
+	}
+	if (cmd_param)
+		free(cmd_param);
+	cmd_param = NULL;
+}
+
+void	close_cmd_fd(t_cmd *cmd)
+{
+	if (cmd->infile >= 0)
+		close(cmd->infile);
+	cmd->infile = -2;
+	if (cmd->outfile >= 0)
+		close(cmd->outfile);
+	cmd->outfile = -2;
+}
+
 void	free_cmd_list(t_cmd **head_cmd)
 {
 	t_cmd	*tmp;
@@ -72,9 +96,13 @@ void	free_cmd_list(t_cmd **head_cmd)
 	while (curr->next != *head_cmd)
 	{
 		tmp = curr->next;
+		close_cmd_fd(curr);
+		free_cmd_param(curr->cmd_param);
 		free(curr);
 		curr = tmp;
 	}
+	close_cmd_fd(curr);
+	free_cmd_param(curr->cmd_param);
 	free(curr);
 	*head_cmd = NULL;
 }

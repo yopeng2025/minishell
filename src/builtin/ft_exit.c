@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:48:27 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/03 17:36:22 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/03 18:06:55 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ int	ft_exit(t_data *data, char **cmd_param)
 	printf("exit\n");
 	if (cmd_param[2])
 	{
-		write(2, "minishell: exit: too many arguments\n", 32);
-		return (127);
+		write(2, "minishell: exit: too many arguments\n", 37);
+		exit_code =  127;
+		return (exit_code);
 	}
 	if (!cmd_param[1])
 		free_all(data, NULL, data->exit_code);
@@ -77,10 +78,11 @@ int	ft_exit(t_data *data, char **cmd_param)
 		//可以改写print_error 把打印多个元素的都放进去
 		write(2, "minishell: exit:", 17);
 		write(2, cmd_param[1], ft_strlen(cmd_param[1]));
-		write(2, ": numeric argument required", 28);
+		write(2, ": numeric argument required\n", 29);
 		free_all(data, NULL, 2);
 	}
 	exit_code = ft_atol(cmd_param[1]);
 	exit_code = (unsigned char)exit_code;
 	free_all(data, NULL, exit_code);
+	return (exit_code);
 }

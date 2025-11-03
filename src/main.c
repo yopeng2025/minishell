@@ -6,6 +6,8 @@ void	initial_data(t_data *data)
 	data->token = NULL;
 	data->cmd = NULL;
 	data->env = NULL;
+	data->pip[0] = -1;
+	data->pip[1] = -1;
 }
 
 int	make_env(t_data *data, char **env)
