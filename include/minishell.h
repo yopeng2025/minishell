@@ -26,6 +26,8 @@
 # include <unistd.h>
 # include <limits.h>
 
+pid_t	g_signal_pid;
+
 typedef struct	s_token
 {
 	char	*str;
@@ -138,6 +140,7 @@ bool	launch_builtin(t_data *data, t_cmd *cmd);
 int		ft_echo(char **cmd);
 int		ft_env(t_list *env);
 bool	is_builtin(char *cmd);
+bool	export(char	*str, t_list **env);
 int		ft_export(char **cmd, t_list **env);
 int		ft_cd(t_data *data, char **cmd_param);
 int		ft_exit(t_data *data, char **cmd_param);

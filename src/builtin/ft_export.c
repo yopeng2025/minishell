@@ -85,7 +85,7 @@ int	position_in_env(char *str, t_list *env)
 	export + 环境变量存在：找出在env的位置，更新'='后面的值
 	export + 环境变量不存在：追加到env链表最后面
 */
-static bool	export(char	*str, t_list **env)
+bool	export(char	*str, t_list **env)
 {
 	int		position;
 	int		i;

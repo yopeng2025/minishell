@@ -8,6 +8,7 @@ void	initial_data(t_data *data)
 	data->env = NULL;
 	data->pip[0] = -1;
 	data->pip[1] = -1;
+	g_signal_pid = 0;
 }
 
 int	make_env(t_data *data, char **env)
