@@ -58,3 +58,18 @@ void	sort_array(char **array, t_list *env)
 		i++;
 	}
 }
+
+void	free_array(char **array)
+{
+	int	i;
+
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
+	{
+		free (array[i]);
+		i++;
+	}
+	free (array);
+}
