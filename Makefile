@@ -33,6 +33,7 @@ SRC = \
 	src/builtin/ft_cd.c \
 	src/builtin/ft_pwd.c \
 	src/builtin/ft_exit.c \
+	src/builtin/ft_unset.c
 
 OBJ_DIR = obj
 OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)

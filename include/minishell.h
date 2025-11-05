@@ -128,6 +128,7 @@ int		free_list(t_list **env);
 void	free_all(t_data *data, char *err, int ext);
 void	free_token_list(t_token **head_token);
 void	free_cmd_list(t_cmd **head_cmd);
+void	free_array(char **array);
 
 //execution
 int		here_doc(char *word, t_data *data);
@@ -142,5 +143,6 @@ int		ft_export(char **cmd, t_list **env);
 int		ft_cd(t_data *data, char **cmd_param);
 int		ft_exit(t_data *data, char **cmd_param);
 int		ft_pwd(void);
+int		ft_unset(char **str, t_list **env);
 
 #endif

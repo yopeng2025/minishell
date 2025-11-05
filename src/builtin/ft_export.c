@@ -29,7 +29,7 @@ static bool	export_no_arg(t_list *env)
 			printf("\n");
 		i++;
 	}
-	free (array);
+	free_array(array);
 	return (true);
 }
 /*
@@ -89,25 +89,27 @@ static bool	export(char	*str, t_list **env)
 {
 	int		position;
 	int		i;
-	char	*tmp;
+	char	*tmp_str;
+	t_list	*tmp_env;
 
-	tmp = ft_strdup(str);
-	if (!tmp)
+	tmp_str = ft_strdup(str);
+	if (!tmp_str)
 		return (false);
 	position = position_in_env(str, (*env));
 	if (position >=0)
 	{
 		i = 0;
+		tmp_env = (*env);
 		while (i < position)
 		{
 			i++;
-			(*env) = (*env)->next;
+			tmp_env = tmp_env->next;
 		}
-		free((*env)->str);
-		(*env)->str = tmp;
+		free(tmp_env->str);
+		tmp_env->str = tmp_str;
 	}
 	else if (position == -1)
-		if (!append(env, str))
+		if (!append(env, tmp_str))
 			return(false);
 	return (true);
 }
@@ -129,7 +131,7 @@ int	ft_export(char **cmd, t_list **env)
 	{
 		if (!valid_identifier(cmd[i]))
 		{
-			print_error("export: invalid idnetifier\n");
+			print_error("export: invalid identifier\n");
 			exit_code = 1;
 		}
 		else if (!export(cmd[i], env))
