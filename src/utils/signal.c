@@ -20,7 +20,7 @@ static void	handle_sigsegv(int code)
 static void	handle_sigabrt(int code)
 {
 	(void)code;
-	wirte(2, "abort\n", 7);
+	write(2, "abort\n", 7);
 }
 
 void	signals(void)
