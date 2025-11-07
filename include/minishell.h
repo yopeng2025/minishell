@@ -25,6 +25,7 @@
 # include <sys/stat.h>
 # include <unistd.h>
 # include <limits.h>
+# include <signal.h>
 
 pid_t	g_signal_pid;
 
@@ -131,6 +132,7 @@ void	free_all(t_data *data, char *err, int ext);
 void	free_token_list(t_token **head_token);
 void	free_cmd_list(t_cmd **head_cmd);
 void	free_array(char **array);
+void	signals(void);
 
 //execution
 int		here_doc(char *word, t_data *data);

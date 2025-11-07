@@ -24,6 +24,7 @@ SRC = \
 	src/utils/utils.c \
 	src/utils/utils_list.c \
 	src/utils/utils_array.c \
+	src/utils/signal.c \
 	src/exec/here_doc.c \
 	src/exec/builtin.c \
 	src/exec/exec.c \
