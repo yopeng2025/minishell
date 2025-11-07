@@ -23,8 +23,10 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <unistd.h>
 # include <limits.h>
+# include <signal.h>
 
 pid_t	g_signal_pid;
 

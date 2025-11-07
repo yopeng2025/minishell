@@ -16,8 +16,6 @@ bool	is_builtin(char *cmd)
 }
 static void	exec_builtin(int save_stdout, t_data *data, t_cmd *cmd)
 {
-	(void)save_stdout;
-
 	if (ft_strncmp("echo", cmd->cmd_param[0], INT_MAX) == 0)
 		data->exit_code = ft_echo(cmd->cmd_param);
 	else if (ft_strncmp("cd", cmd->cmd_param[0], INT_MAX) == 0)
