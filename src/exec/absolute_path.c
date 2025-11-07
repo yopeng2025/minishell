@@ -20,7 +20,7 @@ bool	is_dir(char **path, char *cmd, t_data *data)
 	stat(*path, &path_stat);
 	if (!S_ISREG(path_stat.st_mode)) //true可执行文件 false目录
 	{
-		print_error(*path);
+		print_error(cmd);
 		print_error(" : Is a directory\n");
 		data->exit_code = 126;
 		return(true);

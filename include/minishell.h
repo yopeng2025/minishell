@@ -28,7 +28,7 @@
 # include <limits.h>
 # include <signal.h>
 
-pid_t	g_signal_pid;
+extern pid_t	g_signal_pid;
 
 typedef struct	s_token
 {
@@ -137,7 +137,8 @@ void	free_array(char **array);
 //execution
 int		here_doc(char *word, t_data *data);
 void	exec(t_data *data);
-bool	launch_builtin(t_data *data, t_cmd *cmd);
+void	launch_builtin(t_data *data, t_cmd *cmd);
+bool	cmd_exist(char **path, t_data *data, char *cmd);
 
 //builtin
 int		ft_echo(char **cmd);
@@ -149,7 +150,9 @@ int		ft_cd(t_data *data, char **cmd_param);
 int		ft_exit(t_data *data, char **cmd_param);
 int		ft_pwd(void);
 int		ft_unset(char **str, t_list **env);
-bool	cmd_exist(char **path, t_data *data, char *cmd);
+
+
+//path
 char	*find_path(t_data *data, char *cmd, t_list *env);
 char	*create_path(t_list *env, int len);
 char	*cmd_not_found(char *cmd);
