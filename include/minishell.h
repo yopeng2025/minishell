@@ -134,7 +134,7 @@ void	free_array(char **array);
 
 //execution
 int		here_doc(char *word, t_data *data);
-bool	exec(t_data *data);
+void	exec(t_data *data);
 bool	launch_builtin(t_data *data, t_cmd *cmd);
 
 //builtin
@@ -147,5 +147,12 @@ int		ft_cd(t_data *data, char **cmd_param);
 int		ft_exit(t_data *data, char **cmd_param);
 int		ft_pwd(void);
 int		ft_unset(char **str, t_list **env);
+bool	cmd_exist(char **path, t_data *data, char *cmd);
+char	*find_path(t_data *data, char *cmd, t_list *env);
+char	*create_path(t_list *env, int len);
+char	*cmd_not_found(char *cmd);
+void	strslashjoin(char *path_return, char *cmd, char *path_in_env, int *i);
+void	absolute_path(char **path, char *cmd, t_data *data);
+bool	is_dir(char **path, char *cmd, t_data *data);
 
 #endif

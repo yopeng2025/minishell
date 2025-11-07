@@ -21,7 +21,7 @@ void	free_all(t_data *data, char *err, int ext)
 		exit(ext);
 }
 
-int	free_list(t_list **env)
+int		free_list(t_list **env)
 {
 	t_list	*tmp;
 	t_list	*current;
