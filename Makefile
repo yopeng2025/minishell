@@ -27,6 +27,8 @@ SRC = \
 	src/exec/here_doc.c \
 	src/exec/builtin.c \
 	src/exec/exec.c \
+	src/exec/absolute_path.c \
+	src/exec/cmd_exist.c \
 	src/builtin/ft_echo.c \
 	src/builtin/ft_env.c \
 	src/builtin/ft_export.c \
