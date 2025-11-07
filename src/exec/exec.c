@@ -32,12 +32,12 @@ void	built(t_data *data, t_cmd *cmd)
 void	child_progress(t_data *data, t_cmd *cmd)
 {
 	char	*path;
-	char	*envp;
+	char	**envp;
 
 	path = NULL;
 	if (!cmd->skip_cmd)
 		data->exit_code = 1; // ?？为什么要等于1
-	if (is_builtin(cmd))
+	if (is_builtin(cmd->cmd_param[0]))
 		built(data, cmd);
 	if (cmd_exist(&path, data, cmd->cmd_param[0]))
 	{
@@ -47,7 +47,7 @@ void	child_progress(t_data *data, t_cmd *cmd)
 			free_all(data, NULL, 1);
 		rl_clear_history();
 		signal(SIGQUIT, SIG_DFL);
-		execve(path, cmd, envp);
+		execve(path, cmd->cmd_param, envp);
 		if (path)
 			free(path);
 		free_all(data, NULL, data->exit_code);
@@ -101,7 +101,7 @@ void	wait_all(t_data *data)
 
 	tmp = data->cmd;
 	len = len_cmd(data);
-	while (len_cmd)
+	while (len)
 	{
 		pid = waitpid(0, &status, 0);
 		if (pid == g_signal_pid)
@@ -123,7 +123,7 @@ void	exec(t_data *data)
 	pip = data->pip;
 	if (tmp && tmp->cmd_param[0] && tmp->next == tmp \
 		&& tmp->skip_cmd == false && is_builtin(tmp->cmd_param[0]))
-		return (launch_builtin(data, tmp));
+		launch_builtin(data, tmp);
 	if (pipe(pip) == -1)
 		//error notif
 		free_all(data, NULL, -1); //需要再看 因为不知道如何打印错误信息

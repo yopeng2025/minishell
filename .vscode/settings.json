@@ -3,6 +3,8 @@
     "editor.tabSize": 4,
 	"editor.detectIndentation": false,
 	"files.associations": {
-		"dollar_utils": "c"
+		"dollar_utils": "c",
+		"unistd.h": "c",
+		"history.h": "c"
 	}
 }

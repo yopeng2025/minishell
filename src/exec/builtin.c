@@ -39,7 +39,7 @@ static void	exec_builtin(int save_stdout, t_data *data, t_cmd *cmd)
 	}
 }
 
-bool	launch_builtin(t_data *data, t_cmd *cmd)
+void	launch_builtin(t_data *data, t_cmd *cmd)
 {
 	int	save_stdout;
 
@@ -55,5 +55,4 @@ bool	launch_builtin(t_data *data, t_cmd *cmd)
 		dup2(save_stdout, 1);
 		close(save_stdout);
 	}
-	return (true);
 }

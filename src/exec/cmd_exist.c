@@ -52,7 +52,7 @@ char	*find_path(t_data *data, char *cmd, t_list *env)
 	int		i;
 	int		len;
 
-	path_in_env = creat_path(env, len_list(env));
+	path_in_env = create_path(env, len_list(env));
 	if (!path_in_env || ft_strlen(cmd) > PATH_MAX / 2)
 		return(cmd_not_found(cmd));
 	i = 0;
