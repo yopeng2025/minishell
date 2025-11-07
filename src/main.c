@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+pid_t g_signal_pid;
+
 void	initial_data(t_data *data)
 {
 	data->exit_code = 0;
@@ -54,6 +56,7 @@ int main(int argc, char **argv, char **env)
 		exec(&data);
 		free_token_list(&data.token);
 		free_cmd_list(&data.cmd);
+		g_signal_pid = 0;
 	}
     return (0);
 }
