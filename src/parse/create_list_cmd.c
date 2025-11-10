@@ -16,6 +16,15 @@ void	print_cmd_list(t_cmd *head)
 	{
 		printf("[%d] fd_in=%d fd_out=%d\n",
 			i, cur->infile, cur->outfile);
+		printf("cmd[%d]:", i);
+		if (cur->cmd_param)
+		{
+			for (int j=0; cur->cmd_param[j]; j++)
+				printf(" '%s'", cur->cmd_param[j]);
+			printf("\n");
+		}
+		else
+			printf(" NULL\n");
 		cur = cur->next;
 		i++;
 	} while (cur != head);  // ✅ 循环回到起点就停止
