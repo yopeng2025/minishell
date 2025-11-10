@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yopeng <yopeng@student.42.fr>              +#+  +:+       +#+        */
+/*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 14:48:16 by peiyli            #+#    #+#             */
-/*   Updated: 2025/10/30 11:20:34 by yopeng           ###   ########.fr       */
+/*   Updated: 2025/11/10 16:38:56 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ bool	fill_command(t_token *curr_token, t_data *data)
 		data->cmd->prev->skip_cmd = true;
 		return (true);
 	}
-	data->cmd->cmd_param = get_param(data, curr_token);
+	data->cmd->prev->cmd_param = get_param(data, curr_token);
 	if (!data->cmd->cmd_param)
 	// erro notif??
 		return (false);
