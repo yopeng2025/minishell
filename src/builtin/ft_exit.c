@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:48:27 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/03 18:06:55 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/11 15:55:38 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static bool	if_all_numeric(char *cmd_param)
 			i++;
 			continue;
 		}
-		if (cmd_param[i] < 0 || cmd_param[i] > 9)
+		if (cmd_param[i] < '0' || cmd_param[i] > '9')
 			return (false);
 		i++;
 	}
@@ -75,7 +75,6 @@ int	ft_exit(t_data *data, char **cmd_param)
 		free_all(data, NULL, data->exit_code);
 	if (!if_all_numeric(cmd_param[1]))
 	{
-		//可以改写print_error 把打印多个元素的都放进去
 		write(2, "minishell: exit:", 17);
 		write(2, cmd_param[1], ft_strlen(cmd_param[1]));
 		write(2, ": numeric argument required\n", 29);

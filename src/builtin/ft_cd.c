@@ -34,7 +34,7 @@
 // 	free(old_pwd);
 // }
 
-void	update_cwd(t_data *data, char *path)
+static void	update_cwd(t_data *data, char *path)
 {
 	char	cwd[PATH_MAX];
 	char	*pwd;
@@ -53,7 +53,7 @@ void	update_cwd(t_data *data, char *path)
 	export(pwd, &data->env);
 	free(pwd);
 }
-int	count_param(char **cmd_param)
+static int	count_param(char **cmd_param)
 {
 	int	count;
 
