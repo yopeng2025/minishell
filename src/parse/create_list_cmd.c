@@ -1,36 +1,5 @@
 #include "minishell.h"
 
-void	print_cmd_list(t_cmd *head)
-{
-	t_cmd *cur;
-
-	cur = head;
-	if (!head)
-	{
-		printf("=== Cmd List is EMPTY ===\n");
-		return ;
-	}
-	printf("=== Cmd List (circular) ===\n");
-	int i = 0;
-	do
-	{
-		printf("[%d] fd_in=%d fd_out=%d\n",
-			i, cur->infile, cur->outfile);
-		printf("cmd[%d]:", i);
-		if (cur->cmd_param)
-		{
-			for (int j=0; cur->cmd_param[j]; j++)
-				printf(" '%s'", cur->cmd_param[j]);
-			printf("\n");
-		}
-		else
-			printf(" NULL\n");
-		cur = cur->next;
-		i++;
-	} while (cur != head);  // ✅ 循环回到起点就停止
-	printf("============================\n");
-}
-
 bool	create_new_command(t_cmd **new)
 {
 	(*new) = malloc(sizeof(t_cmd));
@@ -68,6 +37,33 @@ bool	add_command_node(t_cmd **head_cmd)
 	}
 	return (true);
 }
+bool	fill_command(t_token *curr_token, t_data *data)
+{
+	if (!get_infile(curr_token, data->cmd->prev, data))
+	{
+		if (data->cmd->prev->infile != -1)
+			return (false);
+		data->cmd->prev->skip_cmd = true;
+		data->cmd->prev->outfile = -1;
+		return (true);
+	}
+	if (!get_outfile(curr_token, data->cmd->prev, data))
+	{
+		if (data->cmd->prev->outfile != -1)
+		{
+			if (data->cmd->prev->infile >= 0)
+				close(data->cmd->infile);
+			return (false);
+		}
+		data->cmd->prev->skip_cmd = true;
+		return (true);
+	}
+	data->cmd->prev->cmd_param = get_param(data, curr_token);
+	if (!data->cmd->cmd_param)
+	// erro notif??
+		return (false);
+	return (true);
+}
 
 bool	add_command(t_token *curr_token, t_data *data)
 {
@@ -85,7 +81,7 @@ bool	create_list_cmd(t_data *data)
 	curr = data->token;
 	if (!add_command(curr, data))
 	{
-		free_cmd_list(&data->cmd); //之后要加close fd 和free param
+		free_cmd_list(&data->cmd);
 		return (false);
 	}
 	curr = curr->next;
@@ -93,7 +89,7 @@ bool	create_list_cmd(t_data *data)
 	{
 		if(curr->prev->type == PIPE && !add_command(curr, data))
 		{
-			free_cmd_list(&data->cmd); //之后要加close fd 和free param
+			free_cmd_list(&data->cmd);
 			return (false);
 		}
 		curr = curr->next;

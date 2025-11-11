@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_command.c                                     :+:      :+:    :+:   */
+/*   cmd_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/28 14:48:16 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/10 16:38:56 by peiyli           ###   ########.fr       */
+/*   Created: 2025/11/11 16:08:50 by peiyli            #+#    #+#             */
+/*   Updated: 2025/11/11 16:08:52 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ bool	get_in(t_token *curr_token, t_cmd *cmd, t_data *data)
 			close(cmd->infile);
 		if (curr_token->next->type <= 5)
 		{
-			// erro notif
+			write(2, "minishell: syntax error near unexpected token '", 48);	// erro notif
+			write(2, curr_token->next->str, ft_strlen(curr_token->next->str));	// erro notif
+			write(2, "'\n", 3);	// erro notif
 			return (false);
 		}
 		if (curr_token->type == INPUT)
@@ -60,8 +62,12 @@ bool	get_out(t_token *curr_token, t_cmd *cmd, t_data *data)
 		if (cmd->outfile >= 0)
 			close(cmd->outfile);
 		if (curr_token->next->type <= 5)
-			// erro notif
+		{
+			write(2, "minishell: syntax error near unexpected token '", 48);	// erro notif
+			write(2, curr_token->next->str, ft_strlen(curr_token->next->str));	// erro notif
+			write(2, "'\n", 3);	// erro notif
 			return (false);
+		}
 		if (curr_token->type == TRUNCATE)
 			cmd->outfile = open_file(data, curr_token->next->str, TRUNCATE);
 		else if (curr_token->type == APPEND)
@@ -78,7 +84,7 @@ bool	get_infile(t_token *curr_token, t_cmd *cmd, t_data *data)
 {
 	if (curr_token->type == PIPE)
 	{
-		write(2, "syntax error near unexpected token '|'\n", 40); // error notif
+		write(2, "minishell: syntax error near unexpected token '|'\n", 51); // error notif
 		return (false);
 	}
 	if (!get_in(curr_token, cmd, data))
@@ -97,7 +103,7 @@ bool	get_outfile(t_token *curr_token, t_cmd *cmd, t_data *data)
 {
 	if (curr_token->type == PIPE)
 	{
-		write(2, "syntax error near unexpected token '|'\n", 40); // error notif
+		write(2, "minishell: syntax error near unexpected token '|'\n", 51); // error notif
 		return (false);
 	}
 	if (!get_out(curr_token, cmd, data))
@@ -109,33 +115,5 @@ bool	get_outfile(t_token *curr_token, t_cmd *cmd, t_data *data)
 			return (false);
 		curr_token = curr_token->next;
 	}
-	return (true);
-}
-
-bool	fill_command(t_token *curr_token, t_data *data)
-{
-	if (!get_infile(curr_token, data->cmd->prev, data))
-	{
-		if (data->cmd->prev->infile != -1)
-			return (false);
-		data->cmd->prev->skip_cmd = true;
-		data->cmd->prev->outfile = -1;
-		return (true);
-	}
-	if (!get_outfile(curr_token, data->cmd->prev, data))
-	{
-		if (data->cmd->prev->outfile != -1)
-		{
-			if (data->cmd->prev->infile >= 0)
-				close(data->cmd->infile);
-			return (false);
-		}
-		data->cmd->prev->skip_cmd = true;
-		return (true);
-	}
-	data->cmd->prev->cmd_param = get_param(data, curr_token);
-	if (!data->cmd->cmd_param)
-	// erro notif??
-		return (false);
 	return (true);
 }

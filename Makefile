@@ -18,16 +18,19 @@ SRC = \
 	src/parse/dollar_replace.c \
 	src/parse/create_list_cmd.c \
 	src/parse/create_list_token.c \
+	src/parse/list_token_utils.c \
 	src/parse/cmd_param.c \
-	src/parse/fill_command.c \
+	src/parse/cmd_fd.c \
 	src/utils/free.c \
 	src/utils/utils.c \
 	src/utils/utils_list.c \
 	src/utils/utils_array.c \
 	src/utils/signal.c \
+	src/utils/debug.c \
 	src/exec/here_doc.c \
 	src/exec/builtin.c \
 	src/exec/exec.c \
+	src/exec/exec2.c \
 	src/exec/absolute_path.c \
 	src/exec/cmd_exist.c \
 	src/builtin/ft_echo.c \
