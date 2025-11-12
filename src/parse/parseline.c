@@ -18,11 +18,11 @@ bool	create_list_token(t_token **head_token, char *line)
 			return (false);
 		}
 	}
-		if ((*head_token)->type == PIPE || (*head_token)->prev->type == PIPE)
-		{
-			write(2, "minishell: syntax error near unexpected token '|'\n", 51);
-			return (false);
-		}
+	if ((*head_token)->type == PIPE || (*head_token)->prev->type == PIPE)
+	{
+		write(2, "minishell: syntax error near unexpected token '|'\n", 51);
+		return (false);
+	}
 	return (true);
 }
 

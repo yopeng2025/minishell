@@ -62,10 +62,12 @@ bool	add_token_node(t_token **head_token, char *str, int type)
 bool	add_token(char **line, t_token **head_token)
 {
 	char	*str;
+	int		quote;
 	int		lenth_token;
 
-	lenth_token = get_token_lenth(line);
-	str = malloc(sizeof(char) * (lenth_token + 1));
+	lenth_token = get_token_lenth(*line, &quote);
+	// printf("lenth: %d quote: %d\n", lenth_token, quote);
+	str = malloc(sizeof(char) * (lenth_token - quote + 1));
 	if (!str)
 		return (false);
 	cpy_str(str, *line, lenth_token);
@@ -75,8 +77,6 @@ bool	add_token(char **line, t_token **head_token)
 		return (false);
 	}
 	*line += lenth_token;
-	if (is_quote((*line)[0]))
-		(*line)++;
 	return (true);
 }
 
