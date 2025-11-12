@@ -1,5 +1,4 @@
-#隐藏中间输出
-#MAKEFLAGS += --silent
+MAKEFLAGS += --silent
 
 NAME = minishell
 
@@ -9,7 +8,6 @@ CFLAGS = -Wall -Wextra -Werror -Iinclude -Ilibft
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-#随着c文件的增加，加c文件名称#
 SRC = \
 	src/main.c \
 	src/parse/quote.c \
@@ -53,7 +51,6 @@ $(NAME): $(OBJ)
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
-#随着文件夹的增加，要在$(obj_dir)后面加文件夹名称#
 $(OBJ_DIR)/%.o: src/%.c
 	mkdir -p $(OBJ_DIR)/parse $(OBJ_DIR)/utils $(OBJ_DIR)/exec $(OBJ_DIR)/builtin
 	$(CC) $(CFLAGS) -c $< -o $@
