@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yopeng <yopeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:48:27 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/11 15:55:38 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/12 16:31:57 by yopeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ int	ft_exit(t_data *data, char **cmd_param)
 	long	exit_code;
 
 	printf("exit\n");
-	if (cmd_param[2])
+	if (count_param(cmd_param) > 2)
 	{
 		write(2, "minishell: exit: too many arguments\n", 37);
-		exit_code =  127;
-		return (exit_code);
+		exit_code = 1;
+		return (1);
 	}
 	if (!cmd_param[1])
 		free_all(data, NULL, data->exit_code);
 	if (!if_all_numeric(cmd_param[1]))
 	{
-		write(2, "minishell: exit:", 17);
+		write(2, "minishell: exit: ", 17);
 		write(2, cmd_param[1], ft_strlen(cmd_param[1]));
 		write(2, ": numeric argument required\n", 29);
 		free_all(data, NULL, 2);

@@ -19,7 +19,7 @@ static bool	read_in_stdin(char *word, t_data *data, int fd)
 		if (!ft_strncmp(word, buf, INT_MAX))
 			break;
 		if (!replace_dollar(&buf, data))
-			free(data);                 //原本是free_all
+			free_all(data, ERR_MALLOC, EXT_MALLOC);
 		write(fd, buf, ft_strlen(buf));
 		write(fd, "\n", 1);
 		free(buf);
@@ -29,12 +29,12 @@ static bool	read_in_stdin(char *word, t_data *data, int fd)
 	return (true);
 }
 
+	//创建名为.heredoc.tmp的临时文件，保存输入的内容。0644：文件权限（rw-r--r--） 
+	// |按位或 创建+只写+清空内容
 int	here_doc(char *word, t_data *data)
 {
 	int	fd;
 
-	//创建名为.heredoc.tmp的临时文件，保存输入的内容。0644：文件权限（rw-r--r--） 
-	// |按位或 创建+只写+清空内容
 	fd = open(".heredoc.tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (-1);

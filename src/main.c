@@ -2,6 +2,21 @@
 
 pid_t g_signal_pid;
 
+bool	empty_line(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && is_space(str[i]))
+		i++;
+	if (i == (int)ft_strlen(str))
+	{
+		free(str);
+		return (true);
+	}
+	return (false);
+}
+
 void	initial_data(t_data *data)
 {
 	data->exit_code = 0;
@@ -47,10 +62,11 @@ int main(int argc, char **argv, char **env)
 	{
 		line = readline("minishell> ");
 		if (!line)
-			free_all(&data, "exit\n", data.exit_code); //++
-		if (*line)
-			add_history(line);
-		printf("You typed: %s\n", line);
+			free_all(&data, "exit\n", data.exit_code);
+		if (empty_line(line))
+			continue;
+		add_history(line);
+//		printf("You typed: %s\n", line);
 		if (!parseline(&data, line))
 			continue;
 		exec(&data);

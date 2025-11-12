@@ -12,7 +12,7 @@ static bool	export_no_arg(t_list *env)
 	int		i;
 	int		j;
 
-	array = list_to_array(env); //malloc了 要释放
+	array = list_to_array(env);
 	if (!array)
 		return (false);
 	sort_array(array, env);
@@ -23,7 +23,7 @@ static bool	export_no_arg(t_list *env)
 		j = 0;
 		while (array[i][j] && array[i][j] != '=')
 			printf("%c", array[i][j++]);
-		if (array[i][j] == '=')
+		if (array[i][j] && array[i][j] == '=')
 			printf("=\"%s\"\n", &array[i][j + 1]);
 		else
 			printf("\n");
@@ -41,9 +41,9 @@ bool static	valid_identifier(char *cmd)
 	int	i;
 
 	i = 0;
-	if (!cmd[i] || (!ft_isalpha(cmd[i]) && cmd[i] != '_'))
+	if (!cmd[0] || (!ft_isalpha(cmd[0]) && cmd[0] != '_'))
 		return (false);
-	while (cmd[i] != '=')
+	while (cmd[i] && cmd[i] != '=')
 	{
 		if (!ft_isalnum(cmd[i]) && cmd[i] != '_')
 			return (false);
@@ -131,7 +131,7 @@ int	ft_export(char **cmd, t_list **env)
 	{
 		if (!valid_identifier(cmd[i]))
 		{
-			print_error("export: invalid identifier\n");
+			print_error(" not a valid identifier\n");
 			exit_code = 1;
 		}
 		else if (!export(cmd[i], env))

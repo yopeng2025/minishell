@@ -79,7 +79,7 @@ bool	cmd_exist(char **path, t_data *data, char *cmd)
 	if (!ft_strchr(cmd, '/'))
 		*path = find_path(data, cmd, data->env);
 	else
-		absolute_path(path, cmd, data);					//这一步骤让path=cmd，即path=./a.out
+		absolute_path(path, cmd, data);//这一步骤让path=cmd，即path=./a.out
 	if (!(*path) && data->exit_code == -1)
 		free_all(data, NULL, data->exit_code);
 	if (!(*path))

@@ -17,14 +17,13 @@ char	*get_dollar_word(char *line, int size)
 	char	*word;
 	int		i;
 
-	word = malloc(sizeof(char) * size);//要释放
+	word = malloc(sizeof(char) * size);
 	if (!word)
 		return (NULL);
 	i = 0;
 	while (line[++i] && i < size)
 		word[i - 1] = line[i];
 	word[i - 1] = '\0';
-//	fprintf(stderr, "word:%s\n", word);
 	return (word);
 }
 
@@ -49,7 +48,7 @@ char	*get_elem_env(t_list *env, char *key)
 			i = 0;
 			while(tmp->str[i] && tmp->str[i] != '=')
 				i++;
-			return (ft_strdup(&tmp->str[i + 1])); //要释放
+			return (ft_strdup(&tmp->str[i + 1]));
 		}
 		tmp = tmp->next;
 	}

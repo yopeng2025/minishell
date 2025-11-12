@@ -4,7 +4,7 @@ void	execute_cmd(t_data *data, t_cmd *cmd, int *pip)
 {
 	g_signal_pid = fork();
 	if (g_signal_pid < 0)
-		free_all(data, NULL, -1); //需要再看 因为不知道如何打印错误信息
+		free_all(data, ERR_FORK, EXT_FORK);
 	else if (g_signal_pid == 0)
 		child_process(data, cmd, pip);
 	else
@@ -63,8 +63,7 @@ void	exec(t_data *data)
 		return ;
 	}
 	if (pipe(pip) == -1)
-		//error notif
-		free_all(data, NULL, -1); //需要再看 因为不知道如何打印错误信息
+		free_all(data, ERR_PIPE, EXT_PIPE);
 	execute_cmd(data, tmp, pip);
 	tmp = tmp->next;
 	while (tmp != data->cmd)

@@ -39,14 +39,14 @@ bool	parseline(t_data *data, char *line)
 		free_token_list(&data->token);
 		return (false);
 	}
-	free(line);										//++
-	print_token_list(data->token);
+	free(line);
+//	print_token_list(data->token);
 	if (!create_list_cmd(data))
 	{
 		free(line);
 		free_token_list(&data->token);
 		return (false);
 	}
-	print_cmd_list(data->cmd);
+//	print_cmd_list(data->cmd);
 	return(true);
 }

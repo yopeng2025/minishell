@@ -43,41 +43,34 @@ static void	update_cwd(t_data *data, char *path)
 	// update_oldpwd(data); 这个函数可以去掉不写 因为cd -不是相对或绝对路径
 	if (!getcwd(cwd, PATH_MAX))
 	{
-		//打印错误信息
+		print_error(path);
 		return ;
 	}
 	pwd = ft_strjoin("PWD=", cwd);
 	if (!pwd)
-		//打印错误信息
+	{
+		print_error(ERR_MALLOC);
 		return ;
+	}
 	export(pwd, &data->env);
 	free(pwd);
-}
-static int	count_param(char **cmd_param)
-{
-	int	count;
-
-	count = 0;
-	while (cmd_param[count])
-		count++;
-	return (count);
 }
 
 int	ft_cd(t_data *data, char **cmd_param)
 {
 	if (count_param(cmd_param) > 2)
 	{
-		//打印错误信息 minishell: cd: too many arguments
+		print_error("minishell: cd: too many arguments\n");
 		return (1);
 	}
 	if (count_param(cmd_param) == 1)
 	{
-		// chdir()把cwd更新为home
+		// chdir()把cwd更新为home ？这里怎么改？
 		return (0);
 	}
 	if (chdir(cmd_param[1]) == -1)
 	{
-		//打印错误信息
+		print_error(cmd_param[1]);
 		return (1);
 	}
 	update_cwd(data, cmd_param[1]);
