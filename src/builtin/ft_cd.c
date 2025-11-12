@@ -53,15 +53,6 @@ static void	update_cwd(t_data *data, char *path)
 	export(pwd, &data->env);
 	free(pwd);
 }
-static int	count_param(char **cmd_param)
-{
-	int	count;
-
-	count = 0;
-	while (cmd_param[count])
-		count++;
-	return (count);
-}
 
 int	ft_cd(t_data *data, char **cmd_param)
 {

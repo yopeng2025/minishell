@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:48:27 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/11 15:55:38 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/12 12:49:16 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int	ft_exit(t_data *data, char **cmd_param)
 	long	exit_code;
 
 	printf("exit\n");
-	if (cmd_param[2])
+	if (count_param(cmd_param) >= 2)
+	// if (cmd_param[2])
 	{
 		write(2, "minishell: exit: too many arguments\n", 37);
 		exit_code =  127;
