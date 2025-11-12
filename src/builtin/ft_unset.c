@@ -2,12 +2,12 @@
 
 static void	check_env(t_list *tmp, t_list **env)
 {
-	if (tmp->next == tmp) //只有1个节点
+	if (tmp->next == tmp)
 	{
 		(*env) = NULL;
 		return ;
 	}
-	if (tmp == (*env))    //第1个节点
+	if (tmp == (*env))
 		(*env) = tmp->next;
 }
 

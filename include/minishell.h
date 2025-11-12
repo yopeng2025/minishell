@@ -2,7 +2,12 @@
 # define MINISHELL_H
 
 # define ERR_MALLOC "malloc error\n"
+# define ERR_FORK	"fork error\n"
+# define ERR_PIPE	"pipe error\n"
+
 # define EXT_MALLOC 1
+# define EXT_FORK	1
+# define EXT_PIPE	1
 
 # define INPUT		1 	//"<"
 # define HEREDOC	2	//"<<"
@@ -11,9 +16,6 @@
 # define PIPE		5	//"|"
 # define CMD		6	//"|"
 # define ARG		7	//"|"
-
-# define INT_MAX	2147483647
-# define PATH_MAX	4096
 
 # include "libft.h"
 # include <stdio.h>
@@ -26,6 +28,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <limits.h>
+# include <linux/limits.h>
 # include <signal.h>
 
 extern pid_t	g_signal_pid;

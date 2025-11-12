@@ -23,7 +23,7 @@ static int	count_arg(t_data *data, t_token *token)
 
 static int	add_to_cmd_param(char **cmd_param, int *i, char *str)
 {
-	cmd_param[*i] = ft_strdup(str);//要释放
+	cmd_param[*i] = ft_strdup(str);
 	if (!cmd_param[*i])
 		return (0);
 	(*i)++;

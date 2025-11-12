@@ -20,9 +20,11 @@ static bool	check_new_line(char *cmd)
 
 static void	exec_echo(char **cmd, int i, int count, bool new_line)
 {
-	new_line = check_new_line(cmd[i]);
-	if (!new_line)
+	while (cmd[i] && !check_new_line(cmd[i]))
+	{
 		i++;
+		new_line = false;
+	}
 	while (i < count)
 	{
 		write(1, cmd[i], ft_strlen(cmd[i]));

@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-//禁用 do while
-//测试函数：打印所有的token
 void	print_token_list(t_token *head)
 {
 	t_token *cur;

@@ -59,9 +59,8 @@ bool	fill_command(t_token *curr_token, t_data *data)
 		return (true);
 	}
 	data->cmd->prev->cmd_param = get_param(data, curr_token);
-	if (!data->cmd->cmd_param)
-	// erro notif??
-		return (false);
+	if (!data->cmd->prev->cmd_param)
+		free_all(data, ERR_MALLOC, EXT_MALLOC);
 	return (true);
 }
 
