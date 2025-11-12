@@ -81,8 +81,7 @@ bool	add_token(char **line, t_token **head_token);
 bool	add_special_token(char **line, t_token **head_token, int type);
 //parse--token--utils
 void	cpy_str(char *str, char *line, int len);
-bool	is_quote(char c);
-int		get_token_lenth(char **line);
+int		get_token_lenth(char *line, int *quote);
 bool	is_space(char c);
 int		is_special(char *line);
 

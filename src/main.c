@@ -50,7 +50,7 @@ int main(int argc, char **argv, char **env)
 			free_all(&data, "exit\n", data.exit_code); //++
 		if (*line)
 			add_history(line);
-		printf("You typed: %s\n", line);
+		// printf("You typed: %s\n", line);
 		if (!parseline(&data, line))
 			continue;
 		exec(&data);
