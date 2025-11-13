@@ -8,13 +8,13 @@ static int	count_arg(t_data *data, t_token *token)
 	i = 0;
 	tmp = token;
 	if (tmp->type == CMD || (tmp->type == ARG \
-		&& tmp->prev != data->token->prev && tmp->type >5))
+		&& tmp->prev != data->token->prev && tmp->prev->type > 5))
 		i++;
 	tmp = tmp->next;
 	while (tmp != data->token && tmp->type != PIPE)
 	{	
 		if (tmp->type == CMD || (tmp->type == ARG \
-			&& tmp->prev != data->token->prev && tmp->type >5))
+			&& tmp->prev != data->token->prev && tmp->prev->type > 5))
 			i++;
 		tmp = tmp->next;
 	}
@@ -52,12 +52,13 @@ char	**get_param(t_data *data, t_token *token)
 
 	i = 0;
 	cmd_param = malloc(sizeof(char *) * (count_arg(data, token) + 1));
+	// printf("arg数量:%d\n", count_arg(data, token));
 	if (!cmd_param)
 		return (NULL);
 	tmp = token;
 	if (tmp->type != PIPE && \
 		(tmp->type == CMD || (tmp->type == ARG \
-			&& tmp->prev != data->token->prev && tmp->type >5)) && \
+			&& tmp->prev != data->token->prev && tmp->prev->type > 5)) && \
 			!add_to_cmd_param(cmd_param, &i, tmp->str))
 			return (free_cmd_param(cmd_param, i));
 	tmp = tmp->next;
@@ -65,7 +66,7 @@ char	**get_param(t_data *data, t_token *token)
 	{
 		if (tmp->type != PIPE && \
 			(tmp->type == CMD || (tmp->type == ARG \
-				&& tmp->prev != data->token->prev && tmp->type >5)) && \
+				&& tmp->prev != data->token->prev && tmp->prev->type > 5)) && \
 				!add_to_cmd_param(cmd_param, &i, tmp->str))
 				return (free_cmd_param(cmd_param, i));
 		tmp = tmp->next;
