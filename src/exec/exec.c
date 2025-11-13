@@ -74,7 +74,7 @@ void	exec(t_data *data)
 	while (tmp != data->cmd)
 	{
 		if (pipe(pip) == -1)
-			free_all(data, NULL, 1);
+			free_all(data, ERR_PIPE, EXT_PIPE); //原本是free_all(data, NULL, 1);
 		execute_cmd(data, tmp, pip);
 		tmp = tmp->next;
 	}
