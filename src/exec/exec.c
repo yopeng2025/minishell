@@ -6,7 +6,12 @@ void	execute_cmd(t_data *data, t_cmd *cmd, int *pip)
 	if (g_signal_pid < 0)
 		free_all(data, ERR_FORK, EXT_FORK);
 	else if (g_signal_pid == 0)
-		child_process(data, cmd, pip);
+	{
+		if (cmd->skip_cmd == false)
+			child_process(data, cmd, pip);
+		else
+			free_all(data, NULL, 0);
+	}
 	else
 		parent_process(data, cmd, pip);
 }
@@ -56,8 +61,8 @@ void	exec(t_data *data)
 
 	tmp = data->cmd;
 	pip = data->pip;
-	if (tmp && tmp->cmd_param[0] && tmp->next == tmp \
-		&& tmp->skip_cmd == false && is_builtin(tmp->cmd_param[0]))
+	if (tmp && tmp->skip_cmd == false && tmp->cmd_param[0] && tmp->next == tmp \
+		 && is_builtin(tmp->cmd_param[0]))
 	{
 		launch_builtin(data, tmp);
 		return ;

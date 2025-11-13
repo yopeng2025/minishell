@@ -42,8 +42,8 @@ void	print_cmd_list(t_cmd *head)
 	int i = 0;
 	do
 	{
-		printf("[%d] fd_in=%d fd_out=%d\n",
-			i, cur->infile, cur->outfile);
+		printf("[%d] fd_in=%d fd_out=%d skip:%d\n",
+			i, cur->infile, cur->outfile, cur->skip_cmd);
 		printf("cmd[%d]:", i);
 		if (cur->cmd_param)
 		{
