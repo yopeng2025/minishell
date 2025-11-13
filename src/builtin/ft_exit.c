@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yopeng <yopeng@student.42.fr>              +#+  +:+       +#+        */
+/*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:48:27 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/12 16:31:57 by yopeng           ###   ########.fr       */
+/*   Updated: 2025/11/13 12:25:32 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static bool	if_all_numeric(char *cmd_param)
 	return (true);
 }
 
-int	ft_exit(t_data *data, char **cmd_param)
+void	ft_exit(t_data *data, char **cmd_param)
 {
 	long	exit_code;
 
@@ -68,8 +68,8 @@ int	ft_exit(t_data *data, char **cmd_param)
 	if (count_param(cmd_param) > 2)
 	{
 		write(2, "minishell: exit: too many arguments\n", 37);
-		exit_code = 1;
-		return (1);
+		data->exit_code = 1;
+		return ;
 	}
 	if (!cmd_param[1])
 		free_all(data, NULL, data->exit_code);
@@ -83,5 +83,4 @@ int	ft_exit(t_data *data, char **cmd_param)
 	exit_code = ft_atol(cmd_param[1]);
 	exit_code = (unsigned char)exit_code;
 	free_all(data, NULL, exit_code);
-	return (exit_code);
 }

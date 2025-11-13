@@ -43,7 +43,7 @@ void	child_process(t_data *data, t_cmd *cmd, int *pip)
 		redirect_io(data, cmd, pip);
 		envp = list_to_array(data->env);
 		if (!envp)
-			free_all(data, NULL, 1);
+			free_all(data, ERR_MALLOC, EXT_MALLOC);
 		rl_clear_history();
 		signal(SIGQUIT, SIG_DFL);
 		execve(path, cmd->cmd_param, envp);
