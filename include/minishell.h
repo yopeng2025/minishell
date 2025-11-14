@@ -102,15 +102,16 @@ int		add_char(char *c, char **str, t_data *data, int *index);
 void	print_cmd_list(t_cmd *head);
 bool	create_new_command(t_cmd **new);
 bool	add_command_node(t_cmd **head_cmd);
-bool	fill_command(t_token *curr_token, t_data *data);
+bool	get_in_out_file(t_token *tmp, t_data *data);
+void	fill_command(t_token *curr_token, t_data *data);
 bool	add_command(t_token *curr_token, t_data *data);
 bool	create_list_cmd(t_data *data);
 //parse--command-fill fd
 int		open_file(t_data *data, char *filename, int type);
 bool	get_in(t_token *curr_token, t_cmd *cmd, t_data *data);
 bool	get_out(t_token *curr_token, t_cmd *cmd, t_data *data);
-bool	get_infile(t_token *curr_token, t_cmd *cmd, t_data *data);
-bool	get_outfile(t_token *curr_token, t_cmd *cmd, t_data *data);
+
+
 //parse--command-fill cmd param
 char	**get_param(t_data *data, t_token *token);
 

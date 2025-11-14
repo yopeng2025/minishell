@@ -40,6 +40,7 @@ bool	parseline(t_data *data, char *line)
 		free(line);
 		free_all(data, ERR_MALLOC, EXT_MALLOC);
 	}
+	// print_token_list(data->token);
 	free(line);
 	if (data->token && data->token->prev->type == PIPE)
 	{
@@ -54,7 +55,6 @@ bool	parseline(t_data *data, char *line)
 		free_cmd_list(&data->cmd);
 		return (false);
 	}
-//	print_cmd_list(data->cmd);
-//	print_token_list(data->token);
+	// print_cmd_list(data->cmd);
 	return(true);
 }
