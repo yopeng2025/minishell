@@ -47,7 +47,9 @@ void	wait_all(t_data *data)
 		if (pid == g_signal_pid)
 		{
 			if (WIFEXITED(status))
-				data->exit_code= WEXITSTATUS(status);
+        		data->exit_code = WEXITSTATUS(status);
+    		else if (WIFSIGNALED(status))
+        		data->exit_code = 128 + WTERMSIG(status);
 		}
 		tmp = tmp->next;
 		len--;
