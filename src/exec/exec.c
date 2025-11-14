@@ -10,7 +10,7 @@ void	execute_cmd(t_data *data, t_cmd *cmd, int *pip)
 		if (cmd->skip_cmd == false)
 			child_process(data, cmd, pip);
 		else
-			free_all(data, NULL, 0);
+			free_all(data, NULL, 1);
 	}
 	else
 		parent_process(data, cmd, pip);
