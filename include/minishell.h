@@ -70,18 +70,18 @@ typedef struct s_data
 
 //parse
 bool	parseline(t_data *data, char *line);
-bool	create_list_token(t_token **head_token, char *line);
+bool	create_list_token(t_data *data, t_token **head_token, char *line);
 
 //parse--quote
 void	quoting_choice(bool *dq, bool *sq, int *index, char c);
 int		open_quote(t_data *data, char *line);
 
 //parse--token
-t_token	*create_new_token(char *str, int type);
+t_token	*create_new_token(t_data *data, char *str, int type);
 void	add_new_token_back(t_token **head_token, t_token *new);
-bool	add_token_node(t_token **head_token, char *str, int type);
-bool	add_token(char **line, t_token **head_token);
-bool	add_special_token(char **line, t_token **head_token, int type);
+bool	add_token_node(t_data *data, t_token **head_token, char *str, int type);
+bool	add_token(t_data *data, char **line, t_token **head_token);
+bool	add_special_token(t_data *data, char **line, t_token **head_token, int type);
 //parse--token--utils
 void	cpy_str(char *str, char *line, int len);
 int		get_token_lenth(char *line, int *quote);
