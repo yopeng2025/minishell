@@ -87,7 +87,10 @@ void	fill_command(t_token *curr_token, t_data *data)
 bool	add_command(t_token *curr_token, t_data *data)
 {
 	if (!add_command_node(&data->cmd))
+	{
+		free_all(data, ERR_MALLOC, EXT_MALLOC);
 		return (false);
+	}
 	fill_command(curr_token, data);
 	return (true);
 }

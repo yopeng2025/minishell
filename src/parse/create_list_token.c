@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-t_token	*create_new_token(char *str, int type)
+t_token	*create_new_token(t_data *data, char *str, int type)
 {
 	t_token	*new;
 
 	new = malloc(sizeof(t_token));
 	if (!new)
-		return (NULL);
+		free_all(data, ERR_MALLOC, EXT_MALLOC);
 	new->str = ft_strdup(str);
 	if (!new->str)
 	{
@@ -37,11 +37,11 @@ void	add_new_token_back(t_token **head_token, t_token *new)
 	(*head_token)->prev = new;
 }
 
-bool	add_token_node(t_token **head_token, char *str, int type)
+bool	add_token_node(t_data *data, t_token **head_token, char *str, int type)
 {
 	t_token	*new;
 	
-	new = create_new_token(str, type);
+	new = create_new_token(data, str, type);
 	if (!new)
 	{
 		free_token_list(head_token);
@@ -59,19 +59,18 @@ bool	add_token_node(t_token **head_token, char *str, int type)
 	return (true);
 }
 
-bool	add_token(char **line, t_token **head_token)
+bool	add_token(t_data *data, char **line, t_token **head_token)
 {
 	char	*str;
 	int		quote;
 	int		lenth_token;
 
 	lenth_token = get_token_lenth(*line, &quote);
-	// printf("lenth: %d quote: %d\n", lenth_token, quote);
 	str = malloc(sizeof(char) * (lenth_token - quote + 1));
 	if (!str)
-		return (false);
+		free_all(data, ERR_MALLOC, EXT_MALLOC);
 	cpy_str(str, *line, lenth_token);
-	if (!add_token_node(head_token, str, 0))
+	if (!add_token_node(data, head_token, str, 0))
 	{
 		free(str);
 		return (false);
@@ -80,17 +79,17 @@ bool	add_token(char **line, t_token **head_token)
 	return (true);
 }
 
-bool	add_special_token(char **line, t_token **head_token, int type)
+bool	add_special_token(t_data *data, char **line, t_token **head_token, int type)
 {
-	if (type == INPUT && !add_token_node(head_token, ft_strdup("<"), INPUT))
+	if (type == INPUT && !add_token_node(data, head_token, ft_strdup("<"), INPUT))
 		return (false);
-	else if (type == TRUNCATE && !add_token_node(head_token, ft_strdup(">"), TRUNCATE))
+	else if (type == TRUNCATE && !add_token_node(data, head_token, ft_strdup(">"), TRUNCATE))
 		return (false);
-	else if (type == HEREDOC && !add_token_node(head_token, ft_strdup("<<"), HEREDOC))
+	else if (type == HEREDOC && !add_token_node(data, head_token, ft_strdup("<<"), HEREDOC))
 		return (false);
-	else if (type == APPEND && !add_token_node(head_token, ft_strdup(">>"), APPEND))
+	else if (type == APPEND && !add_token_node(data, head_token, ft_strdup(">>"), APPEND))
 		return (false);
-	else if (type == PIPE && !add_token_node(head_token, ft_strdup("|"), PIPE))
+	else if (type == PIPE && !add_token_node(data, head_token, ft_strdup("|"), PIPE))
 		return (false);
 	if (type == INPUT || type == TRUNCATE || type == PIPE)
 		(*line)++;
