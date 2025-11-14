@@ -37,39 +37,58 @@ bool	add_command_node(t_cmd **head_cmd)
 	}
 	return (true);
 }
-bool	fill_command(t_token *curr_token, t_data *data)
+
+bool	get_in_out_file(t_token *tmp, t_data *data)
 {
-	if (!get_infile(curr_token, data->cmd->prev, data))
+	if (tmp->type == INPUT || tmp->type == HEREDOC)
 	{
-		if (data->cmd->prev->infile != -1)
+		if (!get_in(tmp, data->cmd->prev, data))
+		{
+			if (data->cmd->prev->outfile >= 0)
+				close(data->cmd->outfile);
+			data->cmd->prev->skip_cmd = true;
+			data->cmd->prev->outfile = -1;
+			data->exit_code = 1;
 			return (false);
-		data->cmd->prev->skip_cmd = true;
-		data->cmd->prev->outfile = -1;
-		return (true);
+		}
 	}
-	if (!get_outfile(curr_token, data->cmd->prev, data))
+	else if (tmp->type == APPEND || tmp->type == TRUNCATE)
 	{
-		if (data->cmd->prev->outfile != -1)
+		if (!get_out(tmp, data->cmd->prev, data))
 		{
 			if (data->cmd->prev->infile >= 0)
 				close(data->cmd->infile);
+			data->cmd->prev->skip_cmd = true;
+			data->exit_code = 1;
 			return (false);
 		}
-		data->cmd->prev->skip_cmd = true;
-		return (true);
+	}
+	return (true);
+}
+void	fill_command(t_token *curr_token, t_data *data)
+{
+	t_token	*tmp;
+
+	tmp = curr_token;
+	get_in_out_file(tmp, data);
+	tmp = tmp->next;
+	while (tmp->type != PIPE && tmp != data->token)
+	{
+		if (!get_in_out_file(tmp, data))
+			return ;
+		tmp = tmp->next;
 	}
 	data->cmd->prev->cmd_param = get_param(data, curr_token);
 	if (!data->cmd->prev->cmd_param)
 		free_all(data, ERR_MALLOC, EXT_MALLOC);
-	return (true);
+	return ;
 }
 
 bool	add_command(t_token *curr_token, t_data *data)
 {
 	if (!add_command_node(&data->cmd))
 		return (false);
-	if (!fill_command(curr_token, data))
-		return (false);
+	fill_command(curr_token, data);
 	return (true);
 }
 
