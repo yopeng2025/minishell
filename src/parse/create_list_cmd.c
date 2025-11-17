@@ -46,9 +46,9 @@ bool	get_in_out_file(t_token *tmp, t_data *data)
 		{
 			if (data->cmd->prev->outfile >= 0)
 				close(data->cmd->outfile);
-			data->cmd->prev->skip_cmd = true;
+			if (data->cmd->prev->infile == -1)
+				data->cmd->prev->skip_cmd =  true;
 			data->cmd->prev->outfile = -1;
-			data->exit_code = 1;
 			return (false);
 		}
 	}
@@ -58,30 +58,32 @@ bool	get_in_out_file(t_token *tmp, t_data *data)
 		{
 			if (data->cmd->prev->infile >= 0)
 				close(data->cmd->infile);
-			data->cmd->prev->skip_cmd = true;
-			data->exit_code = 1;
+			if (data->cmd->prev->outfile == -1)
+				data->cmd->prev->skip_cmd =  true;
 			return (false);
 		}
 	}
 	return (true);
 }
-void	fill_command(t_token *curr_token, t_data *data)
+
+bool	fill_command(t_token *curr_token, t_data *data)
 {
 	t_token	*tmp;
 
 	tmp = curr_token;
-	get_in_out_file(tmp, data);
+	if (!get_in_out_file(tmp, data))
+		return (false);
 	tmp = tmp->next;
 	while (tmp->type != PIPE && tmp != data->token)
 	{
 		if (!get_in_out_file(tmp, data))
-			return ;
+			return (false);
 		tmp = tmp->next;
 	}
 	data->cmd->prev->cmd_param = get_param(data, curr_token);
 	if (!data->cmd->prev->cmd_param)
 		free_all(data, ERR_MALLOC, EXT_MALLOC);
-	return ;
+	return (true);
 }
 
 bool	add_command(t_token *curr_token, t_data *data)
@@ -91,7 +93,8 @@ bool	add_command(t_token *curr_token, t_data *data)
 		free_all(data, ERR_MALLOC, EXT_MALLOC);
 		return (false);
 	}
-	fill_command(curr_token, data);
+	if (!fill_command(curr_token, data) && data->cmd->skip_cmd == 0)
+		return (false);
 	return (true);
 }
 
@@ -101,18 +104,18 @@ bool	create_list_cmd(t_data *data)
 	
 	curr = data->token;
 	if (!add_command(curr, data))
-	{
-		free_cmd_list(&data->cmd);
+	// {
+	// 	free_cmd_list(&data->cmd);
 		return (false);
-	}
+	// }
 	curr = curr->next;
 	while (curr != data->token)
 	{
 		if(curr->prev->type == PIPE && !add_command(curr, data))
-		{
-			free_cmd_list(&data->cmd);
+		// {
+		// 	free_cmd_list(&data->cmd);
 			return (false);
-		}
+		// }
 		curr = curr->next;
 	}
 	return (true);

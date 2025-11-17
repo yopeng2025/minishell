@@ -34,21 +34,24 @@ void	child_process(t_data *data, t_cmd *cmd, int *pip)
 	char	**envp;
 
 	path = NULL;
-	if (cmd->skip_cmd)
+	if (cmd->skip_cmd == 1)
 		data->exit_code = 1;
-	else if (is_builtin(cmd->cmd_param[0]))
-		built(data, cmd, pip);
-	else if (cmd_exist(&path, data, cmd->cmd_param[0]))
+	else
 	{
-		redirect_io(data, cmd, pip);
-		envp = list_to_array(data->env);
-		if (!envp)
-			free_all(data, ERR_MALLOC, EXT_MALLOC);
-		rl_clear_history();
-		signal(SIGQUIT, SIG_DFL);
-		execve(path, cmd->cmd_param, envp);
-		if (path)
-			free(path);
+		if (is_builtin(cmd->cmd_param[0]))
+			built(data, cmd, pip);
+		else if (cmd_exist(&path, data, cmd->cmd_param[0]))
+		{
+			redirect_io(data, cmd, pip);
+			envp = list_to_array(data->env);
+			if (!envp)
+				free_all(data, ERR_MALLOC, EXT_MALLOC);
+			rl_clear_history();
+			signal(SIGQUIT, SIG_DFL);
+			execve(path, cmd->cmd_param, envp);
+			if (path)
+				free(path);
+		}
 	}
 	free_all(data, NULL, data->exit_code);
 }

@@ -20,12 +20,6 @@ bool	create_list_token(t_data *data, t_token **head_token, char *line)
 	}
 	if (*head_token == NULL)
 		return (true);
-	if ((*head_token)->type == PIPE || (*head_token)->prev->type == PIPE)
-	{
-		write(2, "minishell: syntax error near unexpected token '|'\n", 51);
-		data->exit_code = 1;
-		return (false);
-	}
 	return (true);
 }
 
@@ -41,15 +35,15 @@ bool	parseline(t_data *data, char *line)
 		free(line);
 		return (false);
 	}
+	if (data->token->type == PIPE || data->token->prev->type == PIPE)
+	{
+		write(2, "minishell: syntax error near unexpected token '|'\n", 51);
+		free_token_list(&data->token);
+		data->exit_code = 1;
+		return (false);
+	}
 	// print_token_list(data->token);
 	free(line);
-	// if (data->token && data->token->prev->type == PIPE)
-	// {
-	// 	write(2, "Error: Unclosed pipe\n", 21);
-	// 	data->exit_code = 2;
-	// 	free_token_list(&data->token);
-	// 	return (false);
-	// }
 	if (!data->token || !create_list_cmd(data))
 	{
 		free_token_list(&data->token);
