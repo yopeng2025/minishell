@@ -13,10 +13,16 @@ bool	handle_dollar_digit(char *line, int *i, t_data *data)
 
 bool	handle_dollar_quote(char *line, int *i, t_data *data)
 {
+	if (!line[*i] || !line[*i + 1])
+		return (false);
 	if (line[*i] == '$' && line[*i + 1] == '"' && !data->sq)
 	{
-		(*i)++;
-		return (true);
+		if (line[*i + 2] && line[*i + 2] != '"')
+		{
+			(*i)++;
+			return (true);
+		}
+		return (false);
 	}
 	return (false);
 }
