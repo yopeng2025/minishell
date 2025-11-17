@@ -96,7 +96,7 @@ int		replace_dollar(char **line, t_data *data);
 int		ft_search(char *str, char c);
 char	*get_dollar_word(char *line, int size);
 char	*get_elem_env(t_list *env, char *key);
-int		add_char(char *c, char **str, t_data *data, int *index);
+int		add_char(char *c, char **str, int *index);
 
 //parse--command
 void	print_cmd_list(t_cmd *head);
@@ -173,6 +173,11 @@ void	free_token_list(t_token **head_token);
 void	free_cmd_list(t_cmd **head_cmd);
 void	free_array(char **array);
 void	signals(void);
+
+//replace
+bool	handle_dollar_digit(char *line, int *i, t_data *data);
+bool	handle_dollar_quote(char *line, int *i, t_data *data);
+bool	handle_dollar_var(char *line, int *i, char **str, t_data *data);
 
 //debug
 void	print_token_list(t_token *head);

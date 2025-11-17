@@ -56,15 +56,13 @@ char	*get_elem_env(t_list *env, char *key)
 }
 
 /* 添加字符至输出字符串 */
-int	add_char(char *c, char **str, t_data *data, int *index)
+int	add_char(char *c, char **str, int *index)
 {
 	char	char_to_str[2];
 	char	*tmp;
-	int		i;
 
-	i = 0;
-	if (c[i] == '$' && !data->sq && exist_in_env(c, &i, data))
-		return(1);
+	// if (c[i] == '$' && !data->sq && exist_in_env(c, &i, data))
+	// 	return(1);
 	char_to_str[0] = *c;
 	char_to_str[1] = '\0';
 	(*index)++;

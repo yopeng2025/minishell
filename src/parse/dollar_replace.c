@@ -45,8 +45,8 @@ static int	count_name_len(char *line, int *i)
 	int		name_len;
 
 	name_len = 0;
-	while (line[*i + 1] + name_len && \
-		(ft_isalnum(line[*i + 1 + name_len]) || line[*i + 1 + name_len] == '='))
+	while (line[*i + 1 + name_len] && \
+		(ft_isalnum(line[*i + 1 + name_len]) || line[*i + 1 + name_len] == '_'))
 		name_len++;
 	return (name_len);
 }
@@ -98,10 +98,10 @@ int	add_dollar(char *line, int *index, char **str, t_data *data)
 	}
 	else
 	{
-		++(*index);
+		(*index)++;
 		while (line[*index] && \
 			(ft_isalnum(line[*index]) || line[*index] == '_'))
-			++(*index);
+			(*index)++;
 		return (1);
 	}
 }
@@ -119,13 +119,13 @@ int	replace_dollar(char **line, t_data *data)
 	while((*line)[i])
 	{
 		quoting_choice(&dq, &data->sq, NULL, (*line)[i]);
-		if ((*line)[i] && (*line)[i + 1] &&  (*line)[i] == '$' && \
-			(*line)[i + 1] != '\'' && (*line)[i + 1] != '"' && \
-			(ft_isalpha((*line)[i + 1]) || (*line)[i + 1] == '?' || \
-			(*line)[i + 1] == '_') && !data->sq && \
-			!add_dollar((*line), &i, &str, data))
-			return (0);
-		if ((*line)[i] && !add_char(&(*line)[i], &str, data, &i))
+		if (handle_dollar_digit(*line, &i, data))
+			continue;
+		if (handle_dollar_quote(*line, &i, data))
+			continue;
+		if (handle_dollar_var(*line, &i, &str, data))
+			continue;
+		if (!add_char(&(*line)[i], &str, &i))
 		  	return (0);
 	}
 	*line = str;
