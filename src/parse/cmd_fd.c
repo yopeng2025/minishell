@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 16:08:50 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/17 16:10:22 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/17 18:45:04 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	open_file(t_data *data, char *filename, int type)
 	return (fd);
 }
 
-bool	check_token_exist(t_token *curr_token, t_data *data)
+static bool	check_token_exist(t_token *curr_token, t_data *data)
 {
 	if (curr_token->next == data->token)
 	{
@@ -42,7 +42,7 @@ bool	check_token_exist(t_token *curr_token, t_data *data)
 		return (true);
 }
 
-bool	check_token_type(t_token *curr_token, t_data *data)
+static bool	check_token_type(t_token *curr_token, t_data *data)
 {
 	if (curr_token->next->type <= 5)
 	{
