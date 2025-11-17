@@ -103,7 +103,7 @@ void	print_cmd_list(t_cmd *head);
 bool	create_new_command(t_cmd **new);
 bool	add_command_node(t_cmd **head_cmd);
 bool	get_in_out_file(t_token *tmp, t_data *data);
-void	fill_command(t_token *curr_token, t_data *data);
+bool	fill_command(t_token *curr_token, t_data *data);
 bool	add_command(t_token *curr_token, t_data *data);
 bool	create_list_cmd(t_data *data);
 //parse--command-fill fd

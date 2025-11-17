@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 16:08:50 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/14 15:21:26 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/17 16:10:22 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,48 @@ int	open_file(t_data *data, char *filename, int type)
 	return (fd);
 }
 
+bool	check_token_exist(t_token *curr_token, t_data *data)
+{
+	if (curr_token->next == data->token)
+	{
+		write(2, "minishell: syntax error near unexpected token 'newline'\n", 57);
+		data->exit_code = 2;
+		return (false);
+	}
+	else
+		return (true);
+}
+
+bool	check_token_type(t_token *curr_token, t_data *data)
+{
+	if (curr_token->next->type <= 5)
+	{
+		write(2, "minishell: syntax error near unexpected token '", 47);
+		write(2, curr_token->next->str, ft_strlen(curr_token->next->str));
+		write(2, "'\n", 2);
+		data->exit_code = 1;
+		return (false);
+	}
+	else
+		return (true);
+}
 bool	get_in(t_token *curr_token, t_cmd *cmd, t_data *data)
 {
 	if (cmd->infile >= 0)
 		close(cmd->infile);
-	if (curr_token->next->type <= 5)
-	{
-		write(2, "minishell: syntax error near unexpected token '", 47);	// erro notif
-		write(2, curr_token->next->str, ft_strlen(curr_token->next->str));	// erro notif
-		write(2, "'\n", 2);	// erro notif
+	if (!check_token_exist(curr_token, data))
 		return (false);
-	}
+	if (!check_token_type(curr_token, data))
+		return (false);
 	if (curr_token->type == INPUT)
 		cmd->infile = open_file(data, curr_token->next->str, INPUT);
 	else if (curr_token->type == HEREDOC)
 		cmd->infile = open_file(data, curr_token->next->str, HEREDOC);
 	if (cmd->infile == -1)
+	{
+		data->exit_code = 1;
 		return (false);
+	}
 	else
 		return (true);
 }
@@ -55,19 +80,19 @@ bool	get_out(t_token *curr_token, t_cmd *cmd, t_data *data)
 {
 	if (cmd->outfile >= 0)
 		close(cmd->outfile);
-	if (curr_token->next->type <= 5)
-	{
-		write(2, "minishell: syntax error near unexpected token '", 47);	// erro notif
-		write(2, curr_token->next->str, ft_strlen(curr_token->next->str));	// erro notif
-		write(2, "'\n", 2);	// erro notif
+	if (!check_token_exist(curr_token, data))
 		return (false);
-	}
+	if (!check_token_type(curr_token, data))
+		return (false);
 	if (curr_token->type == TRUNCATE)
 		cmd->outfile = open_file(data, curr_token->next->str, TRUNCATE);
 	else if (curr_token->type == APPEND)
 		cmd->outfile = open_file(data, curr_token->next->str, APPEND);
 	if (cmd->outfile == -1)
+	{
+		data->exit_code = 1;
 		return (false);
+	}
 	else
 		return (true);
 }
