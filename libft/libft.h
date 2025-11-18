@@ -6,7 +6,7 @@
 /*   By: yopeng <yopeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 11:31:52 by peiyli            #+#    #+#             */
-/*   Updated: 2025/10/21 13:03:26 by yopeng           ###   ########.fr       */
+/*   Updated: 2025/11/18 17:58:07 by yopeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include <unistd.h>
 # include <stdint.h>
 # include <stdio.h>
+# include <fcntl.h>
+# include <stdarg.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
 
 // typedef struct s_list
 // {
@@ -34,6 +41,10 @@
 // void	ft_lstclear(t_list **lst, void (*del)(void*));
 // void	ft_lstiter(t_list *lst, void (*f)(void *));
 // t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+//libft
+char	*get_next_line(int fd);
+
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
@@ -89,4 +100,5 @@ int		ft_count_digit(long long nb);
 void	ft_putchar(char c);
 void	ft_putstr(char *str);
 char	*ft_strcpy(char *dest, char *src);
+
 #endif

@@ -52,6 +52,7 @@ int main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_data	data;
+	char	*gnl_line;
 
 	(void)argc;
 	(void)argv;
@@ -60,9 +61,23 @@ int main(int argc, char **argv, char **env)
 	make_env(&data, env);
 	while (1)
 	{
-		line = readline("minishell> ");
+		if (isatty(fileno(stdin)))
+			line = readline("minishell> ");
+		else
+		{
+			gnl_line = get_next_line(fileno(stdin));
+			if (gnl_line == NULL)
+				free_all(&data, NULL, data.exit_code);
+			line = ft_strtrim(gnl_line, "\n");
+			free(gnl_line);
+		}
 		if (!line)
-			free_all(&data, "exit\n", data.exit_code);
+		{
+			if (isatty(fileno(stdin)))
+				free_all(&data, "exit\n", data.exit_code);
+			else
+				break;
+		}
 		if (empty_line(line))
 			continue;
 		add_history(line);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+         #
+#    By: yopeng <yopeng@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/28 17:30:07 by peiyli            #+#    #+#              #
-#    Updated: 2025/07/04 17:00:43 by peiyli           ###   ########.fr        #
+#    Updated: 2025/11/18 17:59:09 by yopeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,8 @@ ft_count_digit.c \
 ft_putstr.c \
 ft_putchar.c \
 ft_strcpy.c \
+get_next_line.c \
+get_next_line_utils.c
 
 OBJ = $(SRC:.c=.o)
 BONUS_OBJ =$(BONUS_SRC:.c=.o)
