@@ -23,19 +23,24 @@ void	free_all(t_data *data, char *err, int ext)
 
 int		free_list(t_list **env)
 {
-	t_list	*tmp;
+	t_list	*start;
 	t_list	*current;
+	t_list	*next_node;
 
 	current = *env;
-	while (current->next != *env)
+	if (!current)
+        return (0);
+	start = *env;
+	current = start->next;
+	while (current != start)
 	{
-		tmp = current;
-		current = current->next;
-		free(tmp->str);
-		free(tmp);
+		next_node = current->next;
+		free(current->str);
+		free(current);
+		current = next_node;
 	}
-	free(current->str);
-	free(current);
+	free(start->str);
+	free(start);
 	*env = NULL;
 	return (0);
 }
