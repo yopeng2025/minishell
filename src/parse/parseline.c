@@ -2,6 +2,9 @@
 
 bool	create_list_token(t_data *data, t_token **head_token, char *line)
 {
+	
+	if (*line == '\0')
+		return (false);
 	while(*line)
 	{
 		while (is_space(*line))
