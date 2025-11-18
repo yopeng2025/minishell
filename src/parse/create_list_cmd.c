@@ -66,7 +66,7 @@ bool	get_in_out_file(t_token *tmp, t_data *data)
 	return (true);
 }
 
-bool	fill_command(t_token *curr_token, t_data *data)
+bool	fill_fd(t_token *curr_token, t_data *data)
 {
 	t_token	*tmp;
 
@@ -80,9 +80,6 @@ bool	fill_command(t_token *curr_token, t_data *data)
 			return (false);
 		tmp = tmp->next;
 	}
-	data->cmd->prev->cmd_param = get_param(data, curr_token);
-	if (!data->cmd->prev->cmd_param)
-		free_all(data, ERR_MALLOC, EXT_MALLOC);
 	return (true);
 }
 
@@ -93,8 +90,14 @@ bool	add_command(t_token *curr_token, t_data *data)
 		free_all(data, ERR_MALLOC, EXT_MALLOC);
 		return (false);
 	}
-	if (!fill_command(curr_token, data) && data->cmd->skip_cmd == 0)
+	if (!fill_fd(curr_token, data) && data->cmd->skip_cmd == 0)
 		return (false);
+	data->cmd->prev->cmd_param = get_param(data, curr_token);
+	if (!*(data->cmd->prev->cmd_param))
+	{
+		free_cmd_list(&data->cmd);
+		return (false);
+	}
 	return (true);
 }
 
