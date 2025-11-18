@@ -13,12 +13,16 @@ char	**list_to_array(t_list *env)
 	array = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!array)
 		return (NULL);
-	array[i] = (list->str);
+	array[i] = ft_strdup(list->str);
+	if (!array[i])
+		return (NULL);
 	i++;
 	list = list->next;
 	while (list != env && i < len)
 	{
-		array[i] = (list->str);
+		array[i] = ft_strdup(list->str);
+		if (!array[i])
+			return (NULL);
 		i++;
 		list = list->next;
 	}
