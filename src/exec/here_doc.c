@@ -3,7 +3,13 @@
 static bool	read_in_stdin(char *word, t_data *data, int fd)
 {
 	char	*buf;
+	char	*word2;
 
+	word2 = ft_strdup(word);
+	if (!word2)
+		free_all(data, ERR_MALLOC, EXT_MALLOC);
+	if (!replace_dollar(&word2, data))
+		free_all(data, ERR_MALLOC, EXT_MALLOC);
 	while (1)
 	{
 		buf = NULL;
@@ -16,15 +22,21 @@ static bool	read_in_stdin(char *word, t_data *data, int fd)
 			print_error("')\n");
 			break ;
 		}
-		if (!ft_strncmp(word, buf, INT_MAX))
-			break;
 		if (!replace_dollar(&buf, data))
+		{
+			free(word2);
 			free_all(data, ERR_MALLOC, EXT_MALLOC);
+		}
+		if (!ft_strncmp(word2, buf, INT_MAX))
+		{
+			free(buf);
+			break;
+		}
 		write(fd, buf, ft_strlen(buf));
 		write(fd, "\n", 1);
 		free(buf);
 	}
-	free(buf);
+	free(word2);
 	close(fd);
 	return (true);
 }

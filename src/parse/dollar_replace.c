@@ -116,6 +116,8 @@ int	replace_dollar(char **line, t_data *data)
 	dq = false;
 	data->sq = false;
 	str = ft_strdup("");
+		if (!str)
+			return (0);
 	while((*line)[i])
 	{
 		quoting_choice(&dq, &data->sq, NULL, (*line)[i]);
@@ -128,6 +130,7 @@ int	replace_dollar(char **line, t_data *data)
 		if (!add_char(&(*line)[i], &str, &i))
 		  	return (0);
 	}
+	free(*line);
 	*line = str;
 	return (1);
 }
