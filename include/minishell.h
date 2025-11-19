@@ -132,7 +132,7 @@ void	exec_builtin(int save_stdout, t_data *data, t_cmd *cmd);
 bool	is_builtin(char *cmd);
 
 int		ft_echo(char **cmd);
-int		ft_env(t_list *env);
+int		ft_env(t_list *env, char **cmd_param);
 bool	export(char	*str, t_list **env);
 int		ft_export(char **cmd, t_list **env);
 int		ft_cd(t_data *data, char **cmd_param);
