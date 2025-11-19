@@ -60,3 +60,4 @@ int	here_doc(char *word, t_data *data)
 		unlink(".heredoc.tmp");
 	return (fd);
 }
+ 
