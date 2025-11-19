@@ -27,7 +27,7 @@ void	exec_builtin(int save_stdout, t_data *data, t_cmd *cmd)
 	else if (ft_strncmp("unset", cmd->cmd_param[0], INT_MAX) == 0)
 		data->exit_code = ft_unset(cmd->cmd_param, &data->env);
 	else if (ft_strncmp("env", cmd->cmd_param[0], INT_MAX) == 0)
-		data->exit_code = ft_env(data->env);
+		data->exit_code = ft_env(data->env, cmd->cmd_param);
 	else if (ft_strncmp("exit", cmd->cmd_param[0], INT_MAX) == 0)
 	{
 		if (cmd->outfile >= 0)
