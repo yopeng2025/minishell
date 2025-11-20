@@ -52,7 +52,7 @@ char	**get_param(t_data *data, t_token *token)
 
 	i = 0;
 	cmd_param = malloc(sizeof(char *) * (count_arg(data, token) + 1));
-	// printf("arg数量:%d\n", count_arg(data, token));
+	// printf("arg num: %d\n", count_arg(data, token));
 	if (!cmd_param)
 		return (NULL);
 	tmp = token;

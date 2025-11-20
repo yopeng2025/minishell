@@ -3,7 +3,7 @@ MAKEFLAGS += --silent
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iinclude -Ilibft
+CFLAGS = -Wall -Wextra -Werror -g -Iinclude -Ilibft
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a

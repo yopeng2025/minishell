@@ -107,18 +107,12 @@ bool	create_list_cmd(t_data *data)
 	
 	curr = data->token;
 	if (!add_command(curr, data))
-	// {
-	// 	free_cmd_list(&data->cmd);
 		return (false);
-	// }
 	curr = curr->next;
 	while (curr != data->token)
 	{
 		if(curr->prev->type == PIPE && !add_command(curr, data))
-		// {
-		// 	free_cmd_list(&data->cmd);
 			return (false);
-		// }
 		curr = curr->next;
 	}
 	return (true);
