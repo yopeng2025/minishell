@@ -42,7 +42,7 @@ bool	parseline(t_data *data, char *line)
 	{
 		write(2, "minishell: syntax error near unexpected token '|'\n", 51);
 		free_token_list(&data->token);
-		data->exit_code = 1;
+		data->exit_code = 2;
 		return (false);
 	}
 	// print_token_list(data->token);

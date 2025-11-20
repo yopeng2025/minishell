@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 16:08:50 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/19 18:25:33 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/20 16:24:59 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 int	open_file(t_data *data, char *filename, int type)
 {
 	int	fd;
-	
+	(void)data;
 	fd = -2;
 	if (type == INPUT)
 		fd = open(filename, O_RDONLY);
 	else if (type == HEREDOC)
+		// fd = -3;
 		fd = here_doc(filename, data);
 	else if (type == TRUNCATE)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
