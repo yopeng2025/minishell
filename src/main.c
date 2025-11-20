@@ -35,6 +35,8 @@ int	make_env(t_data *data, char **env)
 	char	*tmp;
 	int		i;
 
+	if (!(*env))
+		return (make_env2(data));
 	i = 0;
 	list = NULL;
 	while(env[i])
