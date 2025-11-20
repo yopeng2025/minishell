@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 16:08:50 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/17 18:45:04 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/19 18:25:33 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static bool	check_token_type(t_token *curr_token, t_data *data)
 		write(2, "minishell: syntax error near unexpected token '", 47);
 		write(2, curr_token->next->str, ft_strlen(curr_token->next->str));
 		write(2, "'\n", 2);
-		data->exit_code = 1;
+		data->exit_code = 2;
 		return (false);
 	}
 	else

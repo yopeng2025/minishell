@@ -12,7 +12,7 @@ static bool	check_new_line(char *cmd)
 		i++;
 		while (cmd[i] == 'n')
 			i++;
-		if (i == (int)ft_strlen(cmd))
+		if (i == (int)ft_strlen(cmd) && i != 1)
 			return (false);
 	}
 	return (true);
