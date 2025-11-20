@@ -126,7 +126,7 @@ int	cd_home(t_data *data, char **cmd_param)
 		free(home);
 		return (1);
 	}
-	update_cwd(data, cmd_param[1]);
+	update_cwd(data, home);
 	free(home);
 	return (0);
 }
@@ -149,7 +149,7 @@ int	cd_oldpwd(t_data *data, char **cmd_param)
 		free(oldpwd);
 		return (1);
 	}
-	update_cwd(data, cmd_param[1]);
+	update_cwd(data, oldpwd);
 	free(oldpwd);
 	return (0);
 }
@@ -163,7 +163,9 @@ int	ft_cd(t_data *data, char **cmd_param)
 	}
 	if (count_param(cmd_param) == 1)
 		return (cd_home(data, cmd_param));
-	if (ft_strncmp("-", cmd_param[1], ft_strlen(cmd_param[1])) == 0)
+	if (ft_strncmp("~", cmd_param[1], ft_strlen(cmd_param[1])) == 0)
+		return (cd_home(data, cmd_param));
+	else if (ft_strncmp("-", cmd_param[1], ft_strlen(cmd_param[1])) == 0)
 		return (cd_oldpwd(data, cmd_param));
 	if (chdir(cmd_param[1]) == -1)
 	{

@@ -131,7 +131,10 @@ int	ft_export(char **cmd, t_list **env)
 	{
 		if (!valid_identifier(cmd[i]))
 		{
-			print_error(" not a valid identifier\n");
+			write(2, "minishell: export: '", 21);
+			write(2, cmd[i], ft_strlen(cmd[i]));
+			write(2, "': not a valid identifier\n", 27);
+			// print_error(" not a valid identifier\n");
 			exit_code = 1;
 		}
 		else if (!export(cmd[i], env))
