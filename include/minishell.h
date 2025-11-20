@@ -155,6 +155,7 @@ void	free_token_list(t_token **head_token);
 //utils
 bool	print_error(char *str);
 int		count_param(char **cmd_param);
+bool	make_env2(t_data *data);
 
 //utils_list
 size_t	len_list(t_list *list);
