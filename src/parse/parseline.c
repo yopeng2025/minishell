@@ -1,11 +1,27 @@
 #include "minishell.h"
 
-bool	create_list_token(t_data *data, t_token **head_token, char *line)
+bool	create_list_cmd(t_data *data)
 {
-	
+	t_token	*curr;
+
+	curr = data->token;
+	if (!add_command(curr, data))
+		return (false);
+	curr = curr->next;
+	while (curr != data->token)
+	{
+		if (curr->prev->type == PIPE && !add_command(curr, data))
+			return (false);
+		curr = curr->next;
+	}
+	return (true);
+}
+
+bool	token_list(t_data *data, t_token **head_token, char *line)
+{
 	if (*line == '\0')
 		return (false);
-	while(*line)
+	while (*line)
 	{
 		while (is_space(*line))
 			line++;
@@ -14,7 +30,8 @@ bool	create_list_token(t_data *data, t_token **head_token, char *line)
 			free(line);
 			return (false);
 		}
-		else if (*line && is_special(line) && !add_special_token(data, &line, head_token, is_special(line)))
+		else if (*line && is_special(line) && \
+		!add_special_token(data, &line, head_token, is_special(line)))
 		{
 			free_token_list(head_token);
 			free(line);
@@ -33,7 +50,7 @@ bool	parseline(t_data *data, char *line)
 		free(line);
 		return (false);
 	}
-	if (!replace_dollar(&line, data) || !create_list_token(data, &data->token, line))
+	if (!replace_dollar(&line, data) || !token_list(data, &data->token, line))
 	{
 		free(line);
 		return (false);
@@ -54,5 +71,5 @@ bool	parseline(t_data *data, char *line)
 		return (false);
 	}
 	// print_cmd_list(data->cmd);
-	return(true);
+	return (true);
 }

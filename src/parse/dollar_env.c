@@ -40,13 +40,13 @@ char	*get_elem_env(t_list *env, char *key)
 	tmp = env;
 	list_len = len_list(tmp);
 	key_len = ft_strlen(key);
-	while(list_len--)
+	while (list_len--)
 	{
 		if (ft_strncmp(tmp->str, key, key_len) == 0 && \
 			tmp->str[key_len] == '=')
 		{
 			i = 0;
-			while(tmp->str[i] && tmp->str[i] != '=')
+			while (tmp->str[i] && tmp->str[i] != '=')
 				i++;
 			return (ft_strdup(&tmp->str[i + 1]));
 		}
@@ -55,14 +55,11 @@ char	*get_elem_env(t_list *env, char *key)
 	return (NULL);
 }
 
-/* 添加字符至输出字符串 */
 int	add_char(char *c, char **str, int *index)
 {
 	char	char_to_str[2];
 	char	*tmp;
 
-	// if (c[i] == '$' && !data->sq && exist_in_env(c, &i, data))
-	// 	return(1);
 	char_to_str[0] = *c;
 	char_to_str[1] = '\0';
 	(*index)++;

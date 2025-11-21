@@ -40,7 +40,7 @@ void	add_new_token_back(t_token **head_token, t_token *new)
 bool	add_token_node(t_data *data, t_token **head_token, char *str, int type)
 {
 	t_token	*new;
-	
+
 	new = create_new_token(data, str, type);
 	if (!new)
 	{
@@ -54,7 +54,7 @@ bool	add_token_node(t_data *data, t_token **head_token, char *str, int type)
 		if (new->prev == new || new->prev->type == PIPE)
 			new->type = CMD;
 		else
-			new->type = ARG;	
+			new->type = ARG;
 	}
 	return (true);
 }
@@ -79,17 +79,20 @@ bool	add_token(t_data *data, char **line, t_token **head_token)
 	return (true);
 }
 
-bool	add_special_token(t_data *data, char **line, t_token **head_token, int type)
+bool	add_special_token(t_data *data, char **line, t_token **head, int type)
 {
-	if (type == INPUT && !add_token_node(data, head_token, ft_strdup("<"), INPUT))
+	if (type == INPUT && !add_token_node(data, head, ft_strdup("<"), INPUT))
 		return (false);
-	else if (type == TRUNCATE && !add_token_node(data, head_token, ft_strdup(">"), TRUNCATE))
+	else if (type == TRUNCATE && \
+		!add_token_node(data, head, ft_strdup(">"), TRUNCATE))
 		return (false);
-	else if (type == HEREDOC && !add_token_node(data, head_token, ft_strdup("<<"), HEREDOC))
+	else if (type == HEREDOC && \
+		!add_token_node(data, head, ft_strdup("<<"), HEREDOC))
 		return (false);
-	else if (type == APPEND && !add_token_node(data, head_token, ft_strdup(">>"), APPEND))
+	else if (type == APPEND && \
+		!add_token_node(data, head, ft_strdup(">>"), APPEND))
 		return (false);
-	else if (type == PIPE && !add_token_node(data, head_token, ft_strdup("|"), PIPE))
+	else if (type == PIPE && !add_token_node(data, head, ft_strdup("|"), PIPE))
 		return (false);
 	if (type == INPUT || type == TRUNCATE || type == PIPE)
 		(*line)++;

@@ -1,5 +1,22 @@
 #include "minishell.h"
 
+int	append_exit_code(t_data *data, char **str)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp = ft_itoa(data->exit_code);
+	if (!tmp)
+		return (0);
+	tmp2 = ft_strjoin(*str, tmp);
+	free(tmp);
+	free(*str);
+	if (!tmp2)
+		return (0);
+	(*str) = tmp2;
+	return (1);
+}
+
 bool	print_error(char *str)
 {
 	if (str)

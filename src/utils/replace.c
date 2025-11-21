@@ -36,7 +36,7 @@ bool	handle_dollar_var(char *line, int *i, char **str, t_data *data)
 		(ft_isalpha(next) || next == '?' || next == '_') && \
 		!data->sq)
 	{
-		if(!add_dollar(line, i, str, data))
+		if (!add_dollar(line, i, str, data))
 			return (false);
 		return (true);
 	}

@@ -24,9 +24,9 @@ void	quoting_choice(bool *dq, bool *sq, int *index, char c)
 
 int	open_quote(t_data *data, char *line)
 {
-	bool    dq;
-	bool    sq;
-	int     i;
+	bool	dq;
+	bool	sq;
+	int		i;
 
 	i = 0;
 	dq = false;

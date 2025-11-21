@@ -37,13 +37,12 @@ static void	*free_cmd_param(char **cmd_param, int i)
 	while (i > 0)
 	{
 		i--;
-		free(cmd_param[i]); //释放数组元素
+		free(cmd_param[i]);
 	}
-	free(cmd_param); //释放数组本身cmd_param={"", "", "", NULL}
+	free(cmd_param);
 	return (NULL);
 }
 
-/* 得到同一个管道内(非< << > >> |)的命令参数 cmd和arg */
 char	**get_param(t_data *data, t_token *token)
 {
 	char	**cmd_param;
@@ -52,7 +51,6 @@ char	**get_param(t_data *data, t_token *token)
 
 	i = 0;
 	cmd_param = malloc(sizeof(char *) * (count_arg(data, token) + 1));
-	// printf("arg num: %d\n", count_arg(data, token));
 	if (!cmd_param)
 		return (NULL);
 	tmp = token;
@@ -60,7 +58,7 @@ char	**get_param(t_data *data, t_token *token)
 		(tmp->type == CMD || (tmp->type == ARG \
 			&& tmp->prev != data->token->prev && tmp->prev->type > 5)) && \
 			!add_to_cmd_param(cmd_param, &i, tmp->str))
-			return (free_cmd_param(cmd_param, i));
+		return (free_cmd_param(cmd_param, i));
 	tmp = tmp->next;
 	while (tmp != data->token && tmp->type != PIPE)
 	{
@@ -68,7 +66,7 @@ char	**get_param(t_data *data, t_token *token)
 			(tmp->type == CMD || (tmp->type == ARG \
 				&& tmp->prev != data->token->prev && tmp->prev->type > 5)) && \
 				!add_to_cmd_param(cmd_param, &i, tmp->str))
-				return (free_cmd_param(cmd_param, i));
+			return (free_cmd_param(cmd_param, i));
 		tmp = tmp->next;
 	}
 	cmd_param[i] = NULL;

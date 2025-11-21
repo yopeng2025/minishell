@@ -1,23 +1,5 @@
 #include "minishell.h"
 
-/* 成功1 失败0 输入：“exit code is: $?" 输出:"exit code is: 0"  */
-static int	append_exit_code(t_data *data, char **str)
-{
-	char	*tmp;
-	char	*tmp2;
-
-	tmp = ft_itoa(data->exit_code);
-	if (!tmp)
-		return (0);
-	tmp2 = ft_strjoin(*str, tmp);
-	free(tmp);
-	free(*str);
-	if (!tmp2)
-		return (0);
-	(*str) = tmp2;
-	return (1); 
-}
-
 static int	in_env(t_data *data, char *line, int size, char **str)
 {
 	char	*key;
@@ -51,12 +33,11 @@ static int	count_name_len(char *line, int *i)
 	return (name_len);
 }
 
-/*  1环境变量存在  2特殊变量？或者$  0不存在  同时移动index至字符串后一位*/
 int	exist_in_env(char *line, int *i, t_data *data)
 {
 	t_list	*tmp;
-	int		name_len; //$后的名字长度 $(name_len:len)
-	int		key_len;  //环境变量名长度 (key_len:env)=home/yopeng
+	int		name_len;
+	int		key_len;
 	int		list_len;
 
 	if (line[*i + 1] == '?')
@@ -78,14 +59,13 @@ int	exist_in_env(char *line, int *i, t_data *data)
 	return (0);
 }
 
-/* 展开环境变量 成功1 失败0（环境变量不存在时，index指针落在‘\0’ 或空格‘ ’等非_非字母上）*/
 int	add_dollar(char *line, int *index, char **str, t_data *data)
 {
 	int	ctrl;
 	int	n;
 
 	n = *index;
-	ctrl = exist_in_env(line, index, data);//指针在环境变量的后一位
+	ctrl = exist_in_env(line, index, data);
 	if (ctrl == 1)
 	{
 		in_env(data, &line[n], *index - n, str);
@@ -116,19 +96,19 @@ int	replace_dollar(char **line, t_data *data)
 	dq = false;
 	data->sq = false;
 	str = ft_strdup("");
-		if (!str)
-			return (0);
-	while((*line)[i])
+	if (!str)
+		return (0);
+	while ((*line)[i])
 	{
 		quoting_choice(&dq, &data->sq, NULL, (*line)[i]);
 		if (handle_dollar_digit(*line, &i, data))
-			continue;
+			continue ;
 		if (handle_dollar_quote(*line, &i, data, dq))
-			continue;
+			continue ;
 		if (handle_dollar_var(*line, &i, &str, data))
-			continue;
+			continue ;
 		if (!add_char(&(*line)[i], &str, &i))
-		  	return (0);
+			return (0);
 	}
 	free(*line);
 	*line = str;

@@ -9,7 +9,7 @@ size_t	len_list(t_list *list)
 	{
 		i = 1;
 		tmp = list;
-		while(tmp->next != list)
+		while (tmp->next != list)
 		{
 			i++;
 			tmp = tmp->next;
@@ -27,7 +27,7 @@ static int	list_new_elem_str(t_list **new, char *str)
 	(*new)->str = str;
 	(*new)->next = NULL;
 	(*new)->prev = NULL;
-	return (1); 
+	return (1);
 }
 
 static void	add_first(t_list **list, t_list *new)

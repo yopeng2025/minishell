@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-pid_t g_signal_pid;
+pid_t	g_signal_pid;
 
 bool	empty_line(char *str)
 {
@@ -39,7 +39,7 @@ int	make_env(t_data *data, char **env)
 		return (make_env2(data));
 	i = 0;
 	list = NULL;
-	while(env[i])
+	while (env[i])
 	{
 		tmp = ft_strdup(env[i]);
 		append(&list, tmp);
@@ -49,8 +49,7 @@ int	make_env(t_data *data, char **env)
 	return (1);
 }
 
-/* env字符串数组，每个元素都是一个 "KEY=VALUE" 形式的环境变量 */
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_data	data;
@@ -58,7 +57,6 @@ int main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-
 	initial_data(&data);
 	make_env(&data, env);
 	while (1)
@@ -78,18 +76,17 @@ int main(int argc, char **argv, char **env)
 			if (isatty(fileno(stdin)))
 				free_all(&data, "exit\n", data.exit_code);
 			else
-				break;
+				break ;
 		}
 		if (empty_line(line))
-			continue;
+			continue ;
 		add_history(line);
-//		printf("You typed: %s\n", line);
 		if (!parseline(&data, line))
-			continue;
+			continue ;
 		exec(&data);
 		free_token_list(&data.token);
 		free_cmd_list(&data.cmd);
 		g_signal_pid = 0;
 	}
-    return (0);
+	return (0);
 }

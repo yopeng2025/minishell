@@ -47,7 +47,7 @@ bool	get_in_out_file(t_token *tmp, t_data *data)
 			if (data->cmd->prev->outfile >= 0)
 				close(data->cmd->outfile);
 			if (data->cmd->prev->infile == -1)
-				data->cmd->prev->skip_cmd =  true;
+				data->cmd->prev->skip_cmd = true;
 			data->cmd->prev->outfile = -1;
 			return (false);
 		}
@@ -59,7 +59,7 @@ bool	get_in_out_file(t_token *tmp, t_data *data)
 			if (data->cmd->prev->infile >= 0)
 				close(data->cmd->infile);
 			if (data->cmd->prev->outfile == -1)
-				data->cmd->prev->skip_cmd =  true;
+				data->cmd->prev->skip_cmd = true;
 			return (false);
 		}
 	}
@@ -97,23 +97,6 @@ bool	add_command(t_token *curr_token, t_data *data)
 	{
 		free_cmd_list(&data->cmd);
 		return (false);
-	}
-	return (true);
-}
-
-bool	create_list_cmd(t_data *data)
-{
-	t_token	*curr;
-	
-	curr = data->token;
-	if (!add_command(curr, data))
-		return (false);
-	curr = curr->next;
-	while (curr != data->token)
-	{
-		if(curr->prev->type == PIPE && !add_command(curr, data))
-			return (false);
-		curr = curr->next;
 	}
 	return (true);
 }
