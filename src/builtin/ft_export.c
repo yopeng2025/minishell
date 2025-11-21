@@ -109,8 +109,11 @@ bool	export(char	*str, t_list **env)
 		tmp_env->str = tmp_str;
 	}
 	else if (position == -1)
-		if (!append(env, tmp_str))
+		if (!export_append(env, tmp_str))
+		{
+			free(tmp_str);
 			return(false);
+		}
 	return (true);
 }
 

@@ -26,6 +26,7 @@ SRC = \
 	src/utils/signal.c \
 	src/utils/debug.c \
 	src/utils/replace.c \
+	src/utils/export_utils.c \
 	src/exec/here_doc.c \
 	src/exec/builtin.c \
 	src/exec/exec.c \
