@@ -11,19 +11,19 @@ bool	handle_dollar_digit(char *line, int *i, t_data *data)
 	return (false);
 }
 
-bool	handle_dollar_quote(char *line, int *i, t_data *data)
+bool	handle_dollar_quote(char *line, int *i, t_data *data, bool dq)
 {
 	if (!line[*i] || !line[*i + 1])
 		return (false);
-	if (line[*i] == '$' && line[*i + 1] == '"' && !data->sq)
+	if ((line[*i] == '$' && line[*i + 1] == '"' && !dq) || \
+		(line[*i] == '$' && line[*i + 1] == '\'' && !data->sq))
 	{
-		if (line[*i + 2] && line[*i + 2] != '"')
-		{
-			(*i)++;
-			return (true);
-		}
-		return (false);
+		(*i)++;
+		return (true);
 	}
+	else if ((line[*i] == '$' && line[*i + 1] == '"' && dq) || \
+		(line[*i] == '$' && line[*i + 1] == '\'' && data->sq))
+		return (false);
 	return (false);
 }
 

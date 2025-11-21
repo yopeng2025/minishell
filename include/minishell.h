@@ -177,7 +177,7 @@ void	signals(void);
 
 //replace
 bool	handle_dollar_digit(char *line, int *i, t_data *data);
-bool	handle_dollar_quote(char *line, int *i, t_data *data);
+bool	handle_dollar_quote(char *line, int *i, t_data *data, bool dq);
 bool	handle_dollar_var(char *line, int *i, char **str, t_data *data);
 
 //debug

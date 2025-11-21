@@ -123,7 +123,7 @@ int	replace_dollar(char **line, t_data *data)
 		quoting_choice(&dq, &data->sq, NULL, (*line)[i]);
 		if (handle_dollar_digit(*line, &i, data))
 			continue;
-		if (handle_dollar_quote(*line, &i, data))
+		if (handle_dollar_quote(*line, &i, data, dq))
 			continue;
 		if (handle_dollar_var(*line, &i, &str, data))
 			continue;
