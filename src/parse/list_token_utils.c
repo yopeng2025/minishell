@@ -5,7 +5,7 @@ void	cpy_str(char *str, char *line, int len)
 	int		i;
 	int		j;
 	char	q;
-	
+
 	i = 0;
 	j = 0;
 	while (i < len)
@@ -30,13 +30,13 @@ static bool	handle_quotes(char c, bool *in_single, bool *in_double, int *quote)
 	{
 		*in_single = !*(in_single);
 		(*quote)++;
-		return (true) ;
+		return (true);
 	}
 	if (c == '"' && !*(in_single))
 	{
 		*in_double = !*(in_double);
 		(*quote)++;
-		return (true) ;
+		return (true);
 	}
 	return (false);
 }
@@ -56,9 +56,10 @@ int	get_token_lenth(char *line, int *quote)
 		if (handle_quotes(line[i], &in_single, &in_double, quote))
 		{
 			i++;
-			continue;
+			continue ;
 		}
-		if (!in_single && !in_double && (is_space(line[i]) || is_special(line + i)))
+		if (!in_single && !in_double && (is_space(line[i]) \
+			|| is_special(line + i)))
 			break ;
 		i++;
 	}
@@ -67,7 +68,8 @@ int	get_token_lenth(char *line, int *quote)
 
 bool	is_space(char c)
 {
-	if (c && (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'))
+	if (c && (c == ' ' || c == '\t' || c == '\n' \
+		|| c == '\v' || c == '\f' || c == '\r'))
 		return (true);
 	return (false);
 }

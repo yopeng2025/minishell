@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 16:08:50 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/20 16:24:59 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/21 18:25:14 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 int	open_file(t_data *data, char *filename, int type)
 {
 	int	fd;
+
 	(void)data;
 	fd = -2;
 	if (type == INPUT)
 		fd = open(filename, O_RDONLY);
 	else if (type == HEREDOC)
-		// fd = -3;
 		fd = here_doc(filename, data);
 	else if (type == TRUNCATE)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -33,14 +33,21 @@ int	open_file(t_data *data, char *filename, int type)
 
 static bool	check_token_exist(t_token *curr_token, t_data *data)
 {
+	char	*str;
+
+	str = ft_strdup("minishell: syntax error near unexpected token 'newline'\n");
 	if (curr_token->next == data->token)
 	{
-		write(2, "minishell: syntax error near unexpected token 'newline'\n", 57);
+		write(2, str, ft_strlen(str));
+		free(str);
 		data->exit_code = 2;
 		return (false);
 	}
 	else
+	{
+		free(str);
 		return (true);
+	}
 }
 
 static bool	check_token_type(t_token *curr_token, t_data *data)
@@ -56,6 +63,7 @@ static bool	check_token_type(t_token *curr_token, t_data *data)
 	else
 		return (true);
 }
+
 bool	get_in(t_token *curr_token, t_cmd *cmd, t_data *data)
 {
 	if (cmd->infile >= 0)

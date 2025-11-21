@@ -70,7 +70,7 @@ typedef struct s_data
 
 //parse
 bool	parseline(t_data *data, char *line);
-bool	create_list_token(t_data *data, t_token **head_token, char *line);
+bool	token_list(t_data *data, t_token **head_token, char *line);
 
 //parse--quote
 void	quoting_choice(bool *dq, bool *sq, int *index, char c);
@@ -153,6 +153,7 @@ int		free_list(t_list **env);
 void	free_token_list(t_token **head_token);
 
 //utils
+int	append_exit_code(t_data *data, char **str);
 bool	print_error(char *str);
 int		count_param(char **cmd_param);
 bool	make_env2(t_data *data);

@@ -55,7 +55,7 @@ void	sort_array(char **array, t_list *env)
 			if (ft_strncmp(array[i], array[j], INT_MAX) > 0)
 			{
 				swap_array(&array[i], &array[j]);
-				continue;
+				continue ;
 			}
 			j++;
 		}
