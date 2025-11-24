@@ -37,6 +37,7 @@ typedef struct s_token
 {
 	char			*str;
 	int				type;
+	bool			sq;
 	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;
@@ -65,7 +66,7 @@ typedef struct s_data
 	t_list	*env;
 	int		pip[2];
 	int		exit_code;
-	bool	sq;
+	// bool	sq;
 }				t_data;
 
 //parse
@@ -84,14 +85,16 @@ bool	add_token(t_data *data, char **line, t_token **head_token);
 bool	add_special_token(t_data *data, char **line, t_token **head_token, int type);
 //parse--token--utils
 void	cpy_str(char *str, char *line, int len);
-int		get_token_lenth(char *line, int *quote);
+// int		get_token_lenth(char *line, int *quote);
+int		get_token_length(const char *line);
 bool	is_space(char c);
-int		is_special(char *line);
+int		is_special(const char *line);
 
 //parse--dollar-replace(+1)
 int		exist_in_env(char *line, int *i, t_data *data);
 int		add_dollar(char *line, int *index, char **str, t_data *data);
-int		replace_dollar(char **line, t_data *data);
+// int		replace_dollar(char **line, t_data *data);
+void	replace_dollar(char **line, t_data *data);
 //parse--dollar-env
 int		ft_search(char *str, char c);
 char	*get_dollar_word(char *line, int size);
@@ -162,9 +165,10 @@ int		free_list(t_list **env);
 void	free_token_list(t_token **head_token);
 
 //utils
-int	append_exit_code(t_data *data, char **str);
+int		append_exit_code(t_data *data, char **str);
 bool	print_error(char *str);
 int		count_param(char **cmd_param);
+int		count_token(t_data *data);
 bool	make_env2(t_data *data);
 
 //utils_list
@@ -186,10 +190,12 @@ void	free_array(char **array);
 void	signals(void);
 
 //replace
-bool	handle_dollar_digit(char *line, int *i, t_data *data);
-bool	handle_dollar_quote(char *line, int *i, t_data *data, bool dq);
-bool	handle_dollar_var(char *line, int *i, char **str, t_data *data);
-
+// bool	handle_dollar_digit(char *line, int *i, t_data *data);
+// bool	handle_dollar_quote(char *line, int *i, t_data *data, bool dq);
+// bool	handle_dollar_var(char *line, int *i, char **str, t_data *data);
+bool	handle_dollar_digit(char *line, int *i, bool sq);
+bool	handle_dollar_quote(char *line, int *i, bool sq, bool dq);
+bool	handle_dollar_var(char *line, int *i, char **str, t_data *data, bool sq);
 
 //utils_export
 int	export_append(t_list **list, char *str);
