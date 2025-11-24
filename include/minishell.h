@@ -135,7 +135,16 @@ int		ft_echo(char **cmd);
 int		ft_env(t_list *env, char **cmd_param);
 bool	export(char	*str, t_list **env);
 int		ft_export(char **cmd, t_list **env);
+
+char	*is_home_exist(t_data *data);
+char	*is_oldpwd_exist(t_data *data);
+int		cd_home(t_data *data, char **cmd_param);
+int		cd_oldpwd(t_data *data, char **cmd_param);
+void	update_oldpwd(t_data *data);
+void	update_cwd(t_data *data, char *path);
+void	dir_not_found(char *param1, char *param2);
 int		ft_cd(t_data *data, char **cmd_param);
+
 void	ft_exit(t_data *data, char **cmd_param);
 int		ft_pwd(void);
 int		ft_unset(char **str, t_list **env);

@@ -11,7 +11,7 @@ void	strslashjoin(char *path_return, char *cmd, char *path_in_env, int *i)
 	int	k;
 
 	j = 0;
-	while(*i < (PATH_MAX - 1) && path_in_env[*i] && path_in_env[*i] != ':')
+	while (*i < (PATH_MAX - 1) && path_in_env[*i] && path_in_env[*i] != ':')
 		path_return[j++] = path_in_env[(*i)++];
 	(*i)++;
 	path_return[j++] = '/';
@@ -56,7 +56,7 @@ char	*find_path(t_data *data, char *cmd, t_list *env)
 		return (cmd_not_found(cmd));
 	path_in_env = create_path(env, len_list(env));
 	if (!path_in_env || ft_strlen(cmd) > PATH_MAX / 2)
-		return(cmd_not_found(cmd));
+		return (cmd_not_found(cmd));
 	i = 0;
 	len = ft_strlen(path_in_env);
 	while (i < len)
@@ -81,7 +81,7 @@ bool	cmd_exist(char **path, t_data *data, char *cmd)
 	if (!ft_strchr(cmd, '/'))
 		*path = find_path(data, cmd, data->env);
 	else
-		absolute_path(path, cmd, data);//这一步骤让path=cmd，即path=./a.out
+		absolute_path(path, cmd, data);
 	if (!(*path) && data->exit_code == -1)
 		free_all(data, NULL, data->exit_code);
 	if (!(*path))
@@ -89,7 +89,7 @@ bool	cmd_exist(char **path, t_data *data, char *cmd)
 		data->exit_code = 127;
 		return (false);
 	}
-	if (access((*path), X_OK) !=0)
+	if (access((*path), X_OK) != 0)
 	{
 		perror(*path);
 		free(*path);
@@ -99,5 +99,5 @@ bool	cmd_exist(char **path, t_data *data, char *cmd)
 	}
 	if (is_dir(path, cmd, data))
 		return (false);
-	return(true);
+	return (true);
 }
