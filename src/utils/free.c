@@ -80,15 +80,15 @@ void	free_cmd_param(char **cmd_param)
 	cmd_param = NULL;
 }
 
-// void	close_cmd_fd(t_cmd *cmd)
-// {
-// 	if (cmd->infile >= 0)
-// 		close(cmd->infile);
-// 	cmd->infile = -2;
-// 	if (cmd->outfile >= 0)
-// 		close(cmd->outfile);
-// 	cmd->outfile = -2;
-// }
+void	close_cmd_fd(t_cmd *cmd)
+{
+	if (cmd->infile >= 0)
+		close(cmd->infile);
+	cmd->infile = -2;
+	if (cmd->outfile >= 0)
+		close(cmd->outfile);
+	cmd->outfile = -2;
+}
 
 void	free_cmd_list(t_cmd **head_cmd)
 {
@@ -101,13 +101,7 @@ void	free_cmd_list(t_cmd **head_cmd)
 	while (curr->next != *head_cmd)
 	{
 		tmp = curr->next;
-		if (curr->infile >= 0)
-			close(curr->infile);
-		curr->infile = -2;
-		if (curr->outfile >= 0)
-			close(curr->outfile);
-		curr->outfile = -2;
-		// close_cmd_fd(curr);
+		close_cmd_fd(curr);
 		free_cmd_param(curr->cmd_param);
 		free(curr);
 		curr = tmp;

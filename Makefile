@@ -37,6 +37,7 @@ SRC = \
 	src/builtin/ft_env.c \
 	src/builtin/ft_export.c \
 	src/builtin/ft_cd.c \
+	src/builtin/ft_cd2.c \
 	src/builtin/ft_pwd.c \
 	src/builtin/ft_exit.c \
 	src/builtin/ft_unset.c

@@ -18,7 +18,7 @@ void	execute_cmd(t_data *data, t_cmd *cmd, int *pip)
 
 int	len_cmd(t_data *data)
 {
-	int 	len;
+	int		len;
 	t_cmd	*tmp;
 
 	tmp = data->cmd;
@@ -47,9 +47,9 @@ void	wait_all(t_data *data)
 		if (pid == g_signal_pid)
 		{
 			if (WIFEXITED(status))
-        		data->exit_code = WEXITSTATUS(status);
-    		else if (WIFSIGNALED(status))
-        		data->exit_code = 128 + WTERMSIG(status);
+				data->exit_code = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				data->exit_code = 128 + WTERMSIG(status);
 		}
 		tmp = tmp->next;
 		len--;
@@ -64,7 +64,7 @@ void	exec(t_data *data)
 	tmp = data->cmd;
 	pip = data->pip;
 	if (tmp && tmp->skip_cmd == false && tmp->cmd_param[0] && tmp->next == tmp \
-		 && is_builtin(tmp->cmd_param[0]))
+		&& is_builtin(tmp->cmd_param[0]))
 	{
 		launch_builtin(data, tmp);
 		return ;
@@ -76,7 +76,7 @@ void	exec(t_data *data)
 	while (tmp != data->cmd)
 	{
 		if (pipe(pip) == -1)
-			free_all(data, ERR_PIPE, EXT_PIPE); //原本是free_all(data, NULL, 1);
+			free_all(data, ERR_PIPE, EXT_PIPE);
 		execute_cmd(data, tmp, pip);
 		tmp = tmp->next;
 	}

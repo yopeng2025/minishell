@@ -4,16 +4,17 @@ bool	is_builtin(char *cmd)
 {
 	if (!cmd)
 		return (false);
-	if (ft_strncmp("echo", cmd, INT_MAX) == 0 ||\
-		ft_strncmp("cd", cmd, INT_MAX) == 0 ||\
-		ft_strncmp("pwd", cmd, INT_MAX) == 0 ||\
-		ft_strncmp("export", cmd, INT_MAX) == 0 ||\
-		ft_strncmp("unset", cmd, INT_MAX) == 0 ||\
-		ft_strncmp("env", cmd, INT_MAX) == 0 ||\
+	if (ft_strncmp("echo", cmd, INT_MAX) == 0 || \
+		ft_strncmp("cd", cmd, INT_MAX) == 0 || \
+		ft_strncmp("pwd", cmd, INT_MAX) == 0 || \
+		ft_strncmp("export", cmd, INT_MAX) == 0 || \
+		ft_strncmp("unset", cmd, INT_MAX) == 0 || \
+		ft_strncmp("env", cmd, INT_MAX) == 0 || \
 		ft_strncmp("exit", cmd, INT_MAX) == 0)
 		return (true);
 	return (false);
 }
+
 void	exec_builtin(int save_stdout, t_data *data, t_cmd *cmd)
 {
 	if (ft_strncmp("echo", cmd->cmd_param[0], INT_MAX) == 0)

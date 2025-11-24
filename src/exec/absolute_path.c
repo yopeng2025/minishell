@@ -18,12 +18,12 @@ bool	is_dir(char **path, char *cmd, t_data *data)
 	struct stat	path_stat;
 
 	stat(*path, &path_stat);
-	if (!S_ISREG(path_stat.st_mode)) //true可执行文件 false目录
+	if (!S_ISREG(path_stat.st_mode))
 	{
 		print_error(cmd);
 		print_error(" : Is a directory\n");
 		data->exit_code = 126;
-		return(true);
+		return (true);
 	}
 	return (false);
 }
