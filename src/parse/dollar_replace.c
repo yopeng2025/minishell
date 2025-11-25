@@ -86,7 +86,40 @@ int	add_dollar(char *line, int *index, char **str, t_data *data)
 	}
 }
 
-int	replace_dollar(char **line, t_data *data)
+void	replace_dollar(char **line, t_data *data)
+
+{
+	int		i;
+	bool	dq;
+	bool	sq;
+	char	*str;
+
+	i = 0;
+	dq = false;
+	sq = false;
+	str = ft_strdup("");
+	if (!str)
+		free_all(data, ERR_MALLOC, EXT_MALLOC);
+	while ((*line)[i])
+	{
+		quoting_choice(&dq, &sq, NULL, (*line)[i]);
+		if (handle_dollar_digit(*line, &i, sq))
+			continue ;
+		if (handle_dollar_quote(*line, &i, sq, dq))
+			continue ;
+		if (handle_dollar_var(*line, &i, &str, data, sq))
+			continue ;
+		if (!add_char(&(*line)[i], &str, &i))
+			free_all(data, ERR_MALLOC, EXT_MALLOC);
+	}
+	free(*line);
+	*line = str;
+}
+
+/*
+// int	replace_dollar(char **line, t_data *data)
+void	replace_dollar(char **line, t_data *data, t_token *token)
+
 {
 	int		i;
 	bool	dq;
@@ -94,23 +127,30 @@ int	replace_dollar(char **line, t_data *data)
 
 	i = 0;
 	dq = false;
-	data->sq = false;
+	// data->sq = false;
+	// token->sq = false;
 	str = ft_strdup("");
 	if (!str)
-		return (0);
+		free_all(data, ERR_MALLOC, EXT_MALLOC);
+		// return (0);
 	while ((*line)[i])
 	{
-		quoting_choice(&dq, &data->sq, NULL, (*line)[i]);
-		if (handle_dollar_digit(*line, &i, data))
+		quoting_choice(&dq, &token->sq, NULL, (*line)[i]);
+		// if (handle_dollar_digit(*line, &i, data))
+		if (handle_dollar_digit(*line, &i, token))
 			continue ;
-		if (handle_dollar_quote(*line, &i, data, dq))
+		// if (handle_dollar_quote(*line, &i, data, dq))
+		if (handle_dollar_quote(*line, &i, token, dq))
 			continue ;
-		if (handle_dollar_var(*line, &i, &str, data))
+		// if (handle_dollar_var(*line, &i, &str, data))
+		if (handle_dollar_var(*line, &i, &str, data, token))
 			continue ;
 		if (!add_char(&(*line)[i], &str, &i))
-			return (0);
+			free_all(data, ERR_MALLOC, EXT_MALLOC);
+			// return (0);
 	}
 	free(*line);
 	*line = str;
-	return (1);
+	// return (1);
 }
+*/
