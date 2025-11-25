@@ -23,7 +23,7 @@ static bool	read_in_stdin(char *word, t_data *data, int fd)
 			print_error("')\n");
 			break ;
 		}
-		replace_dollar(&word2, data);
+		replace_dollar(&buf, data);
 		// if (!replace_dollar(&buf, data))
 		// {
 		// 	free(word2);

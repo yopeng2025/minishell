@@ -7,7 +7,9 @@ static int	in_env(t_data *data, char *line, int size, char **str)
 	char	*tmp;
 
 	key = get_dollar_word(line, size);
+	// printf("[debug]key:%s\n", key);
 	value = get_elem_env(data->env, key);
+	// printf("[debug]value:%s\n", value);
 	if (key)
 		free(key);
 	if (!value)
@@ -114,12 +116,11 @@ void	replace_dollar(char **line, t_data *data)
 	}
 	free(*line);
 	*line = str;
+	// printf("%s\n", *line);
 }
 
 /*
 // int	replace_dollar(char **line, t_data *data)
-void	replace_dollar(char **line, t_data *data, t_token *token)
-
 {
 	int		i;
 	bool	dq;
@@ -127,30 +128,24 @@ void	replace_dollar(char **line, t_data *data, t_token *token)
 
 	i = 0;
 	dq = false;
-	// data->sq = false;
-	// token->sq = false;
+	token->sq = false;
 	str = ft_strdup("");
 	if (!str)
-		free_all(data, ERR_MALLOC, EXT_MALLOC);
-		// return (0);
+		return (0);
 	while ((*line)[i])
 	{
-		quoting_choice(&dq, &token->sq, NULL, (*line)[i]);
-		// if (handle_dollar_digit(*line, &i, data))
-		if (handle_dollar_digit(*line, &i, token))
+		quoting_choice(&dq, &data->sq, NULL, (*line)[i]);
+		if (handle_dollar_digit(*line, &i, data))
 			continue ;
-		// if (handle_dollar_quote(*line, &i, data, dq))
-		if (handle_dollar_quote(*line, &i, token, dq))
+		if (handle_dollar_quote(*line, &i, data, dq))
 			continue ;
-		// if (handle_dollar_var(*line, &i, &str, data))
-		if (handle_dollar_var(*line, &i, &str, data, token))
+		if (handle_dollar_var(*line, &i, &str, data))
 			continue ;
 		if (!add_char(&(*line)[i], &str, &i))
-			free_all(data, ERR_MALLOC, EXT_MALLOC);
-			// return (0);
+			return (0);
 	}
 	free(*line);
 	*line = str;
-	// return (1);
+	return (1);
 }
 */
