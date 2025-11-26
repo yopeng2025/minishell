@@ -14,6 +14,7 @@ static int	in_env(t_data *data, char *line, int size, char **str)
 		free(key);
 	if (!value)
 		return (1);
+	check_special_char(&value);
 	tmp = ft_strjoin(*str, value);
 	if (value)
 		free(value);
