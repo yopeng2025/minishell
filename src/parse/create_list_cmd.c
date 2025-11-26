@@ -94,9 +94,6 @@ bool	add_command(t_token *curr_token, t_data *data)
 		return (false);
 	data->cmd->prev->cmd_param = get_param(data, curr_token);
 	if (!*(data->cmd->prev->cmd_param))
-	{
-		free_cmd_list(&data->cmd);
-		return (false);
-	}
+		data->cmd->prev->skip_cmd = true;
 	return (true);
 }
