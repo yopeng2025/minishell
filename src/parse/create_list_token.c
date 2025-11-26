@@ -14,7 +14,6 @@ t_token	*create_new_token(t_data *data, char *str, int type)
 		return (NULL);
 	}
 	new->type = type;
-	new->sq = false;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);

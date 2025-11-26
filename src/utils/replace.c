@@ -1,12 +1,9 @@
 #include "minishell.h"
 
-// bool	handle_dollar_digit(char *line, int *i, t_data *data)
-bool	handle_dollar_digit(char *line, int *i, bool sq)
+bool	handle_dollar_digit(char *line, int *i, t_data *data)
 {
 	if (line[*i] && line[*i] == '$' \
-		// && line[*i + 1] && ft_isdigit(line[*i + 1]) && !data->sq)
-		&& line[*i + 1] && ft_isdigit(line[*i + 1]) && !sq)
-
+		&& line[*i + 1] && ft_isdigit(line[*i + 1]) && !data->sq)
 	{
 		*i += 2;
 		return (true);
@@ -14,33 +11,30 @@ bool	handle_dollar_digit(char *line, int *i, bool sq)
 	return (false);
 }
 
-// bool	handle_dollar_quote(char *line, int *i, t_data *data, bool dq)
-bool	handle_dollar_quote(char *line, int *i, bool sq, bool dq)
+bool	handle_dollar_quote(char *line, int *i, t_data *data, bool dq)
 {
 	if (!line[*i] || !line[*i + 1])
 		return (false);
 	if ((line[*i] == '$' && line[*i + 1] == '"' && !dq) || \
-		// (line[*i] == '$' && line[*i + 1] == '\'' && !data->sq))
-		(line[*i] == '$' && line[*i + 1] == '\'' && !sq))
+		(line[*i] == '$' && line[*i + 1] == '\'' && !data->sq))
 	{
 		(*i)++;
 		return (true);
 	}
 	else if ((line[*i] == '$' && line[*i + 1] == '"' && dq) || \
-		// (line[*i] == '$' && line[*i + 1] == '\'' && data->sq))
-		(line[*i] == '$' && line[*i + 1] == '\'' && sq))
+		(line[*i] == '$' && line[*i + 1] == '\'' && data->sq))
 		return (false);
 	return (false);
 }
 
-bool	handle_dollar_var(char *line, int *i, char **str, t_data *data, bool sq)
+bool	handle_dollar_var(char *line, int *i, char **str, t_data *data)
 {
 	char	next;
 
 	next = line[*i + 1];
 	if (line[*i] && line[*i] == '$' && \
 		(ft_isalpha(next) || next == '?' || next == '_') && \
-		!sq)
+		!data->sq)
 	{
 		if (!add_dollar(line, i, str, data))
 			return (false);

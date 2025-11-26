@@ -37,7 +37,6 @@ typedef struct s_token
 {
 	char			*str;
 	int				type;
-	bool			sq;
 	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;
@@ -66,7 +65,7 @@ typedef struct s_data
 	t_list	*env;
 	int		pip[2];
 	int		exit_code;
-	// bool	sq;
+	bool	sq;
 }				t_data;
 
 //parse
@@ -86,15 +85,14 @@ bool	add_special(t_data *data, char **line, t_token **head_token, int type);
 //parse--token--utils
 void	cpy_str(char *str, char *line, int len);
 // int		get_token_lenth(char *line, int *quote);
-int		get_token_length(const char *line);
+int		get_token_lenth(char *line, int *quote);
 bool	is_space(char c);
 int		is_special(const char *line);
 
 //parse--dollar-replace(+1)
 int		exist_in_env(char *line, int *i, t_data *data);
 int		add_dollar(char *line, int *index, char **str, t_data *data);
-// int		replace_dollar(char **line, t_data *data);
-void	replace_dollar(char **line, t_data *data);
+int		replace_dollar(char **line, t_data *data);
 //parse--dollar-env
 int		ft_search(char *str, char c);
 char	*get_dollar_word(char *line, int size);
@@ -197,6 +195,7 @@ void	signals(void);
 bool	handle_dollar_digit(char *line, int *i, t_data *data);
 bool	handle_dollar_quote(char *line, int *i, t_data *data, bool dq);
 bool	handle_dollar_var(char *line, int *i, char **str, t_data *data);
+void    check_special_char(char **value);
 
 //utils_export
 int		export_append(t_list **list, char *str);

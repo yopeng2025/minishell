@@ -24,78 +24,78 @@ void	cpy_str(char *str, char *line, int len)
 	str[j] = '\0';
 }
 
-static void	handle_quotes(char c, bool *in_single, bool *in_double)
-{
-	if (c == '\'' && !(*in_double))
-		*in_single = !(*in_single);
-	else if (c == '"' && !(*in_single))
-		*in_double = !(*in_double);
-}
-
-int	get_token_length(const char *line)
-{
-	int		i = 0;
-	bool	in_single = false;
-	bool	in_double = false;
-
-	while (line[i])
-	{
-		handle_quotes(line[i], &in_single, &in_double);
-
-		// Token 边界：在引号外遇到空白或特殊符号
-		if (!in_single && !in_double)
-		{
-			if (is_space(line[i]) || is_special(line + i))
-				break;
-		}
-
-        i++;
-	}
-	return i;
-}
-
-
-// static bool	handle_quotes(char c, bool *in_single, bool *in_double, int *quote)
+// static void	handle_quotes(char c, bool *in_single, bool *in_double)
 // {
-// 	if (c == '\'' && !*(in_double))
-// 	{
-// 		*in_single = !*(in_single);
-// 		(*quote)++;
-// 		return (true);
-// 	}
-// 	if (c == '"' && !*(in_single))
-// 	{
-// 		*in_double = !*(in_double);
-// 		(*quote)++;
-// 		return (true);
-// 	}
-// 	return (false);
+// 	if (c == '\'' && !(*in_double))
+// 		*in_single = !(*in_single);
+// 	else if (c == '"' && !(*in_single))
+// 		*in_double = !(*in_double);
 // }
 
-// int	get_token_lenth(char *line, int *quote)
+// int	get_token_length(const char *line)
 // {
-// 	int		i;
-// 	bool	in_single;
-// 	bool	in_double;
+// 	int		i = 0;
+// 	bool	in_single = false;
+// 	bool	in_double = false;
 
-// 	(*quote) = 0;
-// 	in_single = false;
-// 	in_double = false;
-// 	i = 0;
 // 	while (line[i])
 // 	{
-// 		if (handle_quotes(line[i], &in_single, &in_double, quote))
+// 		handle_quotes(line[i], &in_single, &in_double);
+
+// 		// Token 边界：在引号外遇到空白或特殊符号
+// 		if (!in_single && !in_double)
 // 		{
-// 			i++;
-// 			continue ;
+// 			if (is_space(line[i]) || is_special(line + i))
+// 				break;
 // 		}
-// 		if (!in_single && !in_double && (is_space(line[i]) \
-// 			|| is_special(line + i)))
-// 			break ;
-// 		i++;
+
+//         i++;
 // 	}
-// 	return (i);
+// 	return i;
 // }
+
+
+static bool	handle_quotes(char c, bool *in_single, bool *in_double, int *quote)
+{
+	if (c == '\'' && !*(in_double))
+	{
+		*in_single = !*(in_single);
+		(*quote)++;
+		return (true);
+	}
+	if (c == '"' && !*(in_single))
+	{
+		*in_double = !*(in_double);
+		(*quote)++;
+		return (true);
+	}
+	return (false);
+}
+
+int	get_token_lenth(char *line, int *quote)
+{
+	int		i;
+	bool	in_single;
+	bool	in_double;
+
+	(*quote) = 0;
+	in_single = false;
+	in_double = false;
+	i = 0;
+	while (line[i])
+	{
+		if (handle_quotes(line[i], &in_single, &in_double, quote))
+		{
+			i++;
+			continue ;
+		}
+		if (!in_single && !in_double && (is_space(line[i]) \
+			|| is_special(line + i)))
+			break ;
+		i++;
+	}
+	return (i);
+}
 
 bool	is_space(char c)
 {
