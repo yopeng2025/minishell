@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yopeng <yopeng@student.42.fr>              +#+  +:+       +#+        */
+/*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 15:17:00 by yopeng            #+#    #+#             */
-/*   Updated: 2025/09/05 15:56:38 by yopeng           ###   ########.fr       */
+/*   Updated: 2025/11/26 12:53:19 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 
-	if (fd == -1)//flush
+	if (fd == -1)
 	{
 		free(stash);
 		stash = NULL;
@@ -124,5 +124,3 @@ char	*get_next_line(int fd)
 	stash = update_stash(stash);
 	return (line);
 }
-/*如果gnl的静态缓存（stash）没有被“下一次调用”清掉，导致的1 byte still reachable，*/
-/*在free_exit函数中调用get_next_line(-1)，及时清理掉stash*/

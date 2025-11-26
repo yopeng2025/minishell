@@ -1,36 +1,5 @@
 #include "minishell.h"
 
-void	update_oldpwd(t_data *data)
-{
-	t_list	*tmp;
-	char	*old_pwd;
-
-	tmp = data->env;
-	old_pwd = NULL;
-	if (!ft_strncmp(tmp->str, "PWD=", 4))
-		old_pwd = tmp->str;
-	tmp = tmp->next;
-	while (tmp != data->env)
-	{
-		if (!ft_strncmp(tmp->str, "PWD=", 4))
-		{
-			old_pwd = tmp->str;
-			break ;
-		}
-		tmp = tmp->next;
-	}
-	if (!old_pwd)
-		export("OLDPWD=", &data->env);
-	if (old_pwd)
-	{
-		old_pwd = ft_strjoin("OLD", old_pwd);
-		if (!old_pwd)
-			free_all(data, ERR_MALLOC, EXT_MALLOC);
-		export(old_pwd, &data->env);
-	}
-	free(old_pwd);
-}
-
 void	update_cwd(t_data *data, char *path)
 {
 	char	cwd[PATH_MAX];

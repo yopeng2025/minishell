@@ -1,10 +1,5 @@
 #include "minishell.h"
-/* $PATH=/usr/local/bin:/usr/bin:/bin
-	cmd=ls
-	path_return=/usr/local/bin/ls
-	path_return=/usr/bin/ls
-	path_return=/bin/ls             
-	PATH指针移动到：后面一位			 */
+
 void	strslashjoin(char *path_return, char *cmd, char *path_in_env, int *i)
 {
 	int	j;
@@ -21,9 +16,6 @@ void	strslashjoin(char *path_return, char *cmd, char *path_in_env, int *i)
 	path_return[j] = '\0';
 }
 
-/* 找出ENV中的$PATH=/usr/local/bin:/usr/bin:/bin
-	返回=后面的值 
-	即/usr/local/bin:/usr/bin:/bin  */
 char	*create_path(t_list *env, int len)
 {
 	t_list	*tmp;

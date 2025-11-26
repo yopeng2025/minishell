@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 16:08:50 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/25 14:36:06 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/26 15:29:57 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ bool	get_in(t_token *curr_token, t_cmd *cmd, t_data *data)
 {
 	if (cmd->infile >= 0)
 		close(cmd->infile);
-	// if (!check_token_exist(curr_token, data))
-	// 	return (false);
-	// if (!check_token_type(curr_token, data))
-	// 	return (false);
 	if (curr_token->type == INPUT)
 		cmd->infile = open_file(data, curr_token->next->str, INPUT);
 	else if (curr_token->type == HEREDOC)

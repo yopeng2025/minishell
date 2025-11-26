@@ -86,6 +86,7 @@ int	cd_oldpwd(t_data *data, char **cmd_param)
 		return (1);
 	}
 	update_cwd(data, oldpwd);
+	printf("%s\n", oldpwd);
 	free(oldpwd);
 	return (0);
 }

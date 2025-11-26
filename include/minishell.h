@@ -82,7 +82,7 @@ t_token	*create_new_token(t_data *data, char *str, int type);
 void	add_new_token_back(t_token **head_token, t_token *new);
 bool	add_token_node(t_data *data, t_token **head_token, char *str, int type);
 bool	add_token(t_data *data, char **line, t_token **head_token);
-bool	add_special_token(t_data *data, char **line, t_token **head_token, int type);
+bool	add_special(t_data *data, char **line, t_token **head_token, int type);
 //parse--token--utils
 void	cpy_str(char *str, char *line, int len);
 // int		get_token_lenth(char *line, int *quote);
@@ -101,6 +101,10 @@ char	*get_dollar_word(char *line, int size);
 char	*get_elem_env(t_list *env, char *key);
 int		add_char(char *c, char **str, int *index);
 
+//check syntax
+bool	check_token_exist(t_token *curr_token, t_data *data);
+bool	check_token_type(t_token *curr_token, t_data *data);
+bool	check_syntax(t_data *data);
 //parse--command
 void	print_cmd_list(t_cmd *head);
 bool	create_new_command(t_cmd **new);
@@ -113,7 +117,6 @@ bool	create_list_cmd(t_data *data);
 int		open_file(t_data *data, char *filename, int type);
 bool	get_in(t_token *curr_token, t_cmd *cmd, t_data *data);
 bool	get_out(t_token *curr_token, t_cmd *cmd, t_data *data);
-
 
 //parse--command-fill cmd param
 char	**get_param(t_data *data, t_token *token);
@@ -191,15 +194,12 @@ void	free_array(char **array);
 void	signals(void);
 
 //replace
-// bool	handle_dollar_digit(char *line, int *i, t_data *data);
-// bool	handle_dollar_quote(char *line, int *i, t_data *data, bool dq);
-// bool	handle_dollar_var(char *line, int *i, char **str, t_data *data);
-bool	handle_dollar_digit(char *line, int *i, bool sq);
-bool	handle_dollar_quote(char *line, int *i, bool sq, bool dq);
-bool	handle_dollar_var(char *line, int *i, char **str, t_data *data, bool sq);
+bool	handle_dollar_digit(char *line, int *i, t_data *data);
+bool	handle_dollar_quote(char *line, int *i, t_data *data, bool dq);
+bool	handle_dollar_var(char *line, int *i, char **str, t_data *data);
 
 //utils_export
-int	export_append(t_list **list, char *str);
+int		export_append(t_list **list, char *str);
 
 //quote_utils
 char	*add_quote_special_char(char *str);
