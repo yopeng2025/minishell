@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:48:27 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/20 13:23:42 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/26 12:23:10 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	ft_exit(t_data *data, char **cmd_param)
 {
 	long	exit_code;
 
-	//printf("exit\n");
 	if (!cmd_param[1])
 		free_all(data, NULL, data->exit_code);
 	if (!if_all_numeric(cmd_param[1]) || cmd_param[1][0] == '\0')

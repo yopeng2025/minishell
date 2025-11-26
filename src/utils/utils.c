@@ -34,6 +34,22 @@ int	count_param(char **cmd_param)
 	return (count);
 }
 
+int	count_token(t_data *data)
+{
+	int		i;
+	t_token	*tmp;
+
+	tmp = data->token;
+	i = 1;
+	tmp = tmp->next;
+	while (tmp != data->token)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
+}
+
 bool	make_env2(t_data *data)
 {
 	char	path[PATH_MAX];
