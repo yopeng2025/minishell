@@ -48,7 +48,7 @@ bool	check_syntax(t_data *data)
 	curr = curr->next;
 	while (curr != data->token)
 	{
-		if (/*curr->prev->type == PIPE &&*/ curr->type < 5)
+		if (curr->type < 5)
 		{
 			if (!check_token_exist(curr, data))
 				return (false);
