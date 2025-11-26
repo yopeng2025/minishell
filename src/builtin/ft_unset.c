@@ -15,7 +15,7 @@ static int	position_in_env(char *str, t_list *env)
 {
 	int		position;
 	int		i;
-	t_list 	*tmp;
+	t_list	*tmp;
 
 	i = 0;
 	position = 0;
@@ -38,7 +38,7 @@ static int	position_in_env(char *str, t_list *env)
 	return (-1);
 }
 
-static void	unset(char *str, t_list **env)
+void	unset(char *str, t_list **env)
 {
 	int		position;
 	int		i;

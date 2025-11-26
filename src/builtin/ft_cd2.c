@@ -1,5 +1,14 @@
 #include "minishell.h"
 
+void	dir_not_found(char *param1, char *param2)
+{
+	write(2, "minishell: ", 12);
+	write(2, param1, ft_strlen(param1));
+	write(2, ": ", 3);
+	write(2, param2, ft_strlen(param2));
+	write(2, ": No such file or directory\n", 29);
+}
+
 char	*is_home_exist(t_data *data)
 {
 	char	*home;
@@ -86,6 +95,7 @@ int	cd_oldpwd(t_data *data, char **cmd_param)
 		return (1);
 	}
 	update_cwd(data, oldpwd);
+	printf("%s\n", oldpwd);
 	free(oldpwd);
 	return (0);
 }

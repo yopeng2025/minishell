@@ -10,15 +10,16 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC = \
 	src/main.c \
-	src/parse/quote.c \
-	src/parse/parseline.c \
-	src/parse/dollar_env.c \
-	src/parse/dollar_replace.c \
+	src/parse/check_syntax.c \
+	src/parse/cmd_fd.c \
+	src/parse/cmd_param.c \
 	src/parse/create_list_cmd.c \
 	src/parse/create_list_token.c \
+	src/parse/dollar_env.c \
+	src/parse/dollar_replace.c \
 	src/parse/list_token_utils.c \
-	src/parse/cmd_param.c \
-	src/parse/cmd_fd.c \
+	src/parse/parseline.c \
+	src/parse/quote.c \
 	src/utils/free.c \
 	src/utils/utils.c \
 	src/utils/utils_list.c \

@@ -1,34 +1,48 @@
 #include "minishell.h"
 
-void	update_oldpwd(t_data *data)
+static char	*find_pwd_entry(t_list *env)
 {
 	t_list	*tmp;
-	char	*old_pwd;
 
-	tmp = data->env;
-	old_pwd = NULL;
+	if (!env)
+		return (NULL);
+	tmp = env;
 	if (!ft_strncmp(tmp->str, "PWD=", 4))
-		old_pwd = tmp->str;
+		return (tmp->str);
 	tmp = tmp->next;
-	while (tmp != data->env)
+	while (tmp && tmp != env)
 	{
 		if (!ft_strncmp(tmp->str, "PWD=", 4))
-		{
-			old_pwd = tmp->str;
-			break ;
-		}
+			return (tmp->str);
 		tmp = tmp->next;
 	}
-	if (!old_pwd)
-		export("OLDPWD=", &data->env);
-	if (old_pwd)
+	return (NULL);
+}
+
+static void	set_oldpwd_from_pwd(char *pwd, t_data *data)
+{
+	char	*oldpwd;
+
+	oldpwd = ft_strjoin("OLD", pwd);
+	if (!oldpwd)
+		free_all(data, ERR_MALLOC, EXT_MALLOC);
+	export(oldpwd, &data->env);
+	free(oldpwd);
+}
+
+void	update_oldpwd(t_data *data)
+{
+	char	*pwd_entry;
+
+	if (!data || !data->env)
+		return ;
+	pwd_entry = find_pwd_entry(data->env);
+	if (!pwd_entry)
 	{
-		old_pwd = ft_strjoin("OLD", old_pwd);
-		if (!old_pwd)
-			free_all(data, ERR_MALLOC, EXT_MALLOC);
-		export(old_pwd, &data->env);
+		unset("OLDPWD", &data->env);
+		return ;
 	}
-	free(old_pwd);
+	set_oldpwd_from_pwd(pwd_entry, data);
 }
 
 void	update_cwd(t_data *data, char *path)
@@ -51,15 +65,6 @@ void	update_cwd(t_data *data, char *path)
 	}
 	export(pwd, &data->env);
 	free(pwd);
-}
-
-void	dir_not_found(char *param1, char *param2)
-{
-	write(2, "minishell: ", 12);
-	write(2, param1, ft_strlen(param1));
-	write(2, ": ", 3);
-	write(2, param2, ft_strlen(param2));
-	write(2, ": No such file or directory\n", 29);
 }
 
 int	ft_cd(t_data *data, char **cmd_param)

@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:48:27 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/26 12:23:10 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/26 17:30:50 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static bool	if_all_numeric(char *cmd_param)
 		if (i == 0 && (cmd_param[i] == '-' || cmd_param[i] == '+'))
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		if (cmd_param[i] < '0' || cmd_param[i] > '9')
 			return (false);

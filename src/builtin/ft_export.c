@@ -1,11 +1,5 @@
 #include "minishell.h"
 
-/*  
-	输入 export 后面没有变量
-	输出 declare -x USER="yopeng"
-		...	
-	按变量首字母顺序排列
-*/
 static bool	export_no_arg(t_list *env)
 {
 	char	**array;
@@ -32,10 +26,7 @@ static bool	export_no_arg(t_list *env)
 	free_array(array);
 	return (true);
 }
-/*
-	环境变量开头:  字母a-z 下划线_
-	环境变量名组成：字母a-z 下划线_ 数字0-9 
-*/
+
 bool static	valid_identifier(char *cmd)
 {
 	int	i;
@@ -81,10 +72,6 @@ int	position_in_env(char *str, t_list *env)
 	return (-1);
 }
 
-/*
-	export + 环境变量存在：找出在env的位置，更新'='后面的值
-	export + 环境变量不存在：追加到env链表最后面
-*/
 bool	export(char	*str, t_list **env)
 {
 	int		position;
@@ -96,7 +83,7 @@ bool	export(char	*str, t_list **env)
 	if (!tmp_str)
 		return (false);
 	position = position_in_env(str, (*env));
-	if (position >=0)
+	if (position >= 0)
 	{
 		i = 0;
 		tmp_env = (*env);
@@ -109,11 +96,13 @@ bool	export(char	*str, t_list **env)
 		tmp_env->str = tmp_str;
 	}
 	else if (position == -1)
+	{	
 		if (!export_append(env, tmp_str))
 		{
 			free(tmp_str);
-			return(false);
+			return (false);
 		}
+	}
 	return (true);
 }
 
@@ -137,12 +126,11 @@ int	ft_export(char **cmd, t_list **env)
 			write(2, "minishell: export: '", 21);
 			write(2, cmd[i], ft_strlen(cmd[i]));
 			write(2, "': not a valid identifier\n", 27);
-			// print_error(" not a valid identifier\n");
 			exit_code = 1;
 		}
 		else if (!export(cmd[i], env))
-			return(print_error(ERR_MALLOC));
+			return (print_error(ERR_MALLOC));
 		i++;
-	 }
+	}
 	return (exit_code);
 }

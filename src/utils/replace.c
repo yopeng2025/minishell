@@ -43,23 +43,23 @@ bool	handle_dollar_var(char *line, int *i, char **str, t_data *data)
 	return (false);
 }
 
-
-void    check_special_char(char **value)
+void	check_special_char(char **value)
 {
-    int     i = 0;
-    char    *new;
+	int		i;
+	char	*new;
 
-    if (!value || !*value)
-        return ;
-    while ((*value)[i])
-    {
-        if ((*value)[i] == '|' || (*value)[i] == '<' || (*value)[i] == '>')
-        {
-            new = add_quote_special_char(*value);
-            free(*value);
-            *value = new;
-            return ;
-        }
-        i++;
-    }
+	i = 0;
+	if (!value || !*value)
+		return ;
+	while ((*value)[i])
+	{
+		if ((*value)[i] == '|' || (*value)[i] == '<' || (*value)[i] == '>')
+		{
+			new = add_quote_special_char(*value);
+			free(*value);
+			*value = new;
+			return ;
+		}
+		i++;
+	}
 }

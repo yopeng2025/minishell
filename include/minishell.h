@@ -81,7 +81,7 @@ t_token	*create_new_token(t_data *data, char *str, int type);
 void	add_new_token_back(t_token **head_token, t_token *new);
 bool	add_token_node(t_data *data, t_token **head_token, char *str, int type);
 bool	add_token(t_data *data, char **line, t_token **head_token);
-bool	add_special_token(t_data *data, char **line, t_token **head_token, int type);
+bool	add_special(t_data *data, char **line, t_token **head_token, int type);
 //parse--token--utils
 void	cpy_str(char *str, char *line, int len);
 int		get_token_lenth(char *line, int *quote);
@@ -98,6 +98,8 @@ char	*get_dollar_word(char *line, int size);
 char	*get_elem_env(t_list *env, char *key);
 int		add_char(char *c, char **str, int *index);
 
+//check--syntax
+bool	check_syntax(t_data *data);
 //parse--command
 void	print_cmd_list(t_cmd *head);
 bool	create_new_command(t_cmd **new);
@@ -110,7 +112,6 @@ bool	create_list_cmd(t_data *data);
 int		open_file(t_data *data, char *filename, int type);
 bool	get_in(t_token *curr_token, t_cmd *cmd, t_data *data);
 bool	get_out(t_token *curr_token, t_cmd *cmd, t_data *data);
-
 
 //parse--command-fill cmd param
 char	**get_param(t_data *data, t_token *token);
@@ -147,6 +148,7 @@ int		ft_cd(t_data *data, char **cmd_param);
 
 void	ft_exit(t_data *data, char **cmd_param);
 int		ft_pwd(void);
+void	unset(char *str, t_list **env);
 int		ft_unset(char **str, t_list **env);
 
 //path
@@ -162,7 +164,7 @@ int		free_list(t_list **env);
 void	free_token_list(t_token **head_token);
 
 //utils
-int	append_exit_code(t_data *data, char **str);
+int		append_exit_code(t_data *data, char **str);
 bool	print_error(char *str);
 int		count_param(char **cmd_param);
 bool	make_env2(t_data *data);
@@ -193,11 +195,10 @@ bool	handle_dollar_var(char *line, int *i, char **str, t_data *data);
 void	check_special_char(char **value);
 
 //utils_export
-int	export_append(t_list **list, char *str);
+int		export_append(t_list **list, char *str);
 
 //quote_utils
 char	*add_quote_special_char(char *str);
-
 
 //debug
 void	print_token_list(t_token *head);

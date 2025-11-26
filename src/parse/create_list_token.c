@@ -79,7 +79,7 @@ bool	add_token(t_data *data, char **line, t_token **head_token)
 	return (true);
 }
 
-bool	add_special_token(t_data *data, char **line, t_token **head, int type)
+bool	add_special(t_data *data, char **line, t_token **head, int type)
 {
 	if (type == INPUT && !add_token_node(data, head, ft_strdup("<"), INPUT))
 		return (false);
