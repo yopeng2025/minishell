@@ -166,6 +166,7 @@ int	append_exit_code(t_data *data, char **str);
 bool	print_error(char *str);
 int		count_param(char **cmd_param);
 bool	make_env2(t_data *data);
+char	*ft_strjoin_char(char *s, char c);
 
 //utils_list
 size_t	len_list(t_list *list);
@@ -189,10 +190,14 @@ void	signals(void);
 bool	handle_dollar_digit(char *line, int *i, t_data *data);
 bool	handle_dollar_quote(char *line, int *i, t_data *data, bool dq);
 bool	handle_dollar_var(char *line, int *i, char **str, t_data *data);
-
+void	check_special_char(char **value);
 
 //utils_export
 int	export_append(t_list **list, char *str);
+
+//quote_utils
+char	*add_quote_special_char(char *str);
+
 
 //debug
 void	print_token_list(t_token *head);

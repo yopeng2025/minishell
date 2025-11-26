@@ -47,3 +47,12 @@ bool	make_env2(t_data *data)
 		free_all(data, ERR_MALLOC, EXT_MALLOC);
 	return (1);
 }
+
+char	*ft_strjoin_char(char *s, char c)
+{
+	char	tmp[2];
+
+	tmp[0] = c;
+	tmp[1] = '\0';
+	return (ft_strjoin(s, tmp));
+}
