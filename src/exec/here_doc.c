@@ -1,42 +1,61 @@
 #include "minishell.h"
 
+static void	handle_eof(char *word)
+{
+	print_error("warning: here_document deliminated by EOF ");
+	print_error("(wanted '");
+	print_error(word);
+	print_error("')\n");
+}
+
+static bool	process_line(char *buf, char *delimiter, t_data *data, int fd)
+{
+	if (!replace_dollar(&buf, data))
+	{
+		free(delimiter);
+		free_all(data, ERR_MALLOC, EXT_MALLOC);
+	}
+	if (!ft_strncmp(delimiter, buf, INT_MAX))
+	{
+		free(buf);
+		return (false);
+	}
+	write(fd, buf, ft_strlen(buf));
+	write(fd, "\n", 1);
+	free(buf);
+	return (true);
+}
+
+static char	*prepare_delimiter(char *word, t_data *data)
+{
+	char	*delimiter;
+
+	delimiter = ft_strdup(word);
+	if (!delimiter)
+		free_all(data, ERR_MALLOC, EXT_MALLOC);
+	if (!replace_dollar(&delimiter, data))
+		free_all(data, ERR_MALLOC, EXT_MALLOC);
+	return (delimiter);
+}
+
 static bool	read_in_stdin(char *word, t_data *data, int fd)
 {
 	char	*buf;
-	char	*word2;
+	char	*delimiter;
 
-	word2 = ft_strdup(word);
-	if (!word2)
-		free_all(data, ERR_MALLOC, EXT_MALLOC);
-	if (!replace_dollar(&word2, data))
-		free_all(data, ERR_MALLOC, EXT_MALLOC);
+	delimiter = prepare_delimiter(word, data);
 	while (1)
 	{
-		buf = NULL;
 		buf = readline("> ");
 		if (!buf)
 		{
-			print_error("warning: here_document deliminated by EOF ");
-			print_error("(wanted '");
-			print_error(word);
-			print_error("')\n");
+			handle_eof(word);
 			break ;
 		}
-		if (!replace_dollar(&buf, data))
-		{
-			free(word2);
-			free_all(data, ERR_MALLOC, EXT_MALLOC);
-		}
-		if (!ft_strncmp(word2, buf, INT_MAX))
-		{
-			free(buf);
-			break;
-		}
-		write(fd, buf, ft_strlen(buf));
-		write(fd, "\n", 1);
-		free(buf);
+		if (!process_line(buf, delimiter, data, fd))
+			break ;
 	}
-	free(word2);
+	free(delimiter);
 	close(fd);
 	return (true);
 }
@@ -58,4 +77,3 @@ int	here_doc(char *word, t_data *data)
 		unlink(".heredoc.tmp");
 	return (fd);
 }
- 

@@ -26,7 +26,6 @@ SRC = \
 	src/utils/utils_list.c \
 	src/utils/utils_array.c \
 	src/utils/signal.c \
-	src/utils/debug.c \
 	src/utils/replace.c \
 	src/utils/export_utils.c \
 	src/utils/quote_utils.c \

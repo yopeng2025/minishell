@@ -64,7 +64,6 @@ bool	parseline(t_data *data, char *line)
 		data->exit_code = 2;
 		return (false);
 	}
-	// print_token_list(data->token);
 	free(line);
 	if (!data->token || !create_list_cmd(data))
 	{
@@ -72,6 +71,5 @@ bool	parseline(t_data *data, char *line)
 		free_cmd_list(&data->cmd);
 		return (false);
 	}
-	// print_cmd_list(data->cmd);
 	return (true);
 }
