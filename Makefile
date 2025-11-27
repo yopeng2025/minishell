@@ -1,5 +1,3 @@
-MAKEFLAGS += --silent
-
 NAME = minishell
 
 CC = cc
@@ -51,7 +49,6 @@ all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -lreadline -o $(NAME)
-	@printf "\033[0;32m✅ Minishell compiled successfully!\033[0m\n"
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
