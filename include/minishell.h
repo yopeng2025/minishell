@@ -136,6 +136,7 @@ int		ft_echo(char **cmd);
 int		ft_env(t_list *env, char **cmd_param);
 bool	export(char	*str, t_list **env);
 int		ft_export(char **cmd, t_list **env);
+void	update_env_value(t_list *tmp_env, char *tmp_str, int position);
 
 char	*is_home_exist(t_data *data);
 char	*is_oldpwd_exist(t_data *data);
@@ -196,6 +197,7 @@ void	check_special_char(char **value);
 
 //utils_export
 int		export_append(t_list **list, char *str);
+bool	valid_identifier(char *cmd);
 
 //quote_utils
 char	*add_quote_special_char(char *str);

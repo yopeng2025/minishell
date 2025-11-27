@@ -27,20 +27,18 @@ static bool	export_no_arg(t_list *env)
 	return (true);
 }
 
-bool static	valid_identifier(char *cmd)
+void	update_env_value(t_list *tmp_env, char *tmp_str, int position)
 {
 	int	i;
 
 	i = 0;
-	if (!cmd[0] || (!ft_isalpha(cmd[0]) && cmd[0] != '_'))
-		return (false);
-	while (cmd[i] && cmd[i] != '=')
+	while (i < position)
 	{
-		if (!ft_isalnum(cmd[i]) && cmd[i] != '_')
-			return (false);
 		i++;
+		tmp_env = tmp_env->next;
 	}
-	return (true);
+	free(tmp_env->str);
+	tmp_env->str = tmp_str;
 }
 
 int	position_in_env(char *str, t_list *env)
@@ -75,7 +73,6 @@ int	position_in_env(char *str, t_list *env)
 bool	export(char	*str, t_list **env)
 {
 	int		position;
-	int		i;
 	char	*tmp_str;
 	t_list	*tmp_env;
 
@@ -85,15 +82,8 @@ bool	export(char	*str, t_list **env)
 	position = position_in_env(str, (*env));
 	if (position >= 0)
 	{
-		i = 0;
 		tmp_env = (*env);
-		while (i < position)
-		{
-			i++;
-			tmp_env = tmp_env->next;
-		}
-		free(tmp_env->str);
-		tmp_env->str = tmp_str;
+		update_env_value(tmp_env, tmp_str, position);
 	}
 	else if (position == -1)
 	{	

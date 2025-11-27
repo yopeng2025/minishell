@@ -34,3 +34,19 @@ int	export_append(t_list **list, char *str)
 	}
 	return (1);
 }
+
+bool	valid_identifier(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (!cmd[0] || (!ft_isalpha(cmd[0]) && cmd[0] != '_'))
+		return (false);
+	while (cmd[i] && cmd[i] != '=')
+	{
+		if (!ft_isalnum(cmd[i]) && cmd[i] != '_')
+			return (false);
+		i++;
+	}
+	return (true);
+}

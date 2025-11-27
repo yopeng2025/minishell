@@ -1,5 +1,13 @@
 #include "minishell.h"
 
+static int	strdup_node(char **array, size_t i, t_list *node)
+{
+	array[i] = ft_strdup(node->str);
+	if (!array[i])
+		return (0);
+	return (1);
+}
+
 char	**list_to_array(t_list *env)
 {
 	char	**array;
@@ -7,21 +15,19 @@ char	**list_to_array(t_list *env)
 	size_t	i;
 	size_t	len;
 
-	i = 0;
 	list = env;
 	len = len_list(list);
 	array = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!array)
 		return (NULL);
-	array[i] = ft_strdup(list->str);
-	if (!array[i])
+	i = 0;
+	if (!strdup_node(array, i, list))
 		return (NULL);
 	i++;
 	list = list->next;
 	while (list != env && i < len)
 	{
-		array[i] = ft_strdup(list->str);
-		if (!array[i])
+		if (!strdup_node(array, i, list))
 			return (NULL);
 		i++;
 		list = list->next;
