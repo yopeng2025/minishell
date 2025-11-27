@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quote_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/27 14:32:16 by peiyli            #+#    #+#             */
+/*   Updated: 2025/11/27 14:32:17 by peiyli           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-/* 拼接一个字符到已有字符串 */
 static char	*join_char(char *out, char c)
 {
 	char	*tmp;
@@ -10,7 +21,6 @@ static char	*join_char(char *out, char c)
 	return (tmp);
 }
 
-/* 拼接一个特定的特殊符号 */
 static char	*join_special(char *out, const char *s)
 {
 	char	*tmp;
@@ -20,7 +30,6 @@ static char	*join_special(char *out, const char *s)
 	return (tmp);
 }
 
-/* 处理重定向 << 和 >> */
 static int	handle_double_redir(char *str, int i, char **out)
 {
 	if (str[i] == '<' && str[i + 1] == '<')
@@ -48,7 +57,6 @@ static void	process_char(char c, char **out)
 		*out = join_char(*out, c);
 }
 
-/* 将字符串中所有特殊字符加上引号 */
 char	*add_quote_special_char(char *str)
 {
 	char	*out;

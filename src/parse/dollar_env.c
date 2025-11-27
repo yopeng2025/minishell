@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dollar_env.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/27 14:31:19 by peiyli            #+#    #+#             */
+/*   Updated: 2025/11/27 14:31:31 by peiyli           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	ft_search(char *str, char c)
@@ -11,7 +23,6 @@ int	ft_search(char *str, char c)
 	return (0);
 }
 
-/* 取出环境变量名 */
 char	*get_dollar_word(char *line, int size)
 {
 	char	*word;
@@ -27,7 +38,6 @@ char	*get_dollar_word(char *line, int size)
 	return (word);
 }
 
-/*  取出环境变量的内容（即‘=’后面的内容） */
 char	*get_elem_env(t_list *env, char *key)
 {
 	t_list	*tmp;
