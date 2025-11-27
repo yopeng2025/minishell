@@ -6,7 +6,7 @@
 /*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 14:31:43 by peiyli            #+#    #+#             */
-/*   Updated: 2025/11/27 14:31:44 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/27 16:09:41 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,15 @@ bool	token_list(t_data *data, t_token **head_token, char *line)
 
 bool	parseline(t_data *data, char *line)
 {
-	if (open_quote(data, line))
-	{
-		free(line);
-		return (false);
-	}
-	if (!replace_dollar(&line, data) || !token_list(data, &data->token, line))
+	if (open_quote(data, line) || \
+		!replace_dollar(&line, data) || !token_list(data, &data->token, line))
 	{
 		free(line);
 		return (false);
 	}
 	if (data->token->type == PIPE || data->token->prev->type == PIPE)
 	{
+		free(line);
 		write(2, "minishell: syntax error near unexpected token '|'\n", 51);
 		free_token_list(&data->token);
 		data->exit_code = 2;
