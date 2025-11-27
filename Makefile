@@ -21,6 +21,7 @@ SRC = \
 	src/parse/parseline.c \
 	src/parse/quote.c \
 	src/utils/free.c \
+	src/utils/free_cmd.c \
 	src/utils/utils.c \
 	src/utils/utils_list.c \
 	src/utils/utils_array.c \

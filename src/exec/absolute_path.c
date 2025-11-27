@@ -1,5 +1,12 @@
 #include "minishell.h"
 
+char	*cmd_not_found(char *cmd)
+{
+	write(2, cmd, ft_strlen(cmd));
+	write(2, ": command not found\n", 21);
+	return (NULL);
+}
+
 void	absolute_path(char **path, char *cmd, t_data *data)
 {
 	*path = ft_strdup(cmd);

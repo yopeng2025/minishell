@@ -15,7 +15,7 @@ static int	list_new_export_str(t_list **new, char *str)
 	(*new)->str = str;
 	(*new)->next = NULL;
 	(*new)->prev = NULL;
-	return (1); 
+	return (1);
 }
 
 int	export_append(t_list **list, char *str)

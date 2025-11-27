@@ -41,8 +41,6 @@ static bool	read_in_stdin(char *word, t_data *data, int fd)
 	return (true);
 }
 
-	//创建名为.heredoc.tmp的临时文件，保存输入的内容。0644：文件权限（rw-r--r--） 
-	// |按位或 创建+只写+清空内容
 int	here_doc(char *word, t_data *data)
 {
 	int	fd;

@@ -1,10 +1,5 @@
 #include "minishell.h"
-/* $PATH=/usr/local/bin:/usr/bin:/bin
-	cmd=ls
-	path_return=/usr/local/bin/ls
-	path_return=/usr/bin/ls
-	path_return=/bin/ls             
-	PATH指针移动到：后面一位			 */
+
 void	strslashjoin(char *path_return, char *cmd, char *path_in_env, int *i)
 {
 	int	j;
@@ -21,9 +16,6 @@ void	strslashjoin(char *path_return, char *cmd, char *path_in_env, int *i)
 	path_return[j] = '\0';
 }
 
-/* 找出ENV中的$PATH=/usr/local/bin:/usr/bin:/bin
-	返回=后面的值 
-	即/usr/local/bin:/usr/bin:/bin  */
 char	*create_path(t_list *env, int len)
 {
 	t_list	*tmp;
@@ -38,25 +30,13 @@ char	*create_path(t_list *env, int len)
 	return (NULL);
 }
 
-char	*cmd_not_found(char *cmd)
+char	*search_in_paths(t_data *data, char *cmd, char *path_in_env)
 {
-	write(2, cmd, ft_strlen(cmd));
-	write(2, ": command not found\n", 21);
-	return (NULL);
-}
-
-char	*find_path(t_data *data, char *cmd, t_list *env)
-{
-	char	*path_in_env;
 	char	path_return[PATH_MAX];
+	char	*dup;
 	int		i;
 	int		len;
 
-	if (cmd[0] == '\0')
-		return (cmd_not_found(cmd));
-	path_in_env = create_path(env, len_list(env));
-	if (!path_in_env || ft_strlen(cmd) > PATH_MAX / 2)
-		return (cmd_not_found(cmd));
 	i = 0;
 	len = ft_strlen(path_in_env);
 	while (i < len)
@@ -64,15 +44,32 @@ char	*find_path(t_data *data, char *cmd, t_list *env)
 		strslashjoin(path_return, cmd, path_in_env, &i);
 		if (access(path_return, F_OK) == 0)
 		{
-			cmd = ft_strdup(path_return);
-			if (!cmd)
+			dup = ft_strdup(path_return);
+			if (!dup)
 			{
 				print_error(ERR_MALLOC);
 				data->exit_code = -1;
+				return (NULL);
 			}
-			return (cmd);
+			return (dup);
 		}
 	}
+	return (NULL);
+}
+
+char	*find_path(t_data *data, char *cmd, t_list *env)
+{
+	char	*path_in_env;
+	char	*res;
+
+	if (cmd[0] == '\0')
+		return (cmd_not_found(cmd));
+	path_in_env = create_path(env, len_list(env));
+	if (!path_in_env || ft_strlen(cmd) > PATH_MAX / 2)
+		return (cmd_not_found(cmd));
+	res = search_in_paths(data, cmd, path_in_env);
+	if (res)
+		return (res);
 	return (cmd_not_found(cmd));
 }
 
