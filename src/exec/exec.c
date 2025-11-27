@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yopeng <yopeng@student.42.fr>              +#+  +:+       +#+        */
+/*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 14:31:51 by yopeng            #+#    #+#             */
-/*   Updated: 2025/11/27 14:31:52 by yopeng           ###   ########.fr       */
+/*   Updated: 2025/11/27 18:19:35 by peiyli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,14 @@ void	wait_all(t_data *data)
 				data->exit_code = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
 				data->exit_code = 128 + WTERMSIG(status);
+		}
+		if (WIFSIGNALED(status))
+		{
+			int sig = WTERMSIG(status);
+			if (sig == SIGQUIT)
+				write(2, "Quit (core dumped)\n", 19);
+			else if (sig == SIGINT)
+				write(2, "\n", 1);  // bash 按 Ctrl+C 时仅换行
 		}
 		tmp = tmp->next;
 		len--;
