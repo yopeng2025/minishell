@@ -50,6 +50,7 @@ void	wait_all(t_data *data)
 	int		status;
 	int		pid;
 	int		len;
+	int		sig;
 
 	tmp = data->cmd;
 	len = len_cmd(data);
@@ -65,7 +66,7 @@ void	wait_all(t_data *data)
 		}
 		if (WIFSIGNALED(status))
 		{
-			int sig = WTERMSIG(status);
+			sig = WTERMSIG(status);
 			if (sig == SIGQUIT)
 				write(2, "Quit (core dumped)\n", 19);
 			else if (sig == SIGINT)
