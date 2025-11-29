@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peiyli <peiyli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yopeng <yopeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 14:31:51 by yopeng            #+#    #+#             */
-/*   Updated: 2025/11/27 18:19:35 by peiyli           ###   ########.fr       */
+/*   Updated: 2025/11/29 15:42:55 by yopeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,23 @@ int	len_cmd(t_data *data)
 	return (len);
 }
 
+static void	print_sigquit(int status)
+{
+	int	sig;
+
+	sig = WTERMSIG(status);
+	if (sig == SIGQUIT)
+		write(2, "Quit (core dumped)\n", 19);
+	else if (sig == SIGINT)
+		write(2, "\n", 1);
+}
+
 void	wait_all(t_data *data)
 {
 	t_cmd	*tmp;
 	int		status;
 	int		pid;
 	int		len;
-	int		sig;
 
 	tmp = data->cmd;
 	len = len_cmd(data);
@@ -65,13 +75,7 @@ void	wait_all(t_data *data)
 				data->exit_code = 128 + WTERMSIG(status);
 		}
 		if (WIFSIGNALED(status))
-		{
-			sig = WTERMSIG(status);
-			if (sig == SIGQUIT)
-				write(2, "Quit (core dumped)\n", 19);
-			else if (sig == SIGINT)
-				write(2, "\n", 1);  // bash 按 Ctrl+C 时仅换行
-		}
+			print_sigquit(status);
 		tmp = tmp->next;
 		len--;
 	}
