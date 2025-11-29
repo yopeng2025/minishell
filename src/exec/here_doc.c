@@ -6,7 +6,7 @@
 /*   By: yopeng <yopeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 14:32:00 by yopeng            #+#    #+#             */
-/*   Updated: 2025/11/27 14:32:01 by yopeng           ###   ########.fr       */
+/*   Updated: 2025/11/29 15:00:00 by yopeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,16 @@ int	here_doc(char *word, t_data *data)
 {
 	int	fd;
 
-	fd = open(".heredoc.tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	fd = open("/tmp/.heredoc.tmp", O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd < 0)
 		return (-1);
 	if (!read_in_stdin(word, data, fd))
 	{
-		unlink(".heredoc.tmp");
+		unlink("/tmp/.heredoc.tmp");
 		return (-1);
 	}
-	fd = open(".heredoc.tmp", O_RDONLY);
+	fd = open("/tmp/.heredoc.tmp", O_RDONLY);
 	if (fd > 0)
-		unlink(".heredoc.tmp");
+		unlink("/tmp/.heredoc.tmp");
 	return (fd);
 }
