@@ -30,7 +30,3 @@ Hello World
 >minishell$ ls -l | grep minishell
 -rwxr-xr-x 1 user group 12345 Nov 29 16:00 minishell
 ```
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
