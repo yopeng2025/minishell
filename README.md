@@ -1,29 +1,61 @@
-# Minishell
+# Minishell - As Beautiful as a Shell can be
 
-## Overview
-Minishell is a simplified Unix shell that mimics basic `bash` behavior.  
-It supports command execution, built-in commands, pipes, redirections, and basic signal handling.
+**Inspired by the world-famous Bash, this project explores the depths of system calls, process management, and lexical analysis to create a robust command-line interpreter from scratch.**
 
-## Authors
-- doudoumai007
-- yopeng2025 
+## 🧠 Features
 
-## Features
 - Execute external commands
 - Built-in commands: `cd`, `echo`, `pwd`, `export`, `unset`, `env`, `exit`
 - Pipes (`|`) and redirections (`>`, `>>`, `<`, `<<`)
 - Here-document support
 - Basic signal handling (`Ctrl+C`, `Ctrl+\`)
 
-## Installation & Usage
+
+
+## 📂 Project Breakdown
+
+### 🟢 Part 1: Parsing & Tokenization
+* **Goal**: Transform user input into a manageable command list.
+* **Concepts**:
+    * **Tokenization**: Splitting input by metacharacters while respecting double/single quotes.
+    * **Expansion**: Dynamically replacing `$VAR` with environment values and handling the `$?` exit status.
+
+### 🔵 Part 2: Execution Engine
+* **Goal**: High-performance command dispatching.
+* **Concepts**:
+    * **Path Resolution**: Searching the `PATH` environment variable to locate binary executables.
+    * **Builtins**: Implementing internal logic for `echo`, `cd`, `pwd`, `export`, `unset`, `env`, and `exit`.
+    * **Pipes**: Creating a pipeline architecture where the output of one process becomes the input of the next.
+
+### 🟡 Part 3: Redirections 
+* **Goal**: Managing data flow to and from files.
+* **Features**:
+    * **📥 Input/Output**: Using `<` and `>` to redirect standard streams.
+    * **📝 Append & Heredoc**: Implementing `>>` for non-destructive writes and `<<` for interactive multi-line input.
+
+### 🔴 Part 4: Technical Polish
+* **Goal**: Stability and memory integrity.
+* **Concepts**:
+    * **Environment Management**: Maintaining a custom copy of the environment linked list.
+    * **Memory Cleanup**: Ensuring every `malloc` has a corresponding `free`, passing all `Valgrind` leak checks.
+
+
+
+## 🚀 Technical Requirements
+* **Library**: `Readline` (History and line editing).
+* **Language**: C (Norminette compliant).
+* **Compiler**: `cc` with `-Wall -Wextra -Werror`.
+* **System Calls**: `fork`, `wait`, `pipe`, `dup2`, `access`, `execve`.
+
+
+## 💡 Installation & Usage
 ```bash
 git clone https://github.com/your-username/minishell.git
 cd minishell
 make
 ./minishell
 ```
-
-## Example
+### Example
 ```
 >minishell$ echo "Hello World"
 Hello World
