@@ -1,8 +1,8 @@
 # Minishell - As Beautiful as a Shell can be
 
-**Inspired by the world-famous Bash, this project explores the depths of system calls, process management, and lexical analysis to create a robust command-line interpreter from scratch.**
+**Inspired by Bash, this project explores the depths of system calls, process management, and lexical analysis to create a robust command-line interpreter from scratch.**
 
-## 🧠 Features
+## Features
 
 - Execute external commands
 - Built-in commands: `cd`, `echo`, `pwd`, `export`, `unset`, `env`, `exit`
@@ -10,9 +10,6 @@
 - Here-document support
 - Basic signal handling (`Ctrl+C`, `Ctrl+\`)
 
-
-
-## 📂 Project Breakdown
 
 ### 🟢 Part 1: Parsing & Tokenization
 * **Goal**: Transform user input into a manageable command list.
@@ -39,13 +36,6 @@
     * **Environment Management**: Maintaining a custom copy of the environment linked list.
     * **Memory Cleanup**: Ensuring every `malloc` has a corresponding `free`, passing all `Valgrind` leak checks.
 
-
-
-## 🚀 Technical Requirements
-* **Library**: `Readline` (History and line editing).
-* **Language**: C (Norminette compliant).
-* **Compiler**: `cc` with `-Wall -Wextra -Werror`.
-* **System Calls**: `fork`, `wait`, `pipe`, `dup2`, `access`, `execve`.
 
 
 ## 💡 Installation & Usage
