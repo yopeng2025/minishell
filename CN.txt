@@ -7,7 +7,6 @@ valgrind --leak-check=full ./minishell 测试内存泄漏(readline本身有内�
 重点命令：
 1. sleep 5
 	ctrl+\
-	看有无打印错误信息
 2. echo $USER $1ABC $"USER" "$USER"
 3. cat << $USER
 	$USER 或者 yopeng
